@@ -188,11 +188,15 @@ canvas#brainCanvas {
 
 .inline-link {
     color: #2f855a;
-    text-decoration: underline;
-    cursor: pointer;
     font-weight: 600;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: #c6f6d5;  /* light green background */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .inline-link:hover {
-    color: #38a169;
+    background-color: #38a169;  /* darker green on hover */
+    color: white;
 }
