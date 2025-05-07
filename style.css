@@ -198,7 +198,7 @@ canvas#brainCanvas {
     display: none;
 }
 
-.card.expanded .description {
+.card.expanded.description {
     display: block;
 }
 
@@ -207,6 +207,12 @@ canvas#brainCanvas {
 .card p {
     font-size: 16px;
     color: #4a5568;
+}
+.expanded-description {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #4a5568;
+    text-align: left;
 }
 
 /* ---------- Inline link buttons ---------- */

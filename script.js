@@ -30,6 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const expandedCard = card.cloneNode(true);
             expandedCard.classList.add('expanded');
+            const description = card.getAttribute('data-description');
+            const descriptionElement = document.createElement('p');
+            descriptionElement.classList.add('expanded-description');
+            descriptionElement.textContent = description;
+            expandedCard.appendChild(descriptionElement);
 
             const collapsedStack = document.createElement('div');
             collapsedStack.classList.add('collapsed-stack');
