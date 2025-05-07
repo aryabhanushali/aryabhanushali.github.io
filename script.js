@@ -79,15 +79,14 @@ canvas.addEventListener('mousemove', (event) => {
     if (particlesArray.length > 150) particlesArray.splice(0, 1);
 });
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('.section');
     const links = document.querySelectorAll('nav ul li a, .inline-link');
 
-    // Show only About by default
+    // Show only Home by default
     document.querySelector('#home').classList.add('active');
 
-
+    // Section switching
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -108,4 +107,42 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    // ✅ Project card expand/collapse logic
+    const cardsContainer = document.querySelector('.card-container');
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Activate expanded layout
+            cardsContainer.classList.add('projects-expanded');
+            cards.forEach(c => {
+                c.classList.remove('expanded', 'collapsed');
+                if (c === card) {
+                    c.classList.add('expanded');
+                } else {
+                    c.classList.add('collapsed');
+                }
+            });
+
+            // Add back button if not already present
+            if (!card.querySelector('.back-button')) {
+                const backButton = document.createElement('button');
+                backButton.textContent = 'Back';
+                backButton.className = 'back-button';
+                card.appendChild(backButton);
+
+                backButton.addEventListener('click', (e) => {
+                    e.stopPropagation(); // prevent triggering card click
+                    cardsContainer.classList.remove('projects-expanded');
+                    cards.forEach(c => {
+                        c.classList.remove('expanded', 'collapsed');
+                        const btn = c.querySelector('.back-button');
+                        if (btn) btn.remove();
+                    });
+                });
+            }
+        });
+    });
 });
+

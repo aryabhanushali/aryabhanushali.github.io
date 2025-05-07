@@ -200,3 +200,31 @@ canvas#brainCanvas {
     background-color: #38a169;  /* darker green on hover */
     color: white;
 }
+
+.projects-expanded {
+    display: flex;
+    gap: 20px;
+}
+
+.card.expanded {
+    flex: 2;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.card.collapsed {
+    flex: 1;
+    max-width: 200px;
+    overflow-y: auto;
+}
+
+.back-button {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #38a169;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
