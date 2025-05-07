@@ -17,16 +17,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const cardsContainer = document.querySelector('.card-container');
-    const cards = document.querySelectorAll('.card');
+    const projectsSection = document.querySelector('#projects .card-container');
+    const projectCards = document.querySelectorAll('#projects .card');
 
-    cards.forEach(card => {
+    projectCards.forEach(card => {
         card.addEventListener('click', () => {
             if (card.classList.contains('expanded')) return;
 
-            const originalCards = [...cards];
-            cardsContainer.innerHTML = '';
-            cardsContainer.classList.add('projects-expanded');
+            const originalCards = [...projectCards];
+            projectsSection.innerHTML = '';
+            projectsSection.classList.add('projects-expanded');
 
             const expandedCard = card.cloneNode(true);
             expandedCard.classList.add('expanded');
@@ -48,29 +48,33 @@ document.addEventListener('DOMContentLoaded', function() {
             expandedCard.appendChild(backButton);
 
             backButton.addEventListener('click', () => {
-                cardsContainer.classList.remove('projects-expanded');
-                cardsContainer.innerHTML = '';
-                originalCards.forEach(c => cardsContainer.appendChild(c));
+                projectsSection.classList.remove('projects-expanded');
+                projectsSection.innerHTML = '';
+                originalCards.forEach(c => projectsSection.appendChild(c));
                 addCardListeners();
             });
 
-            cardsContainer.appendChild(expandedCard);
-            cardsContainer.appendChild(collapsedStack);
+            projectsSection.appendChild(expandedCard);
+            projectsSection.appendChild(collapsedStack);
         });
     });
 
     function addCardListeners() {
-        const freshCards = document.querySelectorAll('.card');
+        const freshCards = document.querySelectorAll('#projects .card');
         freshCards.forEach(card => {
             card.addEventListener('click', () => {
                 if (card.classList.contains('expanded')) return;
+
                 const originalCards = [...freshCards];
-                cardsContainer.innerHTML = '';
-                cardsContainer.classList.add('projects-expanded');
+                projectsSection.innerHTML = '';
+                projectsSection.classList.add('projects-expanded');
+
                 const expandedCard = card.cloneNode(true);
                 expandedCard.classList.add('expanded');
+
                 const collapsedStack = document.createElement('div');
                 collapsedStack.classList.add('collapsed-stack');
+
                 originalCards.forEach(c => {
                     if (c !== card) {
                         const clone = c.cloneNode(true);
@@ -78,18 +82,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         collapsedStack.appendChild(clone);
                     }
                 });
+
                 const backButton = document.createElement('button');
                 backButton.textContent = 'Back';
                 backButton.className = 'back-button';
                 expandedCard.appendChild(backButton);
+
                 backButton.addEventListener('click', () => {
-                    cardsContainer.classList.remove('projects-expanded');
-                    cardsContainer.innerHTML = '';
-                    originalCards.forEach(c => cardsContainer.appendChild(c));
+                    projectsSection.classList.remove('projects-expanded');
+                    projectsSection.innerHTML = '';
+                    originalCards.forEach(c => projectsSection.appendChild(c));
                     addCardListeners();
                 });
-                cardsContainer.appendChild(expandedCard);
-                cardsContainer.appendChild(collapsedStack);
+
+                projectsSection.appendChild(expandedCard);
+                projectsSection.appendChild(collapsedStack);
             });
         });
     }
