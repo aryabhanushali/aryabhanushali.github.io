@@ -118,3 +118,58 @@ canvas#brainCanvas {
     height: auto;
     max-height: 500px;
 }
+
+
+.section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f0fdf4;
+    margin: 20px 0;
+    border-radius: 20px;
+}
+
+.section h2 {
+    font-size: 36px;
+    color: #2f855a;
+    margin-bottom: 20px;
+}
+
+.section p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: #4a5568;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 250px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+    font-size: 22px;
+    color: #38a169;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+    color: #4a5568;
+}
