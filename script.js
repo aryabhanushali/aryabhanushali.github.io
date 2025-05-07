@@ -82,7 +82,7 @@ canvas.addEventListener('mousemove', (event) => {
 
 document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('.section');
-    const links = document.querySelectorAll('nav ul li a');
+    const links = document.querySelectorAll('nav ul li a, .inline-link');
 
     // Show only About by default
     document.querySelector('#about').classList.add('active');
