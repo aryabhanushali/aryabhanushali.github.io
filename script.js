@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const links = document.querySelectorAll('nav ul li a, .inline-link');
 
     // Show only About by default
-    document.querySelector('#about').classList.add('active');
+    document.querySelector('#home').classList.add('active');
+
 
     links.forEach(link => {
         link.addEventListener('click', function(e) {
