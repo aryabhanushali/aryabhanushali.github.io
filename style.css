@@ -244,3 +244,21 @@ canvas#brainCanvas {
 .back-button:hover {
     background-color: #2f855a;
 }
+
+.social-icons a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #2f855a;
+    font-size: 18px;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-icons a:hover {
+    color: #38a169;
+    transform: scale(1.1);
+}
+
+.social-icons i {
+    margin-right: 6px;
+}
+
