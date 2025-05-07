@@ -185,3 +185,14 @@ canvas#brainCanvas {
 .section.active {
     display: block;  /* only show the active section */
 }
+
+.inline-link {
+    color: #2f855a;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.inline-link:hover {
+    color: #38a169;
+}
