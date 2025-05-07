@@ -37,6 +37,18 @@ document.addEventListener('DOMContentLoaded', function() {
             expandedCard.appendChild(descriptionElement);
         }
 
+        const videoUrl = card.getAttribute('data-video');
+        if (videoUrl) {
+            const videoWrapper = document.createElement('div');
+            videoWrapper.classList.add('demo-video');
+            videoWrapper.innerHTML = `
+        <iframe width="100%" height="315" src="${videoUrl}"
+                frameborder="0" allowfullscreen></iframe>`;
+    expandedCard.appendChild(videoWrapper);
+}
+
+
+
         const backButton = document.createElement('button');
         backButton.textContent = 'Back';
         backButton.className = 'back-button';
