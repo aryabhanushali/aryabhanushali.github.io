@@ -1,3 +1,4 @@
+/* ---------- Base styles ---------- */
 body {
     font-family: 'Quicksand', sans-serif;
     margin: 0;
@@ -8,7 +9,7 @@ body {
 nav {
     background-color: #e6f7f1;
     padding: 20px 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* soft bottom shadow */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -32,13 +33,13 @@ nav ul li a {
     font-weight: 600;
     font-size: 18px;
     padding: 10px 20px;
-    border-radius: 25px; /* bubble shape */
+    border-radius: 25px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 nav ul li a:hover {
-    background-color: #c6f6d5; /* soft green on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* subtle shadow */
+    background-color: #c6f6d5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     color: #2f855a;
 }
 
@@ -47,7 +48,7 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 50px;
-    flex-wrap: wrap; /* ensures mobile responsiveness */
+    flex-wrap: wrap;
 }
 
 .left {
@@ -119,13 +120,18 @@ canvas#brainCanvas {
     max-height: 500px;
 }
 
-
+/* ---------- Section styles ---------- */
 .section {
+    display: none;
     padding: 60px 20px;
     text-align: center;
     background-color: #f0fdf4;
     margin: 20px 0;
     border-radius: 20px;
+}
+
+.section.active {
+    display: block;
 }
 
 .section h2 {
@@ -141,6 +147,7 @@ canvas#brainCanvas {
     color: #4a5568;
 }
 
+/* ---------- Card container ---------- */
 .card-container {
     display: flex;
     justify-content: center;
@@ -173,58 +180,67 @@ canvas#brainCanvas {
     font-size: 16px;
     color: #4a5568;
 }
-.section {
-    display: none;  /* hide all sections by default */
-    padding: 60px 20px;
-    text-align: center;
-    background-color: #f0fdf4;
-    margin: 20px 0;
-    border-radius: 20px;
-}
 
-.section.active {
-    display: block;  /* only show the active section */
-}
-
+/* ---------- Inline link buttons ---------- */
 .inline-link {
     color: #2f855a;
     font-weight: 600;
     text-decoration: none;
     padding: 4px 8px;
     border-radius: 6px;
-    background-color: #c6f6d5;  /* light green background */
+    background-color: #c6f6d5;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .inline-link:hover {
-    background-color: #38a169;  /* darker green on hover */
+    background-color: #38a169;
     color: white;
 }
 
+/* ---------- Expanded project layout ---------- */
 .projects-expanded {
     display: flex;
-    gap: 20px;
+    flex-direction: row;
+    gap: 30px;
+    align-items: flex-start;
 }
 
 .card.expanded {
     flex: 2;
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
+    height: auto;
+    min-height: 400px;
+    padding: 30px;
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+.collapsed-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
 }
 
 .card.collapsed {
-    flex: 1;
-    max-width: 200px;
-    overflow-y: auto;
+    width: 100%;
+    padding: 15px;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* ---------- Back button ---------- */
 .back-button {
-    margin-top: 10px;
-    padding: 6px 12px;
+    margin-top: 20px;
+    padding: 10px 20px;
     background-color: #38a169;
     color: white;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    border-radius: 8px;
     font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #2f855a;
 }
