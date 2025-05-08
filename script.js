@@ -4,6 +4,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('#home').classList.add('active');
 
+    const typewriterText = "I’m currently exploring biologically inspired neural networks in the Murty Lab, working on visualizations of maximally activating neurons, face-selective units, and TopoNets on brain-relevant datasets. I’m also improving an insulin dosage prediction model using advanced LSTM architectures.";
+    const typewriterTarget = document.getElementById('typewriter-text');
+    let index = 0;
+
+    function typeWriter() {
+        if (index < typewriterText.length) {
+            typewriterTarget.textContent += typewriterText.charAt(index);
+            index++;
+            setTimeout(typeWriter, 35);
+        }
+    }
+
     // Section navigation
     links.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -15,8 +27,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 targetSection.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+
+            // Reset typewriter when going back to projects
+            if (targetId === 'projects' && typewriterTarget) {
+                typewriterTarget.textContent = '';
+                index = 0;
+                typeWriter();
+            }
         });
     });
+
+    if (typewriterTarget) {
+        typeWriter();
+    }
 
     const projectsSection = document.querySelector('#projects .card-container');
     const allCardsHTML = projectsSection.innerHTML;
@@ -42,12 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const videoWrapper = document.createElement('div');
             videoWrapper.classList.add('demo-video');
             videoWrapper.innerHTML = `
-        <iframe width="100%" height="315" src="${videoUrl}"
-                frameborder="0" allowfullscreen></iframe>`;
-    expandedCard.appendChild(videoWrapper);
-}
-
-
+                <iframe width="100%" height="315" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>`;
+            expandedCard.appendChild(videoWrapper);
+        }
 
         const backButton = document.createElement('button');
         backButton.textContent = 'Back';
@@ -87,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addCardListeners();
 
-    // 💥 Brain / neural network animation
+    // Brain / neural network canvas animation
     const canvas = document.getElementById('brainCanvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -170,18 +190,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (particlesArray.length > 150) particlesArray.splice(0, 1);
         });
     }
-});
 
-
-function toggleMore() {
-    const moreText = document.getElementById('more-text');
-    const button = document.querySelector('.more-button');
-    if (moreText.style.display === 'none') {
-        moreText.style.display = 'block';
-        button.innerText = 'See Less ↑';
-    } else {
-        moreText.style.display = 'none';
-        button.innerText = 'See More ↓';
+    // Toggle "See More / See Less"
+    function toggleMore() {
+        const moreText = document.getElementById('more-text');
+        const button = document.querySelector('.more-button');
+        if (moreText.style.display === 'none') {
+            moreText.style.display = 'block';
+            button.innerText = 'See Less ↑';
+        } else {
+            moreText.style.display = 'none';
+            button.innerText = 'See More ↓';
+        }
     }
-}
-
+    window.toggleMore = toggleMore; // Expose to HTML onclick
+});
