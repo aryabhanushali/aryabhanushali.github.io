@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Section navigation
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // Reset typewriter when going back to projects
             if (targetId === 'projects' && typewriterTarget) {
                 typewriterTarget.textContent = '';
                 index = 0;
@@ -64,8 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (videoUrl) {
             const videoWrapper = document.createElement('div');
             videoWrapper.classList.add('demo-video');
-            videoWrapper.innerHTML = `
-                <iframe width="100%" height="315" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>`;
+            videoWrapper.innerHTML = `<iframe width="100%" height="315" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>`;
             expandedCard.appendChild(videoWrapper);
         }
 
@@ -107,15 +104,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addCardListeners();
 
-    // Brain / neural network canvas animation
-    const canvas = document.getElementById('brainCanvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth / 2;
-        canvas.height = 500;
+    // BrainCanvas (Home hero)
+    const brainCanvas = document.getElementById('brainCanvas');
+    if (brainCanvas) {
+        const ctx = brainCanvas.getContext('2d');
+        brainCanvas.width = window.innerWidth / 2;
+        brainCanvas.height = 500;
 
         let particlesArray = [];
-
         class Particle {
             constructor(x, y, directionX, directionY, size, color) {
                 this.x = x;
@@ -132,10 +128,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 ctx.fill();
             }
             update() {
-                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                if (this.x + this.size > brainCanvas.width || this.x - this.size < 0) {
                     this.directionX = -this.directionX;
                 }
-                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                if (this.y + this.size > brainCanvas.height || this.y - this.size < 0) {
                     this.directionY = -this.directionY;
                 }
                 this.x += this.directionX;
@@ -143,20 +139,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.draw();
             }
         }
-
         function init() {
             particlesArray = [];
             for (let i = 0; i < 100; i++) {
                 let size = Math.random() * 2 + 1;
-                let x = Math.random() * (canvas.width - size * 2);
-                let y = Math.random() * (canvas.height - size * 2);
+                let x = Math.random() * (brainCanvas.width - size * 2);
+                let y = Math.random() * (brainCanvas.height - size * 2);
                 let directionX = (Math.random() - 0.5) * 2;
                 let directionY = (Math.random() - 0.5) * 2;
                 let color = '#38a169';
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
             }
         }
-
         function connect() {
             for (let a = 0; a < particlesArray.length; a++) {
                 for (let b = a; b < particlesArray.length; b++) {
@@ -174,25 +168,79 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-
         function animate() {
             requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, brainCanvas.width, brainCanvas.height);
             particlesArray.forEach(particle => particle.update());
             connect();
         }
-
         init();
         animate();
 
-        canvas.addEventListener('mousemove', (event) => {
+        brainCanvas.addEventListener('mousemove', (event) => {
             particlesArray.push(new Particle(event.offsetX, event.offsetY, (Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2, 2, '#68d391'));
             if (particlesArray.length > 150) particlesArray.splice(0, 1);
         });
     }
 
-    // Toggle "See More / See Less"
-    function toggleMore() {
+    // NeuralCanvas (Projects background)
+    const neuralCanvas = document.getElementById('neuralCanvas');
+    if (neuralCanvas) {
+        const ctx = neuralCanvas.getContext('2d');
+        neuralCanvas.width = neuralCanvas.offsetWidth;
+        neuralCanvas.height = neuralCanvas.offsetHeight;
+
+        const nodes = [];
+        const nodeCount = 40;
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * neuralCanvas.width,
+                y: Math.random() * neuralCanvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5
+            });
+        }
+
+        function animateNetwork() {
+            ctx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
+
+            for (let i = 0; i < nodeCount; i++) {
+                for (let j = i + 1; j < nodeCount; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.strokeStyle = 'rgba(56,161,105,0.3)';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            nodes.forEach(node => {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#38a169';
+                ctx.fill();
+
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > neuralCanvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > neuralCanvas.height) node.vy *= -1;
+            });
+
+            requestAnimationFrame(animateNetwork);
+        }
+
+        animateNetwork();
+    }
+
+    window.toggleMore = function() {
         const moreText = document.getElementById('more-text');
         const button = document.querySelector('.more-button');
         if (moreText.style.display === 'none') {
@@ -202,6 +250,5 @@ document.addEventListener('DOMContentLoaded', function() {
             moreText.style.display = 'none';
             button.innerText = 'See More ↓';
         }
-    }
-    window.toggleMore = toggleMore; // Expose to HTML onclick
+    };
 });
