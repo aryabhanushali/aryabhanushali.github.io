@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('#home').classList.add('active');
 
-    const typewriterText = "I’m currently exploring biologically inspired neural networks in the Murty Lab, working on visualizations of maximally activating neurons, face-selective units, and TopoNets on brain-relevant datasets. I’m also improving an insulin dosage prediction model using advanced LSTM architectures.";
+    const typewriterText = "I’m currently exploring projects that bridge brain science and AI, advance model interpretability, and push the boundaries of neuroscience, machine learning, and human-centered design.";
     const typewriterTarget = document.getElementById('typewriter-text');
     let index = 0;
 
