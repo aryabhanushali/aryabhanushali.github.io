@@ -187,8 +187,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const neuralCanvas = document.getElementById('neuralCanvas');
     if (neuralCanvas) {
         const ctx = neuralCanvas.getContext('2d');
+
+    function resizeCanvas() {
         neuralCanvas.width = neuralCanvas.offsetWidth;
         neuralCanvas.height = neuralCanvas.offsetHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+
 
         const nodes = [];
         const nodeCount = 40;
