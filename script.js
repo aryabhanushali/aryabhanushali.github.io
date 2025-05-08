@@ -171,3 +171,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+function toggleMore() {
+    const moreText = document.getElementById('more-text');
+    const button = document.querySelector('.more-button');
+    if (moreText.style.display === 'none') {
+        moreText.style.display = 'block';
+        button.innerText = 'See Less ↑';
+    } else {
+        moreText.style.display = 'none';
+        button.innerText = 'See More ↓';
+    }
+}
+
