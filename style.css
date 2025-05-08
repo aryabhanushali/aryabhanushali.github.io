@@ -488,3 +488,43 @@ main.section article p {
     font-size: 0.75rem;
     border-radius: 6px;
 }
+.neural-line {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #38a169, #805ad5, #38a169);
+    background-size: 200% 200%;
+    animation: wave 3s linear infinite;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+}
+
+@keyframes wave {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.with-dots {
+    position: relative;
+    overflow: hidden;
+}
+
+.with-dots::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: radial-gradient(circle, rgba(56,161,105,0.4) 2px, transparent 2px);
+    background-size: 60px 60px;
+    animation: blink 3s linear infinite;
+    z-index: 0;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+.with-dots > * {
+    position: relative;
+    z-index: 1;
+}
