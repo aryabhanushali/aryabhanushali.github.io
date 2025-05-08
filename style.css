@@ -400,7 +400,7 @@ main.section article p {
 
 
 .current-work {
-    background: linear-gradient(135deg, #f6f8ff, #e0ecff);
+    background: linear-gradient(135deg, #afe3bf, #9cc9a3);
     border-radius: 20px;
     padding: 2rem;
     margin-bottom: 2rem;
@@ -430,7 +430,7 @@ main.section article p {
 }
 
 .more-button:hover {
-    background: #3730a3;
+    background: #1c5728;
 }
 
 @keyframes fadeIn {
@@ -454,7 +454,7 @@ main.section article p {
 }
 
 .in-progress-card {
-    background: #579d6c;
+    background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     padding: 1rem;
