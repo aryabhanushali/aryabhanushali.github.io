@@ -461,7 +461,11 @@ main.section article p {
     flex: 1 1 calc(50% - 1rem);
     min-width: 250px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
 }
+
+
+
 
 .in-progress-card:hover {
     transform: translateY(-5px);
