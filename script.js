@@ -2,7 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('.section');
     const links = document.querySelectorAll('nav ul li a, .inline-link');
 
-    document.querySelector('#home').classList.add('active');
+    const hash = window.location.hash || '#home';
+const targetSection = document.querySelector(hash);
+if (targetSection) {
+    sections.forEach(section => section.classList.remove('active'));
+    targetSection.classList.add('active');
+}
+
 
     const typewriterText = "I’m currently exploring projects that bridge brain science and AI, advance model interpretability, and push the boundaries of neuroscience, machine learning, and human-centered design.";
     const typewriterTarget = document.getElementById('typewriter-text');
