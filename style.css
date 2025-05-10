@@ -512,47 +512,4 @@ main.section article p {
     z-index: 1;
 }
 
-.bookshelf-carousel {
-    display: flex;
-    overflow-x: auto;
-    gap: 20px;
-    padding: 20px 0;
-    scroll-snap-type: x mandatory;
-  }
-
-  .book {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    width: 180px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    text-align: center;
-    padding: 15px;
-  }
-
-  .book img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-
-  .book-info h3 {
-    font-size: 16px;
-    margin: 10px 0 5px;
-  }
-
-  .book-info p {
-    font-size: 14px;
-    color: #4a5568;
-  }
-
-  .book-info a {
-    color: #2f855a;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-
 
