@@ -76,15 +76,19 @@
                 <div id="more-text" style="display:none;">
                     <div class="in-progress-container">
                         <div class="in-progress-card">
-                            <h3>Brain-AI Alignment</h3>
-                            <p>Exploring brain-inspired architectures to improve model robustness and adaptability.</p>
+                            <h3>Face-Selective Neuron Experiment</h3>
+                            <p>
+                                This project uses the <code>faceSelectiveNeuronsExperiment.ipynb</code> notebook to explore how face-selective neurons work in a brain-inspired deep neural network (TopoNets).
+                                The experiment has several parts: it identifies which neurons respond most strongly to face images, measures how selective they are compared to other image types, and tests if they are necessary for accurate face recognition.
+                                To simulate prosopagnosia (face blindness), I performed lesion experiments where face-selective neurons were “zeroed out” to see how much the network’s accuracy on face tasks drops.
+                                I also compared neuron activations on face, scene, and object datasets, ran PCA to study how much variance the neurons explain, and used Torch-Dreams to visualize what kind of image patterns maximally activate them.
+                                <br><br>
+                                <strong>Technical stack:</strong> Python, PyTorch, TopoNets, Hugging Face Datasets, torchvision, einops, scikit-learn (PCA), matplotlib, seaborn, Torch-Dreams.
+                            </p>
                             <span class="status-tag">In Progress</span>
                         </div>
-                        <div class="in-progress-card">
-                            <h3>Model Interpretability Toolkit</h3>
-                            <p>Building tools to visualize, explain, and debug deep learning models.</p>
-                            <span class="status-tag">In Progress</span>
-                        </div>
+
+
                     </div>
                 </div>
             </div>
