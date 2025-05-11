@@ -563,18 +563,21 @@ main.section article p {
     max-height: 400px;      /* Set a height limit for scrolling */
     gap: 10px;
     padding-top: 10px;
+    scroll-behavior: smooth;
   }
 
-  .book-slide {
+
+    .book-slide {
     background-color: #f0fdf4;
     border: 1px solid #c6f6d5;
     padding: 10px;
-    border-radius: 8px;
-    white-space: nowrap;
+    border-radius: 12px;
     font-weight: 600;
     flex: 0 0 auto;
     text-align: center;
-  }
+    width: 100%;                /* 🔥 ensures full width */
+    box-sizing: border-box;     /* 🔥 include padding in width */
+    }
 
   .book-slide img {
     width: 100px;
