@@ -509,3 +509,27 @@ main.section article p {
     position: relative;
     z-index: 1;
 }
+
+.astro-corner {
+    margin-top: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.astro-corner h3 {
+    font-size: 24px;
+    color: #2f855a;
+    margin-bottom: 10px;
+}
+
+.astro-corner p {
+    font-size: 16px;
+    color: #4a5568;
+}

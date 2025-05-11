@@ -266,3 +266,25 @@ if (targetSection) {
         }
     };
 });
+
+
+// 🚀 NASA APOD fetch
+async function loadAPOD() {
+    try {
+        const response = await fetch("https://api.nasa.gov/planetary/apod?api_key=IupLNotpfMdB26WfJggOQa4Ky7aW1jAa2LzH3dXy");
+        const data = await response.json();
+        const apodText = document.getElementById("apod-text");
+        const apodImage = document.getElementById("apod-image");
+        apodText.innerText = data.title + ": " + data.explanation.substring(0, 200) + "...";
+        apodImage.src = data.url;
+        apodImage.style.display = "block";
+    } catch (e) {
+        document.getElementById("apod-text").innerText = "NASA APOD is currently unavailable 🚀";
+    }
+}
+
+loadAPOD(); // 👈 Call it when DOM is ready
+
+
+
+
