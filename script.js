@@ -306,5 +306,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+function toggleInterest(card) {
+    card.classList.toggle('open');
+}
 
 
