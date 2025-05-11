@@ -560,7 +560,7 @@ main.section article p {
     display: flex;
     flex-direction: column; /* Make it vertical */
     overflow-y: auto;       /* Vertical scroll */
-    max-height: 400px;      /* Set a height limit for scrolling */
+    max-height: 600px;      /* Set a height limit for scrolling */
     gap: 10px;
     padding-top: 10px;
     scroll-behavior: smooth;
