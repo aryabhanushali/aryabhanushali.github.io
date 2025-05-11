@@ -61,25 +61,28 @@
         </p>
 
         <div class="interest-grid">
-            <div class="interest-card" onclick="toggleInterest(this)">
+            <div class="interest-card reading-card">
               <h3>📚 Reading</h3>
-              <p class="interest-details">I love diving into sci-fi, philosophy, and personal growth books. Favorites include *Dark Matter*, *21 Lessons for the 21st Century*, and *The Alchemist*.</p>
-            </div>
-            <div class="interest-card" onclick="toggleInterest(this)">
-              <h3>🧶 Crochet</h3>
-              <p class="interest-details">There’s something meditative about crocheting — from cozy scarves to tiny animals, it’s my creative unwind time.</p>
-            </div>
-            <div class="interest-card" onclick="toggleInterest(this)">
-              <h3>🌌 Space</h3>
-              <p class="interest-details">Outer space fascinates me! I track moon phases monthly and love reading about black holes, Mars missions, and deep sky objects.</p>
-              <div class="astro-corner">
-                <h3>🌌 Astronomy Corner</h3>
-                <p class="astro-fact" id="apod-text">Loading cosmic content...</p>
-                <img id="apod-image" src="" alt="Astronomy Picture of the Day" style="max-width:100%; border-radius:12px; display:none;">
-            </div>
+              <div class="book-carousel">
+                <div class="book-slide">Dark Matter</div>
+                <div class="book-slide">21 Lessons</div>
+                <div class="book-slide">The Alchemist</div>
+                <div class="book-slide">The Great Gatsby</div>
+              </div>
             </div>
 
+            <div class="interest-card">
+              <h3>🧶 Crochet</h3>
+              <p>There’s something meditative about crocheting — from cozy scarves to tiny animals, it’s my creative unwind time.</p>
+            </div>
+
+            <div class="interest-card">
+              <h3>🌌 Astronomy Corner</h3>
+              <p id="apod-text">Loading cosmic content...</p>
+              <img id="apod-image" src="" alt="Astronomy Picture of the Day" style="max-width:100%; border-radius:12px; display:none;">
+            </div>
           </div>
+
 
 
 
