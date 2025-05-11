@@ -558,7 +558,9 @@ main.section article p {
 
   .reading-card .book-carousel {
     display: flex;
-    overflow-x: auto;
+    flex-direction: column; /* Make it vertical */
+    overflow-y: auto;       /* Vertical scroll */
+    max-height: 400px;      /* Set a height limit for scrolling */
     gap: 10px;
     padding-top: 10px;
   }
