@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feature Visualization with Torch-Dreams</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../index.html#about">About Me</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#blog">Blog</a></li>
+        </ul>
+    </nav>
+    <main class="section active">
+        <h1>Peeking Into the Mind of a Neural Network</h1>
+        <p class="blog-meta">May 12, 2025 • Arya Bhanushali • Neural Networks, Visualization</p>
+        <article>
+            <p>
+                Neural networks are what I would describe as opaque: they perform incredibly well, but it's hard to tell what exactly is happening inside. What is each neuron "looking" for? What kinds of patterns make them activate?
+            </p>
+            <p>
+                I used the <strong>torch-dreams</strong> library, a PyTorch-based toolkit for visualizing what specific neurons or layers in a model respond to. My goal was to generate images that maximally activate certain neurons in the CLIP-RN50 model, which I had been experimenting with for another project involving brain-inspired representations.
+            </p>
+            <p>
+                Working inside a collab notebook, I wrote a script that optimized random noise images to activate neurons in various layers of CLIP’s ResNet-50 backbone. I experimented with different layers and visualized how low-level neurons tend to respond to textures and colors, while deeper ones respond to shapes or semantic categories.
+            </p>
+            <p>
+                One particularly striking moment was seeing how a neuron deep in the network consistently generated organic, curved patterns resembling faces or eyes, and realizing that this unit might be specializing in face-like structures. It's one thing to read about hierarchical feature abstraction, but seeing it emerge in real-time was a whole new level of insight.
+            </p>
+            <p>
+                This project not only deepened my understanding of how vision models learn, but also gave me tools to make these systems more interpretable. Visualization helped bridge the gap between numerical outputs and human intuition, making the black box a little less black.
+            </p>
+
+
+            <img src="neuronsFeatureVis.png" alt="Feature Visualization Output" style="max-width: 100%; height: auto; margin-top: 20px;">
+            <figcaption style="text-align: center; font-size: 0.9em; color: #555; margin-top: 10px;">
+                Each image shows what maximally activates a specific neuron in a ResNet18 layer. Generated using <code>torch-dreams</code>, these patterns reveal the textures and structures the network has learned to detect.
+            </figcaption>
+        </article>
+        <a href="../index.html#blog" class="back-to-blog">← Back to Blog</a>
+    </main>
+</body>
+</html>
