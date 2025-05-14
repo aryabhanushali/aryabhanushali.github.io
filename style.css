@@ -78,18 +78,20 @@ main {
 
 .resume {
     margin-top: 20px;
-    padding: 12px 24px;
+    padding: 12px 28px;               /* ⬅️ More balanced padding */
     background: #38a169;
     border: none;
     color: white;
     font-weight: 600;
     font-size: 16px;
-    line-height: 1.5;
-    border-radius: 25px;
+    line-height: 1.4;
+    border-radius: 12px;             /* ⬅️ Reduced from 25px for a less "pill-like" look */
+    display: inline-block;
+    text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-
 .resume:hover {
     background: #2f855a;
     transform: translateY(-2px);
