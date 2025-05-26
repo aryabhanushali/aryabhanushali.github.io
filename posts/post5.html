@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>How JPEG Compresses Images (Without You Noticing)</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../index.html#about">About Me</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#blog">Blog</a></li>
+        </ul>
+    </nav>
+    <main class="section active">
+        <h1>How JPEG Compresses Images (Without You Noticing)</h1>
+        <p class="blog-meta">May 27, 2025 • Arya Bhanushali • Signal Processing, Compression</p>
+        <article>
+            <p>
+                After learning about the Discrete Fourier Transform (DFT), I became curious about how these frequency-based ideas show up in real-world tech. And it turns out, one of the most common applications is something we see every day: <strong>JPEG image compression</strong>.
+            </p>
+            <p>
+                If you've ever saved a photo as a `.jpg`, you're using a compression method that’s deeply connected to frequency analysis. And just like the DFT, JPEG takes advantage of how signals — in this case, images — can be broken down and represented in smarter, more compact ways.
+            </p>
+
+            <p>How Computers Represent Images</p>
+            <p>
+                At a low level, a digital image is just a grid of pixels. Each pixel stores three numbers: red, green, and blue intensity values (RGB). Each of these is typically 8 bits, or 1 byte — so every pixel takes up 3 bytes of memory.
+            </p>
+            <p>
+                That adds up fast. A 1000×1000 image already has 3 million bytes (~3MB). But we rarely need all of that raw data — especially because the human visual system doesn’t treat all information equally.
+            </p>
+
+            <p>JPEG’s Key Insight: Not All Visual Info Is Equal</p>
+            <p>
+                JPEG uses a form of <strong>lossy compression</strong> — meaning it deliberately throws away information. But it does so strategically, by asking: <em>What can humans actually see?</em>
+            </p>
+            <p>
+                For example, our eyes are much more sensitive to <strong>brightness</strong> than to subtle color changes. So JPEG converts the image from RGB to a different color space called <strong>YCbCr</strong>, which separates luminance (Y) from chrominance (Cb, Cr). Then it keeps Y in high detail and compresses Cb/Cr more aggressively — a technique called <strong>chroma subsampling</strong>.
+            </p>
+
+            <h2>From Pixels to Frequencies: The DCT</h2>
+            <p>
+                This is where the connection to my last blog post gets exciting. Just like the DFT, JPEG uses a frequency-based transform — the <strong>Discrete Cosine Transform (DCT)</strong>. Images are treated as signals: rows of pixel values that can be analyzed for slow (low frequency) and fast (high frequency) changes.
+            </p>
+            <p>
+                Here's how JPEG applies it:
+                <ul>
+                    <li>The image is divided into 8×8 blocks of pixels.</li>
+                    <li>Each block undergoes a DCT, converting it from pixel values to 64 frequency coefficients.</li>
+                    <li>The top-left value (DC term) is the average brightness, and the rest (AC terms) represent fine-grained detail.</li>
+                </ul>
+            </p>
+
+            <p>Energy Compaction: Keep the Essentials</p>
+            <p>
+                DCT has a powerful property called <strong>energy compaction</strong>: most of the signal's "energy" ends up concentrated in just a few low-frequency coefficients. That means:
+                <ul>
+                    <li>The most visually important information is in the top-left corner of the DCT matrix.</li>
+                    <li>The bottom-right (high-frequency) values are usually small or near zero.</li>
+                </ul>
+                So JPEG compresses by <em>removing</em> many of these high-frequency values — which we often don’t even notice are missing.
+            </p>
+
+            <p>Quantization: Rounding with Purpose</p>
+            <p>
+                After computing the DCT, JPEG applies <strong>quantization</strong>. Each DCT coefficient is divided by a value from a quantization matrix and then rounded. This reduces precision, and it’s the main source of compression — and quality loss.
+            </p>
+            <p>
+                But since we care less about high-frequency noise, JPEG rounds or drops those values the most. This allows it to throw away large amounts of data while keeping the image visually intact.
+            </p>
+
+            <p>Lossless Compression: Making It Even Smaller</p>
+            <p>
+                Once quantized, JPEG applies <strong>lossless techniques</strong> like:
+                <ul>
+                    <li><strong>Run-Length Encoding (RLE)</strong>: replaces repeated zeros with a compact representation.</li>
+                    <li><strong>Huffman Encoding</strong>: uses short binary codes for frequent values, longer ones for rare values.</li>
+                </ul>
+                These reduce file size without losing any more visual quality.
+            </p>
+
+            <h2>Reconstruction: Back to the Image</h2>
+            <p>
+                When you open a JPEG file:
+                <ol>
+                    <li>It’s decompressed with Huffman and RLE decoding.</li>
+                    <li>Quantized values are re-scaled using the same quantization matrix.</li>
+                    <li>An <strong>inverse DCT</strong> is applied to each 8×8 block to get back pixel values.</li>
+                    <li>The blocks are stitched together to reconstruct the full image.</li>
+                </ol>
+                Some fine detail may be gone, but for most viewing purposes, the image looks almost identical to the original.
+            </p>
+
+            <p>Final Thoughts</p>
+            <p>
+                What I find most fascinating is that JPEG’s magic lies in both math and biology. It doesn’t just compress for the sake of efficiency, it does it in a way that aligns with <em>how we see</em>. By using transforms like the DCT and ideas like energy compaction, it keeps what matters and ditches what doesn’t.
+            </p>
+
+        </article>
+        <a href="../index.html#blog" class="back-to-blog">← Back to Blog</a>
+    </main>
+</body>
+</html>
