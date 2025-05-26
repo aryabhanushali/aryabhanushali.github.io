@@ -25,26 +25,25 @@
                 At a high level, the DFT takes a list of sample values—like audio waveforms or pixel intensities—and expresses them as a combination of sine and cosine waves. This transformation reveals the hidden frequency content of the signal, allowing us to analyze and manipulate it in entirely new ways.
             </p>
 
-            <h2>The Nyquist-Shannon Sampling Theorem</h2>
+            <p>The Nyquist-Shannon Sampling Theorem</p>
             <p>
                 One of the first key concepts I learned is that to perfectly reconstruct a continuous signal from discrete samples, you must sample at <strong>at least twice the highest frequency</strong> present in the signal. This minimum rate is known as the <strong>Nyquist rate</strong>.
             </p>
 
-            <h2>Aliasing: A Cautionary Tale</h2>
+            <p>Aliasing: A Cautionary Tale</pp>
             <p>
                 Aliasing is one of the most fascinating (and frustrating) consequences of undersampling. When the sampling rate is too low, the DFT cannot accurately separate frequencies — leading to overlapping components that distort the signal's true structure. In practice, this can cause jagged patterns in images or noise in audio, and it underscores the importance of sampling decisions in any digital system.
             </p>
 
-            <h2>Thinking in Frequencies</h2>
+            <p>Thinking in Frequencies</p>
             <p>
                 The DFT shifts our perspective from the time or spatial domain (seeing how a signal changes over time or across an image) to the <strong>frequency domain</strong>, where we analyze <em>what kinds of changes</em> occur, fast vs. slow, fine detail vs. broad structure.
             </p>
             <p>
                 This idea completely changed how I look at signals. Instead of thinking “what is happening at this point?”, I began asking “what types of patterns make up this signal overall?”
             </p>
-            <img src="Screenshot_2025-05-13_at_8.54.39_AM.png" alt="Frequency Domain Visualization" style="max-width: 100%; height: auto; margin-top: 20px;">
 
-            <h2>Enter: The Fast Fourier Transform</h2>
+            <p>Enter: The Fast Fourier Transform</p>
             <p>
                 Although the DFT is incredibly useful, it can be computationally expensive. The <strong>Fast Fourier Transform (FFT)</strong> is an optimized algorithm that reduces this burden dramatically. making frequency analysis practical for large datasets and real-time systems.
             </p>
@@ -52,7 +51,7 @@
                 Today, the FFT is used everywhere: in JPEG compression, medical imaging, seismology, speech synthesis, and more. For machine learning applications like mine, it plays a critical role in <strong>image recognition, CNNs, transformers, and feature visualization</strong>. Understanding frequency components often leads to better model interpretability and robustness.
             </p>
 
-            <h2>Connecting to Neural Networks</h2>
+            <p>Connecting to Neural Networks</p>
             <p>
                 In my own work, especially using tools like <code>torch-dreams</code>, the insights from frequency analysis are incredibly valuable. Neural networks, especially convolutional models, often learn to detect patterns at different spatial frequencies. Visualizing what excites specific neurons often reveals stripes, curves, or textures, which are best understood in the frequency domain.
             </p>
