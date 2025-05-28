@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Structured AI Output with Pydantic & Tool Calling</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../index.html#about">About Me</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#blog">Blog</a></li>
+        </ul>
+    </nav>
+    <main class="section active">
+        <h1>Structured AI Output with Pydantic & Tool Calling</h1>
+        <p class="blog-meta">May 27, 2025 • Arya Bhanushali • AI Tooling, Pydantic, LLMs</p>
+        <article>
+
+            <p>
+                My first week at Elevance Health has been packed with learning. I dove deep into how modern AI tools deliver structured outputs, not just text, but JSON objects with defined schemas. This post walks through the three core technologies I explored: <strong>Pydantic</strong>, <strong>tool calling</strong>, and <strong>structured output from OpenAI's models</strong>.
+            </p>
+
+            <p><strong>Pydantic: The Backbone of Data Validation</strong></p>
+            <p>
+                I started by learning <a href="https://docs.pydantic.dev" target="_blank">Pydantic</a>, a Python library for defining and validating data models. It felt like a mix of type hints and real-world safety nets. With Pydantic, I could create classes that automatically enforce structure and types in my data:
+            </p>
+
+<pre><code>from pydantic import BaseModel
+
+class Invoice(BaseModel):
+    vendor: str
+    amount: float
+    due_date: str
+</code></pre>
+
+            <p>
+                Instead of writing endless if-statements to check if a field exists or is the right type, Pydantic just raises an error if anything is wrong. Clean, simple, and powerful.
+            </p>
+
+            <p><strong>Tool Calling with OpenAI</strong></p>
+            <p>
+                Next, I learned how to use OpenAI's <code>tool_calling</code> interface. The idea is to let the language model trigger specific functions based on user input, imagine a chatbot automatically calling your <code>get_invoice_summary()</code> or <code>check_contract_terms()</code> function when you ask it a relevant question.
+            </p>
+
+            <p>
+                Here's a simplified view of what tool calling looks like:
+            </p>
+
+<pre><code>{
+  "tool_call": {
+    "name": "check_invoice",
+    "arguments": {
+      "vendor": "ACME Corp",
+      "amount": 3200.50
+    }
+  }
+}
+</code></pre>
+
+            <p>
+                What amazed me is how natural the interaction feels — the model "knows" when to call tools based on the conversation, and it passes arguments in structured JSON.
+            </p>
+
+            <p><strong>Structured JSON Output from LLMs</strong></p>
+            <p>
+                Finally, I experimented with generating structured responses using OpenAI’s <code>response_format="json"</code> setting. This allowed me to build AI workflows that are not just "chatty," but directly usable by code. For example, getting a response like this:
+            </p>
+
+<pre><code>{
+  "invoice_flagged": true,
+  "reason": "Amount exceeds contract limit by 15%"
+}
+</code></pre>
+
+            <p>
+                That kind of output is gold when building systems that connect AI with business logic, no extra parsing or guesswork needed.
+            </p>
+
+            <p><strong>Final thoughts</strong></p>
+            <p>
+                This week shifted my perspective on LLMs from "text generators" to "structured reasoning engines." Pydantic gave me tools to validate real-world data, tool calling made AI interactive and responsive, and structured JSON output turned LLMs into collaborators that can slot cleanly into any pipeline.
+            </p>
+
+            <p>
+                I'm excited to keep building, and automating, more workflows in the weeks to come.
+            </p>
+
+        </article>
+        <a href="../index.html#blog" class="back-to-blog">← Back to Blog</a>
+    </main>
+</body>
+</html>
