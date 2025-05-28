@@ -20,12 +20,12 @@
         <article>
 
             <p>
-                My first week at Elevance Health has been packed with learning. I dove deep into how modern AI tools deliver structured outputs, not just text, but JSON objects with defined schemas. This post walks through the three core technologies I explored: <strong>Pydantic</strong>, <strong>tool calling</strong>, and <strong>structured output from OpenAI's models</strong>.
+                My first week at Elevance Health has been a crash course in building AI-integrated systems. I’ve been working on tools that rely on structured outputs from large language models, and it’s given me a new appreciation for how cleanly AI can integrate into backend logic when the right structure is in place. This post covers three key technologies I focused on: <strong>Pydantic</strong>, <strong>OpenAI’s tool calling</strong>, and <strong>structured model output</strong>.
             </p>
 
-            <p><strong>Pydantic: The Backbone of Data Validation</strong></p>
+            <p><strong>Pydantic for Data Modeling</strong></p>
             <p>
-                I started by learning <a href="https://docs.pydantic.dev" target="_blank">Pydantic</a>, a Python library for defining and validating data models. It felt like a mix of type hints and real-world safety nets. With Pydantic, I could create classes that automatically enforce structure and types in my data:
+                Pydantic is a Python library that lets you define data models with validation baked in. It’s been indispensable for parsing responses and enforcing constraints without manually checking types or null values. Here’s an example model I used for invoice data:
             </p>
 
 <pre><code>from pydantic import BaseModel
@@ -37,16 +37,12 @@ class Invoice(BaseModel):
 </code></pre>
 
             <p>
-                Instead of writing endless if-statements to check if a field exists or is the right type, Pydantic just raises an error if anything is wrong. Clean, simple, and powerful.
+                With this, I can trust the data structure at runtime—and when something doesn’t fit, Pydantic lets me know immediately.
             </p>
 
-            <p><strong>Tool Calling with OpenAI</strong></p>
+            <p><strong>Calling Tools with OpenAI</strong></p>
             <p>
-                Next, I learned how to use OpenAI's <code>tool_calling</code> interface. The idea is to let the language model trigger specific functions based on user input, imagine a chatbot automatically calling your <code>get_invoice_summary()</code> or <code>check_contract_terms()</code> function when you ask it a relevant question.
-            </p>
-
-            <p>
-                Here's a simplified view of what tool calling looks like:
+                OpenAI’s tool calling API introduces a pattern where language models don’t just respond—they invoke functions. When a user asks a question like “Can you check this invoice?”, the model can respond with a structured function call such as:
             </p>
 
 <pre><code>{
@@ -61,12 +57,12 @@ class Invoice(BaseModel):
 </code></pre>
 
             <p>
-                What amazed me is how natural the interaction feels — the model "knows" when to call tools based on the conversation, and it passes arguments in structured JSON.
+                I’ve been using this to connect the model with backend logic—like flagging invoice anomalies or comparing contract terms. The model figures out what needs to be done and passes the right inputs, all without requiring custom parsing or prompt hacking.
             </p>
 
             <p><strong>Structured JSON Output from LLMs</strong></p>
             <p>
-                Finally, I experimented with generating structured responses using OpenAI’s <code>response_format="json"</code> setting. This allowed me to build AI workflows that are not just "chatty," but directly usable by code. For example, getting a response like this:
+                Another feature I’ve found powerful is OpenAI’s <code>response_format="json"</code>. When enabled, the model outputs pure JSON, which plugs directly into the rest of the pipeline. For example:
             </p>
 
 <pre><code>{
@@ -76,16 +72,12 @@ class Invoice(BaseModel):
 </code></pre>
 
             <p>
-                That kind of output is gold when building systems that connect AI with business logic, no extra parsing or guesswork needed.
+                This level of structure makes it possible to build applications where the model output is both machine-readable and action-ready—ideal for automation workflows.
             </p>
 
-            <p><strong>Final thoughts</strong></p>
+            <p><strong>Takeaways</strong></p>
             <p>
-                This week shifted my perspective on LLMs from "text generators" to "structured reasoning engines." Pydantic gave me tools to validate real-world data, tool calling made AI interactive and responsive, and structured JSON output turned LLMs into collaborators that can slot cleanly into any pipeline.
-            </p>
-
-            <p>
-                I'm excited to keep building, and automating, more workflows in the weeks to come.
+                This week has reshaped how I think about LLMs. They’re not just for generating text—they’re components in larger systems, capable of reasoning, formatting, and interacting through well-defined interfaces. With Pydantic ensuring data integrity, tool calling driving logic, and structured outputs enabling automation, I’m excited to keep exploring how these systems can scale in real-world environments.
             </p>
 
         </article>
