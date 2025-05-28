@@ -42,19 +42,9 @@ class Invoice(BaseModel):
 
             <p><strong>Calling Tools with OpenAI</strong></p>
             <p>
-                OpenAI’s tool calling API introduces a pattern where language models don’t just respond—they invoke functions. When a user asks a question like “Can you check this invoice?”, the model can respond with a structured function call such as:
+                OpenAI’s tool calling API introduces a pattern where language models don’t just respond—they invoke functions. When a user asks a question like “Can you check this invoice?”, the model can respond with a structured function call.
             </p>
 
-<pre><code>{
-  "tool_call": {
-    "name": "check_invoice",
-    "arguments": {
-      "vendor": "ACME Corp",
-      "amount": 3200.50
-    }
-  }
-}
-</code></pre>
 
             <p>
                 I’ve been using this to connect the model with backend logic—like flagging invoice anomalies or comparing contract terms. The model figures out what needs to be done and passes the right inputs, all without requiring custom parsing or prompt hacking.
