@@ -1,0 +1,59 @@
+<h2>What is a Transformer?</h2>
+<p>A transformer is a model architecture that takes in a sequence of tokens and outputs another sequence — like translating English to French. It's built from two main parts: the <strong>encoder</strong> and the <strong>decoder</strong>.</p>
+
+<ul>
+    <li><strong>Encoder:</strong> Processes the input sequence and produces contextual embeddings.</li>
+    <li><strong>Decoder:</strong> Uses those embeddings to generate the output sequence token-by-token.</li>
+</ul>
+
+<p>Transformers are often pre-trained on large datasets in an unsupervised way and then fine-tuned for specific tasks, making them a type of <strong>semi-supervised learning</strong>.</p>
+
+<h2>The Core Idea: Self-Attention</h2>
+<p>Self-attention allows every word in a sequence to "look at" every other word and decide how much focus to give it. For each token <code>xi</code>, we compute an output <code>yi</code> by taking a weighted average of all input vectors. The weight between two tokens <code>xi</code> and <code>xj</code> is based on their similarity.</p>
+
+<h3>Step-by-step:</h3>
+<ol>
+    <li>Compute similarity (dot product) between <code>xi</code> and all <code>xj</code> in the sequence.</li>
+    <li>Normalize these scores using <code>softmax</code> to get attention weights.</li>
+    <li>Use the weights to compute a weighted average over value vectors.</li>
+</ol>
+
+<p>This is what gives each output token its <strong>context-aware representation</strong>.</p>
+
+<h2>Queries, Keys, and Values</h2>
+<p>Each input token is projected into three vectors:</p>
+<ul>
+    <li><strong>Query (Q):</strong> What the token is looking for</li>
+    <li><strong>Key (K):</strong> What each token offers</li>
+    <li><strong>Value (V):</strong> What gets passed on</li>
+</ul>
+
+<p>The attention weights are computed as <code>dot(Q, K)</code>, scaled, softmaxed, and applied to the values V.</p>
+
+<h2>Why It Matters</h2>
+<p>Unlike RNNs, which must process sequences one step at a time, transformers can process entire sequences at once. This makes them dramatically faster and better at capturing long-range dependencies.</p>
+
+<h2>Positional Encoding</h2>
+<p>Since transformers don't inherently understand the order of tokens, we add <strong>positional embeddings</strong> to each token embedding. This helps the model learn the position of each word in the sequence.</p>
+
+<h2>Multi-Head Attention</h2>
+<p>One attention head might focus on syntactic structure, another on semantic similarity. So transformers use <strong>multiple attention heads</strong> in parallel, each learning a different kind of relationship. Their outputs are concatenated and linearly transformed.</p>
+
+<h2>Transformer Block</h2>
+<p>A single block includes:</p>
+<ul>
+    <li>Multi-head self-attention</li>
+    <li>Layer normalization</li>
+    <li>Feed-forward network</li>
+    <li>Residual connections</li>
+</ul>
+
+<p>Stacking several of these blocks gives the model more depth and capability.</p>
+
+<h2>Wrap-Up</h2>
+<p>Transformers revolutionized NLP by replacing recurrence with attention. Their ability to model sequences in parallel and attend to all parts of a sentence at once makes them ideal for modern language tasks — and now they're being used in images, audio, and even protein folding.</p>
+
+<p>If you're building models from scratch, understanding self-attention and multi-head mechanisms is foundational. My PyTorch implementation of a Transformer-based classifier helped solidify these concepts hands-on.</p>
+</article>
+<a href="../index.html#blog" class="back-to-blog">← Back to Blog</a>
+</main>
