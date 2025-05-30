@@ -35,7 +35,7 @@
     <article>
 
       <p>
-        As I continue diving deeper into foundational AI models, I spent this past week unpacking the transformer architecture. It’s one of those designs that’s easy to take for granted given its ubiquity, but seeing how it works under the hood (especially implementing it in PyTorch) made everything click.
+        I spent this past week unpacking the transformer architecture. Seeing how it works under the hood (especially implementing it in PyTorch) made everything click.
       </p>
 
       <p><strong>What is a Transformer?</strong></p>
@@ -49,12 +49,12 @@
       </ul>
 
       <p>
-        Most modern transformers are pre-trained on massive datasets with unsupervised objectives (like masked language modeling), then fine-tuned on downstream tasks. This combination of scale and transfer learning is what gives them their edge.
+        Most modern transformers are pre-trained on massive datasets with unsupervised objectives (like masked language modeling), then fine-tuned on downstream tasks. This combination of scale and transfer learning is what makes them generalizable and accurate.
       </p>
 
       <p><strong>Self-Attention: The Core Mechanism</strong></p>
       <p>
-        What makes transformers powerful is the self-attention mechanism. Instead of processing tokens sequentially, each token dynamically attends to others in the sequence, assigning weights based on relevance.
+        What makes transformers powerful is the self-attention mechanism. Instead of processing tokens sequentially, each token dynamically attends to others in the sequence, assigning weights based on relevance. This allows for parallel processing, making them quicker than many of other architectures like RNNs.
       </p>
 
       <p>Here’s the basic idea:</p>
@@ -65,7 +65,7 @@
       </ol>
 
       <p>
-        This allows each output to be context-aware, reflecting dependencies across the entire input sequence — something RNNs struggled with.
+        This allows each output to be context-aware, reflecting dependencies across the entire input sequence.
       </p>
 
       <p><strong>Queries, Keys, and Values</strong></p>
@@ -85,7 +85,7 @@
 
       <p><strong>Multi-Head Attention</strong></p>
       <p>
-        Instead of relying on a single set of attention weights, transformers use multiple attention heads in parallel. Each head learns different aspects of the relationships — one might focus on syntax, another on semantics. Their outputs are concatenated and passed through a linear layer.
+        Instead of relying on a single set of attention weights, transformers use multiple attention heads in parallel. Each head learns different aspects of the relationships, one might focus on syntax, another on semantics. Their outputs are concatenated and passed through a linear layer.
       </p>
 
       <p><strong>Transformer Block Structure</strong></p>
@@ -111,7 +111,7 @@
 
       <p><strong>Why It Matters</strong></p>
       <p>
-        Transformers replaced recurrence with attention — and in doing so, opened up massive parallelization during training and inference. This has made them the foundation of nearly all modern language models, from BERT to GPT to T5.
+        Transformers replaced recurrence with attention, and in doing so, opened up massive parallelization during training and inference. This has made them the foundation of nearly all modern language models, from BERT to GPT to T5.
       </p>
 
       <p>
@@ -120,7 +120,7 @@
 
       <p><strong>Final Thoughts</strong></p>
       <p>
-        Studying transformers has helped me appreciate their modularity and generality. They're not just powerful because they model language well, but because their architecture is extensible to so many domains. Implementing a toy transformer in PyTorch gave me a clearer sense of how self-attention and layer stacking work together to build representations.
+        Studying transformers has helped me appreciate their modularity and generality. They're not just powerful because they model language well, but because their architecture is extensible to so many domains. Implementing a toy transformer in PyTorch gave me a clearer sense of how self-attention and layer stacking work together to build representations. Additionally seeing how transformer blocks are made up of smaller components like multi-head attention and feed-forward networks helped me understand how to customize them for specific tasks and then transformer themselves are built from these blocks gave me insight into the building blocks of deep learning models.
       </p>
 
       <p>
