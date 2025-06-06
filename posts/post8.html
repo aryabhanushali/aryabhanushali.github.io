@@ -1,0 +1,58 @@
+<main class="section active">
+    <h1>Reading “Attention Is All You Need” — A New Perspective on Transformers</h1>
+    <p class="blog-meta">June 5, 2025 • Arya Bhanushali • Transformer Architecture, Research Paper, NLP</p>
+
+    <article>
+
+      <p>
+        This week, I finally read the 2017 paper that introduced the Transformer: <em>“Attention Is All You Need.”</em> It’s one of those papers that feels both revolutionary and intuitive once you break it down—and honestly, it helped me understand why Transformers became the backbone of modern AI.
+      </p>
+
+      <p><strong>Why was this paper such a big deal?</strong></p>
+      <p>
+        Before Transformers, we mainly used RNNs or CNNs for sequence tasks like translation. But RNNs process one token at a time, which slows training and struggles with long-range dependencies. This paper threw all of that out the window—and replaced it with a simple but powerful idea: attention mechanisms.
+      </p>
+
+      <p>
+        Instead of relying on sequential processing, attention allows the model to look at all tokens at once and decide what to focus on. This parallelism leads to faster training, and better performance on many tasks.
+      </p>
+
+      <p><strong>The Transformer Architecture</strong></p>
+      <p>
+        The model follows an encoder–decoder design. The encoder reads the input sequence and transforms it into a set of context-rich representations. The decoder takes those and generates the output, one token at a time.
+      </p>
+
+      <p>
+        Each encoder layer has two main parts: multi-head self-attention and a feed-forward network. The decoder has an additional attention layer to focus on the encoder's output. All layers use residual connections and layer normalization, and everything maintains a fixed model dimension (in the paper, that was 512).
+      </p>
+
+      <p><strong>How Attention Works</strong></p>
+      <p>
+        Attention takes a query, a set of keys, and values—and returns a weighted combination of the values based on how compatible the query is with each key. It’s like asking: “Given what I’m looking for, which pieces of information matter most?”
+      </p>
+
+      <p>
+        The Transformer uses <em>multi-head attention</em>, which means it runs this mechanism several times in parallel, each with different projections. This allows the model to learn multiple types of relationships—syntactic, semantic, positional—all at once.
+      </p>
+
+      <p><strong>Key Insight: Position Without Recurrence</strong></p>
+      <p>
+        Since the model processes tokens in parallel, it doesn’t know anything about order on its own. That’s why the authors introduced positional encodings—patterns added to the token embeddings to give the model a sense of position. These can be fixed (like sine/cosine functions) or learned.
+      </p>
+
+      <p><strong>Feed-Forward Networks</strong></p>
+      <p>
+        Every layer also has a small fully connected network applied to each position independently. This gives the model some non-linearity and flexibility in how it transforms information after attention.
+      </p>
+
+      <p><strong>Why This Paper Clicked for Me</strong></p>
+      <p>
+        Reading this paper clarified so many things I’d previously seen in frameworks and codebases.
+      </p>
+
+
+
+    </article>
+
+    <a href="../index.html#blog" class="back-to-blog">← Back to Blog</a>
+  </main>
