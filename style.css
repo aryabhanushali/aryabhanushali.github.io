@@ -604,22 +604,25 @@ main.section article p {
     gap: 2rem;
     padding: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
 }
 
 .skills-visualization {
     flex: 1;
-    min-height: 400px;
+    min-height: 300px;
     position: relative;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 12px;
+    padding: 1rem;
 }
 
 .skills-legend {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .skill-category {
@@ -685,7 +688,7 @@ main.section article p {
     }
 
     .skills-visualization {
-        min-height: 300px;
+        min-height: 250px;
     }
 }
 
