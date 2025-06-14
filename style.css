@@ -697,29 +697,30 @@ main.section article p {
     position: relative;
     width: 100%;
     height: 500px;
-    margin: 2rem auto;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 #skillsCanvas {
     width: 100%;
     height: 100%;
+    display: block;
 }
 
 .skill-tooltip {
-    position: absolute;
-    background: rgba(56, 161, 105, 0.95);
+    position: fixed;
+    background: rgba(56, 161, 105, 0.9);
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 8px 12px;
     border-radius: 6px;
     font-size: 14px;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
     z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .skill-tooltip.visible {

@@ -38,6 +38,106 @@ if (targetSection) {
                 index = 0;
                 typeWriter();
             }
+
+            // Initialize skills canvas when About section becomes active
+            if (targetId === 'about') {
+                const skillsCanvas = document.getElementById('skillsCanvas');
+                if (skillsCanvas) {
+                    const ctx = skillsCanvas.getContext('2d');
+
+                    // Set canvas size
+                    function resizeSkillsCanvas() {
+                        skillsCanvas.width = skillsCanvas.offsetWidth;
+                        skillsCanvas.height = skillsCanvas.offsetHeight;
+                    }
+
+                    resizeSkillsCanvas();
+                    window.addEventListener('resize', resizeSkillsCanvas);
+
+                    // Create skill nodes
+                    const nodes = [];
+                    const categories = {
+                        'AI & ML': {
+                            skills: ['Deep Learning', 'Neural Networks', 'Computer Vision', 'NLP'],
+                            level: 90
+                        },
+                        'Programming': {
+                            skills: ['Python', 'PyTorch', 'JavaScript', 'C++'],
+                            level: 95
+                        },
+                        'Tools': {
+                            skills: ['Git', 'Docker', 'AWS', 'Linux'],
+                            level: 85
+                        }
+                    };
+
+                    // Position category nodes in a triangle
+                    const centerX = skillsCanvas.width / 2;
+                    const centerY = skillsCanvas.height / 2;
+                    const radius = Math.min(centerX, centerY) * 0.4;
+
+                    Object.entries(categories).forEach(([category, data], index) => {
+                        const angle = (index * Math.PI * 2) / Object.keys(categories).length;
+                        const x = centerX + radius * Math.cos(angle);
+                        const y = centerY + radius * Math.sin(angle);
+
+                        const categoryNode = new SkillNode(x, y, category, true, data.level);
+                        nodes.push(categoryNode);
+
+                        // Create skill nodes around each category
+                        data.skills.forEach((skill, skillIndex) => {
+                            const skillAngle = angle + (skillIndex - (data.skills.length - 1) / 2) * 0.3;
+                            const skillX = x + Math.cos(skillAngle) * 80;
+                            const skillY = y + Math.sin(skillAngle) * 80;
+
+                            const skillNode = new SkillNode(skillX, skillY, skill, false, data.level - 10);
+                            skillNode.connections.push(categoryNode);
+                            categoryNode.connections.push(skillNode);
+                            nodes.push(skillNode);
+                        });
+                    });
+
+                    // Animation loop
+                    function animate() {
+                        ctx.clearRect(0, 0, skillsCanvas.width, skillsCanvas.height);
+
+                        // Update and draw nodes
+                        nodes.forEach(node => {
+                            node.update();
+                            node.draw();
+                        });
+
+                        requestAnimationFrame(animate);
+                    }
+
+                    // Handle mouse interaction
+                    skillsCanvas.addEventListener('mousemove', (e) => {
+                        const rect = skillsCanvas.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+
+                        let hoveredNode = null;
+                        nodes.forEach(node => {
+                            node.hovered = node.isPointInside(x, y);
+                            if (node.hovered) hoveredNode = node;
+                        });
+
+                        // Update tooltip
+                        const tooltip = document.querySelector('.skill-tooltip');
+                        if (hoveredNode) {
+                            tooltip.textContent = `${hoveredNode.skill} (${hoveredNode.level}%)`;
+                            tooltip.style.left = `${e.clientX + 10}px`;
+                            tooltip.style.top = `${e.clientY + 10}px`;
+                            tooltip.classList.add('visible');
+                        } else {
+                            tooltip.classList.remove('visible');
+                        }
+                    });
+
+                    // Start animation
+                    animate();
+                }
+            }
         });
     });
 
