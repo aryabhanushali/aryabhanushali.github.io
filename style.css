@@ -611,6 +611,8 @@ main.section article p {
     flex: 1;
     min-height: 400px;
     position: relative;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
 }
 
 .skills-legend {
