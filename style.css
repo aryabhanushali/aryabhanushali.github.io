@@ -540,11 +540,14 @@ main.section article p {
     color: #4a5568;
 }
 .interest-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px; /* reduces spacing between the two cards */
+    margin-top: 40px;
+    flex-wrap: wrap;
 }
+
 
 .interest-card {
     background-color: #ffffff;
