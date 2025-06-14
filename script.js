@@ -10,7 +10,7 @@ if (targetSection) {
 }
 
 
-    const typewriterText = "I’m currently exploring projects that bridge brain science and AI, advance model interpretability, and push the boundaries of neuroscience, machine learning, and human-centered design.";
+    const typewriterText = "I'm currently exploring projects that bridge brain science and AI, advance model interpretability, and push the boundaries of neuroscience, machine learning, and human-centered design.";
     const typewriterTarget = document.getElementById('typewriter-text');
     let index = 0;
 
@@ -309,5 +309,116 @@ document.addEventListener("DOMContentLoaded", () => {
 function toggleInterest(card) {
     card.classList.toggle('open');
 }
+
+// Skills Visualization
+const skillsCanvas = document.getElementById('skillsCanvas');
+const ctx = skillsCanvas.getContext('2d');
+
+// Set canvas size
+function resizeCanvas() {
+    skillsCanvas.width = skillsCanvas.offsetWidth;
+    skillsCanvas.height = skillsCanvas.offsetHeight;
+}
+
+// Initialize canvas
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Node class for skills
+class SkillNode {
+    constructor(x, y, skill, category) {
+        this.x = x;
+        this.y = y;
+        this.skill = skill;
+        this.category = category;
+        this.radius = 20;
+        this.connections = [];
+        this.hovered = false;
+    }
+
+    draw() {
+        // Draw connections
+        this.connections.forEach(conn => {
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(conn.x, conn.y);
+            ctx.strokeStyle = 'rgba(56, 161, 105, 0.2)';
+            ctx.stroke();
+        });
+
+        // Draw node
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.hovered ? '#38a169' : 'rgba(56, 161, 105, 0.5)';
+        ctx.fill();
+
+        // Draw skill name
+        ctx.fillStyle = 'white';
+        ctx.font = '12px Quicksand';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.skill, this.x, this.y);
+    }
+
+    isPointInside(x, y) {
+        const distance = Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2);
+        return distance <= this.radius;
+    }
+}
+
+// Create skill nodes
+const nodes = [];
+const categories = {
+    'AI & Machine Learning': ['Deep Learning', 'Neural Networks', 'Computer Vision'],
+    'Programming': ['Python', 'PyTorch', 'JavaScript'],
+    'Tools & Technologies': ['Git', 'Docker', 'AWS']
+};
+
+// Position nodes in a circular layout
+Object.entries(categories).forEach(([category, skills], categoryIndex) => {
+    const centerX = skillsCanvas.width / 2;
+    const centerY = skillsCanvas.height / 2;
+    const radius = Math.min(centerX, centerY) * 0.6;
+    const angleStep = (Math.PI * 2) / skills.length;
+    const categoryAngle = (categoryIndex * Math.PI * 2) / Object.keys(categories).length;
+
+    skills.forEach((skill, skillIndex) => {
+        const angle = categoryAngle + (skillIndex * angleStep);
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        nodes.push(new SkillNode(x, y, skill, category));
+    });
+});
+
+// Create connections between related skills
+nodes.forEach((node, i) => {
+    nodes.slice(i + 1).forEach(otherNode => {
+        if (Math.random() < 0.3) { // 30% chance of connection
+            node.connections.push(otherNode);
+            otherNode.connections.push(node);
+        }
+    });
+});
+
+// Animation loop
+function animate() {
+    ctx.clearRect(0, 0, skillsCanvas.width, skillsCanvas.height);
+    nodes.forEach(node => node.draw());
+    requestAnimationFrame(animate);
+}
+
+// Handle mouse interaction
+skillsCanvas.addEventListener('mousemove', (e) => {
+    const rect = skillsCanvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    nodes.forEach(node => {
+        node.hovered = node.isPointInside(x, y);
+    });
+});
+
+// Start animation
+animate();
 
 
