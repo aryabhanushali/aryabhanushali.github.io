@@ -310,9 +310,10 @@ function toggleInterest(card) {
     card.classList.toggle('open');
 }
 
-// Skills Visualization
+// Skills Network Visualization
 const skillsCanvas = document.getElementById('skillsCanvas');
 const ctx = skillsCanvas.getContext('2d');
+const tooltip = document.querySelector('.skill-tooltip');
 
 // Set canvas size
 function resizeCanvas() {
@@ -326,14 +327,19 @@ window.addEventListener('resize', resizeCanvas);
 
 // Node class for skills
 class SkillNode {
-    constructor(x, y, skill, category) {
+    constructor(x, y, skill, category, level) {
         this.x = x;
         this.y = y;
         this.skill = skill;
         this.category = category;
-        this.radius = 20;
+        this.level = level;
+        this.radius = category ? 40 : 25;
         this.connections = [];
         this.hovered = false;
+        this.targetX = x;
+        this.targetY = y;
+        this.vx = 0;
+        this.vy = 0;
     }
 
     draw() {
@@ -342,68 +348,129 @@ class SkillNode {
             ctx.beginPath();
             ctx.moveTo(this.x, this.y);
             ctx.lineTo(conn.x, conn.y);
-            ctx.strokeStyle = 'rgba(56, 161, 105, 0.2)';
+            ctx.strokeStyle = this.hovered || conn.hovered ?
+                'rgba(56, 161, 105, 0.4)' : 'rgba(56, 161, 105, 0.1)';
+            ctx.lineWidth = this.hovered || conn.hovered ? 2 : 1;
             ctx.stroke();
         });
 
         // Draw node
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.hovered ? '#38a169' : 'rgba(56, 161, 105, 0.5)';
+
+        // Gradient fill
+        const gradient = ctx.createRadialGradient(
+            this.x, this.y, 0,
+            this.x, this.y, this.radius
+        );
+
+        if (this.category) {
+            gradient.addColorStop(0, this.hovered ? '#38a169' : '#48bb78');
+            gradient.addColorStop(1, this.hovered ? '#2f855a' : '#38a169');
+        } else {
+            gradient.addColorStop(0, this.hovered ? '#48bb78' : '#68d391');
+            gradient.addColorStop(1, this.hovered ? '#38a169' : '#48bb78');
+        }
+
+        ctx.fillStyle = gradient;
         ctx.fill();
 
         // Draw skill name
         ctx.fillStyle = 'white';
-        ctx.font = '12px Quicksand';
+        ctx.font = this.category ? 'bold 14px Quicksand' : '12px Quicksand';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(this.skill, this.x, this.y);
+
+        // Wrap text for category nodes
+        if (this.category) {
+            const words = this.skill.split(' ');
+            const lineHeight = 16;
+            let y = this.y - (words.length - 1) * lineHeight / 2;
+
+            words.forEach(word => {
+                ctx.fillText(word, this.x, y);
+                y += lineHeight;
+            });
+        } else {
+            ctx.fillText(this.skill, this.x, this.y);
+        }
     }
 
     isPointInside(x, y) {
         const distance = Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2);
         return distance <= this.radius;
     }
+
+    update() {
+        // Add some movement
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Damping
+        this.vx *= 0.95;
+        this.vy *= 0.95;
+
+        // Move towards target
+        const dx = this.targetX - this.x;
+        const dy = this.targetY - this.y;
+        this.vx += dx * 0.01;
+        this.vy += dy * 0.01;
+    }
 }
 
 // Create skill nodes
 const nodes = [];
 const categories = {
-    'AI & Machine Learning': ['Deep Learning', 'Neural Networks', 'Computer Vision'],
-    'Programming': ['Python', 'PyTorch', 'JavaScript'],
-    'Tools & Technologies': ['Git', 'Docker', 'AWS']
+    'AI & ML': {
+        skills: ['Deep Learning', 'Neural Networks', 'Computer Vision', 'NLP'],
+        level: 90
+    },
+    'Programming': {
+        skills: ['Python', 'PyTorch', 'JavaScript', 'C++'],
+        level: 95
+    },
+    'Tools': {
+        skills: ['Git', 'Docker', 'AWS', 'Linux'],
+        level: 85
+    }
 };
 
-// Position nodes in a circular layout
-Object.entries(categories).forEach(([category, skills], categoryIndex) => {
-    const centerX = skillsCanvas.width / 2;
-    const centerY = skillsCanvas.height / 2;
-    const radius = Math.min(centerX, centerY) * 0.6;
-    const angleStep = (Math.PI * 2) / skills.length;
-    const categoryAngle = (categoryIndex * Math.PI * 2) / Object.keys(categories).length;
+// Position category nodes in a triangle
+const centerX = skillsCanvas.width / 2;
+const centerY = skillsCanvas.height / 2;
+const radius = Math.min(centerX, centerY) * 0.4;
 
-    skills.forEach((skill, skillIndex) => {
-        const angle = categoryAngle + (skillIndex * angleStep);
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-        nodes.push(new SkillNode(x, y, skill, category));
-    });
-});
+Object.entries(categories).forEach(([category, data], index) => {
+    const angle = (index * Math.PI * 2) / Object.keys(categories).length;
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
 
-// Create connections between related skills
-nodes.forEach((node, i) => {
-    nodes.slice(i + 1).forEach(otherNode => {
-        if (Math.random() < 0.3) { // 30% chance of connection
-            node.connections.push(otherNode);
-            otherNode.connections.push(node);
-        }
+    const categoryNode = new SkillNode(x, y, category, true, data.level);
+    nodes.push(categoryNode);
+
+    // Create skill nodes around each category
+    data.skills.forEach((skill, skillIndex) => {
+        const skillAngle = angle + (skillIndex - (data.skills.length - 1) / 2) * 0.3;
+        const skillX = x + Math.cos(skillAngle) * 80;
+        const skillY = y + Math.sin(skillAngle) * 80;
+
+        const skillNode = new SkillNode(skillX, skillY, skill, false, data.level - 10);
+        skillNode.connections.push(categoryNode);
+        categoryNode.connections.push(skillNode);
+        nodes.push(skillNode);
     });
 });
 
 // Animation loop
 function animate() {
     ctx.clearRect(0, 0, skillsCanvas.width, skillsCanvas.height);
-    nodes.forEach(node => node.draw());
+
+    // Update and draw nodes
+    nodes.forEach(node => {
+        node.update();
+        node.draw();
+    });
+
     requestAnimationFrame(animate);
 }
 
@@ -413,9 +480,21 @@ skillsCanvas.addEventListener('mousemove', (e) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
+    let hoveredNode = null;
     nodes.forEach(node => {
         node.hovered = node.isPointInside(x, y);
+        if (node.hovered) hoveredNode = node;
     });
+
+    // Update tooltip
+    if (hoveredNode) {
+        tooltip.textContent = `${hoveredNode.skill} (${hoveredNode.level}%)`;
+        tooltip.style.left = `${e.clientX + 10}px`;
+        tooltip.style.top = `${e.clientY + 10}px`;
+        tooltip.classList.add('visible');
+    } else {
+        tooltip.classList.remove('visible');
+    }
 });
 
 // Start animation
