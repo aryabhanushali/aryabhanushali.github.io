@@ -54,6 +54,99 @@ if (targetSection) {
                     resizeSkillsCanvas();
                     window.addEventListener('resize', resizeSkillsCanvas);
 
+                    // SkillNode class definition
+                    class SkillNode {
+                        constructor(x, y, skill, category, level) {
+                            this.x = x;
+                            this.y = y;
+                            this.skill = skill;
+                            this.category = category;
+                            this.level = level;
+                            this.radius = category ? 40 : 25;
+                            this.connections = [];
+                            this.hovered = false;
+                            this.targetX = x;
+                            this.targetY = y;
+                            this.vx = 0;
+                            this.vy = 0;
+                        }
+
+                        draw() {
+                            // Draw connections
+                            this.connections.forEach(conn => {
+                                ctx.beginPath();
+                                ctx.moveTo(this.x, this.y);
+                                ctx.lineTo(conn.x, conn.y);
+                                ctx.strokeStyle = this.hovered || conn.hovered ?
+                                    'rgba(56, 161, 105, 0.4)' : 'rgba(56, 161, 105, 0.1)';
+                                ctx.lineWidth = this.hovered || conn.hovered ? 2 : 1;
+                                ctx.stroke();
+                            });
+
+                            // Draw node
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+
+                            // Gradient fill
+                            const gradient = ctx.createRadialGradient(
+                                this.x, this.y, 0,
+                                this.x, this.y, this.radius
+                            );
+
+                            if (this.category) {
+                                gradient.addColorStop(0, this.hovered ? '#38a169' : '#48bb78');
+                                gradient.addColorStop(1, this.hovered ? '#2f855a' : '#38a169');
+                            } else {
+                                gradient.addColorStop(0, this.hovered ? '#48bb78' : '#68d391');
+                                gradient.addColorStop(1, this.hovered ? '#38a169' : '#48bb78');
+                            }
+
+                            ctx.fillStyle = gradient;
+                            ctx.fill();
+
+                            // Draw skill name
+                            ctx.fillStyle = 'white';
+                            ctx.font = this.category ? 'bold 14px Quicksand' : '12px Quicksand';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+
+                            // Wrap text for category nodes
+                            if (this.category) {
+                                const words = this.skill.split(' ');
+                                const lineHeight = 16;
+                                let y = this.y - (words.length - 1) * lineHeight / 2;
+
+                                words.forEach(word => {
+                                    ctx.fillText(word, this.x, y);
+                                    y += lineHeight;
+                                });
+                            } else {
+                                ctx.fillText(this.skill, this.x, this.y);
+                            }
+                        }
+
+                        isPointInside(x, y) {
+                            const distance = Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2);
+                            return distance <= this.radius;
+                        }
+
+                        update() {
+                            // Add some movement
+                            this.x += this.vx;
+                            this.y += this.vy;
+
+                            // Damping
+                            this.vx *= 0.95;
+                            this.vy *= 0.95;
+
+                            // Move towards target
+                            const dx = this.targetX - this.x;
+                            const dy = this.targetY - this.y;
+                            this.vx += dx * 0.01;
+                            this.vy += dy * 0.01;
+                        }
+                    }
+
                     // Create skill nodes
                     const nodes = [];
                     const categories = {
@@ -424,99 +517,6 @@ function resizeCanvas() {
 // Initialize canvas
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
-
-// Node class for skills
-class SkillNode {
-    constructor(x, y, skill, category, level) {
-        this.x = x;
-        this.y = y;
-        this.skill = skill;
-        this.category = category;
-        this.level = level;
-        this.radius = category ? 40 : 25;
-        this.connections = [];
-        this.hovered = false;
-        this.targetX = x;
-        this.targetY = y;
-        this.vx = 0;
-        this.vy = 0;
-    }
-
-    draw() {
-        // Draw connections
-        this.connections.forEach(conn => {
-            ctx.beginPath();
-            ctx.moveTo(this.x, this.y);
-            ctx.lineTo(conn.x, conn.y);
-            ctx.strokeStyle = this.hovered || conn.hovered ?
-                'rgba(56, 161, 105, 0.4)' : 'rgba(56, 161, 105, 0.1)';
-            ctx.lineWidth = this.hovered || conn.hovered ? 2 : 1;
-            ctx.stroke();
-        });
-
-        // Draw node
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-
-        // Gradient fill
-        const gradient = ctx.createRadialGradient(
-            this.x, this.y, 0,
-            this.x, this.y, this.radius
-        );
-
-        if (this.category) {
-            gradient.addColorStop(0, this.hovered ? '#38a169' : '#48bb78');
-            gradient.addColorStop(1, this.hovered ? '#2f855a' : '#38a169');
-        } else {
-            gradient.addColorStop(0, this.hovered ? '#48bb78' : '#68d391');
-            gradient.addColorStop(1, this.hovered ? '#38a169' : '#48bb78');
-        }
-
-        ctx.fillStyle = gradient;
-        ctx.fill();
-
-        // Draw skill name
-        ctx.fillStyle = 'white';
-        ctx.font = this.category ? 'bold 14px Quicksand' : '12px Quicksand';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        // Wrap text for category nodes
-        if (this.category) {
-            const words = this.skill.split(' ');
-            const lineHeight = 16;
-            let y = this.y - (words.length - 1) * lineHeight / 2;
-
-            words.forEach(word => {
-                ctx.fillText(word, this.x, y);
-                y += lineHeight;
-            });
-        } else {
-            ctx.fillText(this.skill, this.x, this.y);
-        }
-    }
-
-    isPointInside(x, y) {
-        const distance = Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2);
-        return distance <= this.radius;
-    }
-
-    update() {
-        // Add some movement
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Damping
-        this.vx *= 0.95;
-        this.vy *= 0.95;
-
-        // Move towards target
-        const dx = this.targetX - this.x;
-        const dy = this.targetY - this.y;
-        this.vx += dx * 0.01;
-        this.vy += dy * 0.01;
-    }
-}
 
 // Create skill nodes
 const nodes = [];
