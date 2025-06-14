@@ -123,108 +123,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // NeuralCanvas (Projects background)
+    // Neural Network Background
     const neuralCanvas = document.getElementById('neuralCanvas');
     if (neuralCanvas) {
         const ctx = neuralCanvas.getContext('2d');
 
-        function resizeCanvas() {
+        // Set canvas size
+        function resizeNeuralCanvas() {
             neuralCanvas.width = neuralCanvas.offsetWidth;
             neuralCanvas.height = neuralCanvas.offsetHeight;
         }
 
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        resizeNeuralCanvas();
+        window.addEventListener('resize', resizeNeuralCanvas);
 
-        const nodes = [];
-        const nodeCount = 40;
-
-        for (let i = 0; i < nodeCount; i++) {
-            nodes.push({
-                x: Math.random() * neuralCanvas.width,
-                y: Math.random() * neuralCanvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5
-            });
-        }
-
-        function animateNetwork() {
-            ctx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
-
-            for (let i = 0; i < nodeCount; i++) {
-                for (let j = i + 1; j < nodeCount; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 150) {
-                        ctx.strokeStyle = 'rgba(56,161,105,0.3)';
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(nodes[i].x, nodes[i].y);
-                        ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            nodes.forEach(node => {
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
-                ctx.fillStyle = '#38a169';
-                ctx.fill();
-
-                node.x += node.vx;
-                node.y += node.vy;
-
-                if (node.x < 0 || node.x > neuralCanvas.width) node.vx *= -1;
-                if (node.y < 0 || node.y > neuralCanvas.height) node.vy *= -1;
-            });
-
-            requestAnimationFrame(animateNetwork);
-        }
-
-        animateNetwork();
-    }
-
-    window.toggleMore = function() {
-        const moreText = document.getElementById('more-text');
-        const button = document.querySelector('.more-button');
-        if (moreText.style.display === 'none') {
-            moreText.style.display = 'block';
-            button.innerText = 'See Less ↑';
-        } else {
-            moreText.style.display = 'none';
-            button.innerText = 'See More ↓';
-        }
-    };
-
-    // Skills Network Visualization
-    const skillsCanvas = document.getElementById('skillsCanvas');
-    if (skillsCanvas) {
-        const ctx = skillsCanvas.getContext('2d');
-
-        // Set canvas size
-        function resizeSkillsCanvas() {
-            skillsCanvas.width = skillsCanvas.offsetWidth;
-            skillsCanvas.height = skillsCanvas.offsetHeight;
-        }
-
-        resizeSkillsCanvas();
-        window.addEventListener('resize', resizeSkillsCanvas);
-
-        class SkillNode {
-            constructor(x, y, skill) {
+        class NeuralNode {
+            constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.skill = skill;
-                this.radius = 30;
                 this.connections = [];
                 this.hovered = false;
                 this.targetX = x;
                 this.targetY = y;
                 this.vx = 0;
                 this.vy = 0;
-                this.scale = 1;
             }
 
             draw() {
@@ -239,51 +161,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     ctx.stroke();
                 });
 
-                // Save context for scaling
-                ctx.save();
-
-                // Apply scale transformation
-                ctx.translate(this.x, this.y);
-                ctx.scale(this.scale, this.scale);
-                ctx.translate(-this.x, -this.y);
-
                 // Draw node
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-
-                // Gradient fill
-                const gradient = ctx.createRadialGradient(
-                    this.x, this.y, 0,
-                    this.x, this.y, this.radius
-                );
-
-                gradient.addColorStop(0, this.hovered ? '#48bb78' : '#68d391');
-                gradient.addColorStop(1, this.hovered ? '#38a169' : '#48bb78');
-
-                ctx.fillStyle = gradient;
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.hovered ? '#38a169' : '#68d391';
                 ctx.fill();
 
                 // Add glow effect when hovered
                 if (this.hovered) {
                     ctx.shadowColor = '#38a169';
-                    ctx.shadowBlur = 20;
+                    ctx.shadowBlur = 10;
                     ctx.fill();
                 }
-
-                // Draw skill name
-                ctx.fillStyle = 'white';
-                ctx.font = '14px Quicksand';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(this.skill, this.x, this.y);
-
-                // Restore context
-                ctx.restore();
             }
 
             isPointInside(x, y) {
                 const distance = Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2);
-                return distance <= this.radius;
+                return distance <= 10;
             }
 
             update() {
@@ -300,42 +194,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 const dy = this.targetY - this.y;
                 this.vx += dx * 0.01;
                 this.vy += dy * 0.01;
-
-                // Update scale for hover effect
-                if (this.hovered) {
-                    this.scale = Math.min(this.scale + 0.1, 1.2);
-                } else {
-                    this.scale = Math.max(this.scale - 0.1, 1);
-                }
             }
         }
 
-        // Create skill nodes
+        // Create nodes
         const nodes = [];
-        const skills = [
-            'Python', 'PyTorch', 'Deep Learning', 'Neural Networks',
-            'Computer Vision', 'NLP', 'JavaScript', 'C++',
-            'Git', 'Docker', 'AWS', 'Linux'
-        ];
+        const numNodes = 50;
+        const connectionDistance = 150;
 
-        // Position nodes in a circular layout
-        const centerX = skillsCanvas.width / 2;
-        const centerY = skillsCanvas.height / 2;
-        const radius = Math.min(centerX, centerY) * 0.7;
+        for (let i = 0; i < numNodes; i++) {
+            const x = Math.random() * neuralCanvas.width;
+            const y = Math.random() * neuralCanvas.height;
+            nodes.push(new NeuralNode(x, y));
+        }
 
-        skills.forEach((skill, index) => {
-            const angle = (index * Math.PI * 2) / skills.length;
-            const x = centerX + radius * Math.cos(angle);
-            const y = centerY + radius * Math.sin(angle);
-
-            const node = new SkillNode(x, y, skill);
-            nodes.push(node);
-        });
-
-        // Add connections between nodes
+        // Add connections
         nodes.forEach((node, i) => {
             nodes.slice(i + 1).forEach(otherNode => {
-                if (Math.random() < 0.3) { // 30% chance of connection
+                const distance = Math.sqrt(
+                    (node.x - otherNode.x) ** 2 +
+                    (node.y - otherNode.y) ** 2
+                );
+                if (distance < connectionDistance) {
                     node.connections.push(otherNode);
                     otherNode.connections.push(node);
                 }
@@ -344,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Animation loop
         function animate() {
-            ctx.clearRect(0, 0, skillsCanvas.width, skillsCanvas.height);
+            ctx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
 
             // Update and draw nodes
             nodes.forEach(node => {
@@ -356,8 +236,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Handle mouse interaction
-        skillsCanvas.addEventListener('mousemove', (e) => {
-            const rect = skillsCanvas.getBoundingClientRect();
+        neuralCanvas.addEventListener('mousemove', (e) => {
+            const rect = neuralCanvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
@@ -369,6 +249,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Start animation
         animate();
     }
+
+    window.toggleMore = function() {
+        const moreText = document.getElementById('more-text');
+        const button = document.querySelector('.more-button');
+        if (moreText.style.display === 'none') {
+            moreText.style.display = 'block';
+            button.innerText = 'See Less ↑';
+        } else {
+            moreText.style.display = 'none';
+            button.innerText = 'See More ↓';
+        }
+    };
 });
 
 // 🚀 NASA APOD fetch
