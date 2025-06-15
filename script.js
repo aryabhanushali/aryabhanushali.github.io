@@ -198,6 +198,63 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+
+
+document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+        const description = card.getAttribute('data-description');
+
+        // Create modal container if it doesn't already exist
+        let modal = document.getElementById('projectModal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'projectModal';
+            modal.style.position = 'fixed';
+            modal.style.top = '50%';
+            modal.style.left = '50%';
+            modal.style.transform = 'translate(-50%, -50%)';
+            modal.style.background = 'white';
+            modal.style.padding = '20px';
+            modal.style.borderRadius = '12px';
+            modal.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+            modal.style.maxWidth = '600px';
+            modal.style.width = '90%';
+            modal.style.zIndex = '9999';
+            modal.style.fontFamily = 'Quicksand, sans-serif';
+            modal.style.lineHeight = '1.5';
+            modal.style.overflowY = 'auto';
+            modal.style.maxHeight = '80vh';
+
+            // Close button
+            const closeBtn = document.createElement('button');
+            closeBtn.innerText = 'Close';
+            closeBtn.style.marginTop = '20px';
+            closeBtn.style.padding = '10px 16px';
+            closeBtn.style.background = '#38a169';
+            closeBtn.style.color = 'white';
+            closeBtn.style.border = 'none';
+            closeBtn.style.borderRadius = '6px';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            // Description text
+            const descText = document.createElement('div');
+            descText.id = 'modalDescription';
+
+            modal.appendChild(descText);
+            modal.appendChild(closeBtn);
+            document.body.appendChild(modal);
+        }
+
+        // Set and show the description
+        document.getElementById('modalDescription').innerText = description;
+        modal.style.display = 'block';
+    });
+});
+
+
     // Skills Network Visualization
     const skillsCanvas = document.getElementById('skillsCanvas');
     if (skillsCanvas) {
@@ -415,57 +472,3 @@ function toggleInterest(card) {
 
 
 
-
-document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-        const description = card.getAttribute('data-description');
-
-        // Create modal container if it doesn't already exist
-        let modal = document.getElementById('projectModal');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'projectModal';
-            modal.style.position = 'fixed';
-            modal.style.top = '50%';
-            modal.style.left = '50%';
-            modal.style.transform = 'translate(-50%, -50%)';
-            modal.style.background = 'white';
-            modal.style.padding = '20px';
-            modal.style.borderRadius = '12px';
-            modal.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
-            modal.style.maxWidth = '600px';
-            modal.style.width = '90%';
-            modal.style.zIndex = '9999';
-            modal.style.fontFamily = 'Quicksand, sans-serif';
-            modal.style.lineHeight = '1.5';
-            modal.style.overflowY = 'auto';
-            modal.style.maxHeight = '80vh';
-
-            // Close button
-            const closeBtn = document.createElement('button');
-            closeBtn.innerText = 'Close';
-            closeBtn.style.marginTop = '20px';
-            closeBtn.style.padding = '10px 16px';
-            closeBtn.style.background = '#38a169';
-            closeBtn.style.color = 'white';
-            closeBtn.style.border = 'none';
-            closeBtn.style.borderRadius = '6px';
-            closeBtn.style.cursor = 'pointer';
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-
-            // Description text
-            const descText = document.createElement('div');
-            descText.id = 'modalDescription';
-
-            modal.appendChild(descText);
-            modal.appendChild(closeBtn);
-            document.body.appendChild(modal);
-        }
-
-        // Set and show the description
-        document.getElementById('modalDescription').innerText = description;
-        modal.style.display = 'block';
-    });
-});
