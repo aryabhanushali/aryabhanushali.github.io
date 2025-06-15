@@ -729,3 +729,13 @@ main.section article p {
 }
 
 
+/* Backdrop behind the modal */
+#modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+    display: none;
+    transition: opacity 0.3s ease;
+}
