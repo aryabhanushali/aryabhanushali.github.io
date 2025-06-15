@@ -187,10 +187,28 @@ document.addEventListener('DOMContentLoaded', function () {
         animateNetwork();
     }
 
-    // === Modal for Project Descriptions ===
+    // === Modal for Project Descriptions with Backdrop ===
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('click', () => {
             const description = card.getAttribute('data-description');
+
+            let backdrop = document.getElementById('modalBackdrop');
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.id = 'modalBackdrop';
+                backdrop.style.position = 'fixed';
+                backdrop.style.inset = '0';
+                backdrop.style.background = 'rgba(0, 0, 0, 0.4)';
+                backdrop.style.backdropFilter = 'blur(2px)';
+                backdrop.style.zIndex = '9998';
+                document.body.appendChild(backdrop);
+            }
+            backdrop.style.display = 'block';
+            backdrop.addEventListener('click', () => {
+                const modal = document.getElementById('projectModal');
+                if (modal) modal.style.display = 'none';
+                backdrop.style.display = 'none';
+            });
 
             let modal = document.getElementById('projectModal');
             if (!modal) {
@@ -226,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 closeBtn.style.cursor = 'pointer';
                 closeBtn.addEventListener('click', () => {
                     modal.style.display = 'none';
-                    document.body.classList.remove('modal-open');
+                    backdrop.style.display = 'none';
                 });
 
                 modal.appendChild(descText);
@@ -236,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             document.getElementById('modalDescription').innerText = description;
             modal.style.display = 'block';
-            document.body.classList.add('modal-open');
         });
     });
 
