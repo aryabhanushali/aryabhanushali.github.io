@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rewarding the Rare: Why Diversity in AI Reasoning Actually Matters</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../index.html#about">About Me</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#blog">Blog</a></li>
+        </ul>
+    </nav>
+
+    <main class="section active">
+        <h1>Rewarding the Rare: Why Diversity in AI Reasoning Actually Matters</h1>
+        <p class="blog-meta">January 2026 • Arya Bhanushali • AI, Reinforcement Learning, Reasoning Systems</p>
+
+        <article>
+
+            <p>
+                As large language models get better at reasoning, I would assume that more training and reinforcement learning naturally leads to smarter, more flexible problem-solving. But the paper <em>“Rewarding the Rare: Uniqueness-Aware Reinforcement Learning for Creative Problem Solving in LLMs”</em> argues something else: traditional RL often makes models <em>less</em> creative, not more.
+            </p>
+
+            <p>
+                This paper was interesting to me becasue it showed me a perspective I never considered when it comes to evaluating what actually is a good LLM. In my own experiences of making reasoning agents and LLMs, I did face the same problem of seeing teh same output relating to same solution just different variation sof it but I did not know this was something that can be fixed.
+            </p>
+
+            <p><strong>The core problem: reasoning collapse</strong></p>
+
+            <p>
+                In reinforcement learning for LLMs, models are rewarded when they produce correct answers. Over time, this causes a subtle failure mode called <em>exploration collapse</em>. The model discovers one reasoning pattern that works well, then keeps reusing it.
+            </p>
+
+            <p>
+                This looks good if you only measure accuracy on the first attempt (pass@1). But if you ask the model to generate many solutions (pass@k), performance plateaus or even degrades, because all the solutions are basically the same idea, just rephrased.
+            </p>
+
+            <p>
+                Token-level randomness doesn’t fix this. Two solutions can look different on the surface but still rely on the exact same high-level strategy. The paper’s key insight is that **true diversity lives at the level of strategies, not tokens**.
+            </p>
+
+            <p><strong>The key idea: reward rare strategies, not just correct ones</strong></p>
+
+            <p>
+                The authors propose <em>Uniqueness-Aware Reinforcement Learning</em>. Instead of rewarding every correct solution equally, they reward correct solutions more if they use a <em>rare</em> high-level strategy.
+            </p>
+
+
+            <ul>
+                <li>The model generates multiple solutions to the same problem.</li>
+                <li>An LLM-based judge groups these solutions by their underlying strategy (not wording).</li>
+                <li>If many solutions use the same strategy, each one gets less reward.</li>
+                <li>If a correct solution uses a rare strategy, it gets more reward.</li>
+            </ul>
+
+            <p>
+                This simple change prevents the model from collapsing onto one dominant way of thinking. Instead, it encourages a portfolio of reasoning strategies — similar to how humans solve hard problems.
+            </p>
+
+            <p><strong>Why this matters beyond benchmarks</strong></p>
+
+            <p>
+                On the surface, the paper evaluates math, physics, and medical reasoning benchmarks. But the implications go far beyond pass@k curves.
+            </p>
+
+            <p>
+                In real-world areas like healthcare, law, and robotics, relying on a single reasoning path is dangerous. Patients present differently. Data is incomplete. Edge cases are common. A system that only knows “one way to be right” is brittle.
+            </p>
+
+            <p>
+                This connects strongly to my interest in agentic AI systems. Agents don’t just answer questions — they plan, act, verify, and adapt. If an agent collapses to a single strategy, it fails under distribution shift. Rewarding strategic diversity is a step toward agents that can genuinely reason under uncertainty.
+            </p>
+
+            <p><strong>Why I find this paper especially compelling</strong></p>
+
+            <p>
+                What I appreciate most is that the paper doesn’t just argue for diversity philosophically — it operationalizes it. Diversity becomes something measurable and optimizable, not a vague aspiration.
+            </p>
+
+            <p>
+                It also mirrors how human intelligence works. We don’t just memorize one solution; we build multiple mental models. When one fails, we switch. That flexibility is what makes intelligence robust.
+            </p>
+
+            <p>
+                This idea is especially important for healthcare AI. Diagnostic reasoning, treatment planning, and clinical decision-making all benefit from exploring multiple hypotheses. An AI system that prematurely converges may appear confident — but confidence without coverage is dangerous.
+            </p>
+
+            <p><strong>Where I think this could go next</strong></p>
+
+            <p>
+                Reading this paper sparked several ideas I’m excited about:
+            </p>
+
+            <ul>
+                <li>Applying uniqueness aware rewards to <em>agentic clinical systems</em>, where multiple diagnostic or treatment strategies must coexist.</li>
+                <li>Using strategy diversity as a safety signal, detecting when models are becoming overconfident or brittle.</li>
+                <li>Extending this idea to multi-agent systems, where agents are rewarded for complementary reasoning rather than redundancy.</li>
+            </ul>
+            <p>
+                This paper reinforced the fact that better AI is not just bigger models. Instead its more about better objectives that prioritize what people actually what and catering reasoning to that.
+
+
+            </p>
+
+        </article>
+    </main>
+</body>
+</html>
+
+
