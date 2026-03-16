@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Knowledge-Based AI and the Soup Test</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../index.html#about">About Me</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#blog">Blog</a></li>
+        </ul>
+    </nav>
+
+    <main class="section active">
+        <h1>Knowledge-Based AI and the Soup Test</h1>
+        <p class="blog-meta">March 15, 2026 • Arya Bhanushali • Knowledge-Based AI, Cognitive Systems, Reasoning</p>
+
+        <article>
+            <p>
+                When we talk about knowledge-based AI, we often imagine knowledge graphs, ontologies, and carefully curated rules. But knowledge is only useful if a system can apply it flexibly. To make that concrete, I built a playful artifact called the <em>Soup Test</em>—an interactive page that explores how we categorize something as ordinary as soup. I’m embedding it below and using it as a springboard for why structured knowledge still matters in the age of end-to-end models.
+            </p>
+
+            <div style="margin: 24px 0; border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                <iframe src="../what-is-soup.html" title="What Is Soup?" style="width: 100%; min-height: 720px; border: none;"></iframe>
+            </div>
+
+            <p><strong>Why pair knowledge bases with interactive concepts?</strong></p>
+            <p>
+                Large models can imitate reasoning, but knowledge-based AI forces explicit structure: concepts, relations, and constraints. The Soup Test demonstrates how categories are negotiated—temperature, texture, vessel, even cultural context. Encoding those factors into a knowledge graph makes the model’s reasoning inspectable: you can trace why gazpacho counts as soup while a smoothie does not.
+            </p>
+
+            <p><strong>Three pillars for modern knowledge-based systems</strong></p>
+            <ul>
+                <li><strong>Symbolic backbones:</strong> ontologies that capture entities, relations, and rules (e.g., <code>isServedHot</code>, <code>containsBroth</code>, <code>servedInBowl</code>).</li>
+                <li><strong>Neural interfaces:</strong> language models to propose candidates, normalize free-form text, and map observations into the symbolic space.</li>
+                <li><strong>Reasoning loops:</strong> constraint solvers or graph traversals that explain decisions and expose missing facts.</li>
+            </ul>
+
+            <p><strong>How I would productionize the Soup Test</strong></p>
+            <ol>
+                <li>Extract the dish attributes shown in the iframe with an LLM, then ground them into a schema (JSON-LD or RDF).</li>
+                <li>Run rule-based checks ("if it lacks liquid, penalize soup-ness"), but keep uncertainty scores so edge cases can surface.</li>
+                <li>Store traces of decisions so users can challenge them—"pho is soup because broth + noodles + bowl."</li>
+            </ol>
+
+            <p><strong>Where this matters</strong></p>
+            <p>
+                Healthcare triage, financial compliance, and robotics all need systems that can justify their categories, not just guess them. The Soup Test is a lighthearted proxy for those high-stakes domains: if we can’t explain why cereal-with-milk barely misses the soup category, we probably can’t explain why a treatment plan was rejected.
+            </p>
+
+            <p>
+                Knowledge-based AI is not about replacing deep models; it is about giving them scaffolding. Pairing structured knowledge with LLM-powered perception yields systems that are both fluent and accountable—and that’s the kind of AI I want to ship.
+            </p>
+        </article>
+    </main>
+</body>
+</html>

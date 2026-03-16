@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is Soup? — A Cognitive Science Exploration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --ink: #1a1612;
+    --brown: #5c3d2e;
+    --rust: #b84f2d;
+    --gold: #c8972a;
+    --sage: #4a6741;
+    --slate: #3d4f5c;
+    --light-rust: #f2e0d8;
+    --light-sage: #dde8da;
+    --light-slate: #dce3e8;
+    --light-gold: #f5ead4;
+    --divider: #d4c9bb;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .masthead {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,.025) 40px,
+      rgba(255,255,255,.025) 41px
+    );
+  }
+  .masthead .kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .masthead h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 7vw, 78px);
+    font-weight: 900;
+    line-height: 1.0;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .masthead h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .masthead .subtitle {
+    font-size: 17px;
+    color: #bfb8ae;
+    max-width: 560px;
+    margin: 0 auto;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    color: var(--ink);
+  }
+  .section-title span {
+    color: var(--rust);
+  }
+  .prose {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #2e2620;
+    max-width: 720px;
+    margin-bottom: 32px;
+  }
+  .prose strong { color: var(--ink); }
+
+  /* ── PART 1: CATEGORIZATION ── */
+  .category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .category-card {
+    background: var(--warm-white);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--divider);
+  }
+  .category-card .card-header {
+    padding: 14px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-header.soup-header {
+    background: var(--sage);
+    color: #e8f0e6;
+  }
+  .card-header.not-soup-header {
+    background: var(--rust);
+    color: #f5e8e2;
+  }
+  .card-header .count {
+    background: rgba(255,255,255,.2);
+    border-radius: 20px;
+    padding: 2px 9px;
+    font-size: 10px;
+  }
+  .dish-list {
+    list-style: none;
+    padding: 12px 0;
+  }
+  .dish-list li {
+    padding: 6px 20px;
+    font-size: 14.5px;
+    border-bottom: 1px solid #ede7de;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dish-list li:last-child { border-bottom: none; }
+  .dish-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .soup-list li::before { background: var(--sage); }
+  .not-soup-list li::before { background: var(--rust); }
+  .dish-list .note {
+    font-size: 11px;
+    color: #9e8e7e;
+    font-style: italic;
+    margin-left: auto;
+  }
+
+  /* ── PART 2: INCREMENTAL CONCEPT LEARNING ── */
+  .icl-timeline {
+    margin-top: 40px;
+    position: relative;
+  }
+  .icl-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--rust));
+    transform: translateX(-50%);
+  }
+
+  .icl-step {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    margin-bottom: 40px;
+    align-items: start;
+    position: relative;
+  }
+
+  .icl-step.positive .dish-side { order: 1; text-align: right; padding-right: 32px; }
+  .icl-step.positive .center-node { order: 2; }
+  .icl-step.positive .model-side { order: 3; padding-left: 32px; }
+
+  .icl-step.negative .dish-side { order: 3; text-align: left; padding-left: 32px; }
+  .icl-step.negative .center-node { order: 2; }
+  .icl-step.negative .model-side { order: 1; text-align: right; padding-right: 32px; }
+
+  .center-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding-top: 8px;
+    position: relative;
+    z-index: 2;
+  }
+  .node-circle {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    border: 3px solid var(--warm-white);
+    box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  }
+  .node-circle.pos { background: var(--sage); }
+  .node-circle.neg { background: var(--rust); }
+  .node-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #9e8e7e;
+  }
+
+  .dish-card {
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: inline-block;
+  }
+  .icl-step.positive .dish-side .dish-card {
+    border-left: 4px solid var(--sage);
+  }
+  .icl-step.negative .dish-side .dish-card {
+    border-left: 4px solid var(--rust);
+  }
+  .dish-card .dish-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .dish-card .dish-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+  .tag-pos { background: var(--light-sage); color: var(--sage); }
+  .tag-neg { background: var(--light-rust); color: var(--rust); }
+
+  .dish-card .dish-desc {
+    font-size: 12px;
+    color: #6e5e4e;
+    font-style: italic;
+  }
+
+  .model-card {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .model-card .model-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .model-card .model-op {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 4px;
+  }
+  .model-card .model-op.gen { color: #8ecf9e; }
+  .model-card .model-op.spec { color: #f0956e; }
+  .model-card .model-op.init { color: #f0d06e; }
+  .model-card .model-def {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #e8e0d4;
+    font-style: italic;
+  }
+  .model-card .model-change {
+    font-size: 12px;
+    color: #a09080;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid #3a3028;
+  }
+
+  .model-card .constraint {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-style: normal;
+    margin: 1px;
+    font-family: 'DM Mono', monospace;
+  }
+  .constraint.active { background: rgba(200,151,42,.25); color: var(--gold); border: 1px solid rgba(200,151,42,.4); }
+  .constraint.added { background: rgba(142,207,158,.2); color: #8ecf9e; border: 1px solid rgba(142,207,158,.4); }
+  .constraint.removed { background: rgba(240,149,110,.15); color: #f0956e; border: 1px solid rgba(240,149,110,.3); text-decoration: line-through; }
+  .constraint.confirmed { background: rgba(200,151,42,.15); color: #c8972a; border: 1px solid rgba(200,151,42,.3); }
+
+  .icl-step.positive .dish-side {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .icl-step.negative .dish-side {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .icl-step.positive .model-side {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .icl-step.negative .model-side {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .final-model-box {
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 28px 32px;
+    margin-top: 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-model-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,151,42,.15) 0%, transparent 70%);
+  }
+  .final-model-box .fm-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .final-model-box .fm-def {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.4;
+    position: relative;
+  }
+  .final-model-box .fm-def span { color: var(--gold); }
+  .fm-constraints {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+    position: relative;
+  }
+  .fmc {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .05em;
+  }
+
+  .icl-addendum {
+    background: var(--light-gold);
+    border: 1px solid #e0c870;
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-top: 28px;
+  }
+  .icl-addendum h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--brown);
+    margin-bottom: 10px;
+  }
+  .icl-addendum p {
+    font-size: 14px;
+    color: var(--brown);
+    line-height: 1.7;
+  }
+
+  /* ── PART 3: CLASSIFICATION ── */
+  .param-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin: 28px 0;
+  }
+  .param-card {
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+    padding: 14px 14px;
+    text-align: center;
+  }
+  .param-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--rust);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .param-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .param-desc {
+    font-size: 11px;
+    color: #7e6e5e;
+    line-height: 1.5;
+  }
+
+  /* Classification Table */
+  .clf-table-wrap {
+    overflow-x: auto;
+    margin: 28px 0;
+    border-radius: 6px;
+    border: 1px solid var(--divider);
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--warm-white);
+    font-size: 14px;
+  }
+  thead tr {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  thead th {
+    padding: 12px 14px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  thead th:first-child { text-align: left; }
+  tbody tr:nth-child(even) { background: #f0ebe2; }
+  tbody td {
+    padding: 10px 14px;
+    text-align: center;
+    border-bottom: 1px solid #e4ddd3;
+    vertical-align: middle;
+  }
+  tbody td:first-child { text-align: left; font-weight: 600; font-size: 13.5px; }
+  .cell-y {
+    background: rgba(74,103,65,.15);
+    color: var(--sage);
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .cell-n {
+    background: rgba(184,79,45,.12);
+    color: var(--rust);
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .cell-yes {
+    background: var(--sage);
+    color: white;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .05em;
+  }
+  .cell-no {
+    background: var(--rust);
+    color: white;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .05em;
+  }
+
+  /* Decision Tree */
+  .tree-container {
+    margin: 40px 0;
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    padding: 40px 24px 32px;
+    overflow-x: auto;
+  }
+  .tree-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #9e8e7e;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 720px;
+  }
+
+  .tree-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tree-question {
+    background: var(--slate);
+    color: white;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
+    max-width: 200px;
+    line-height: 1.4;
+  }
+  .tree-question.root { background: var(--ink); max-width: 240px; font-size: 14px; }
+
+  .tree-leaf {
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    text-align: center;
+  }
+  .tree-leaf.soup { background: var(--sage); color: white; }
+  .tree-leaf.not-soup { background: var(--rust); color: white; }
+
+  .tree-branch {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .branch-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .branch-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .branch-line-down {
+    width: 2px;
+    height: 28px;
+    background: var(--divider);
+  }
+  .branch-line-h {
+    height: 2px;
+    background: var(--divider);
+  }
+
+  .branch-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .1em;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+    margin: 4px 0;
+  }
+  .branch-label.yes { background: var(--light-sage); color: var(--sage); }
+  .branch-label.no { background: var(--light-rust); color: var(--rust); }
+
+  /* SVG Tree */
+  .svg-tree { width: 100%; max-width: 800px; margin: 0 auto; display: block; }
+
+  /* Classification Results */
+  .clf-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .clf-result-item {
+    background: var(--warm-white);
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .clf-result-item .dish-label {
+    font-weight: 600;
+    font-size: 14px;
+    flex: 1;
+  }
+  .clf-result-item .path {
+    font-size: 11px;
+    color: #9e8e7e;
+    font-family: 'DM Mono', monospace;
+    margin-top: 2px;
+  }
+  .clf-result-item .verdict {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .verdict-soup { background: var(--sage); color: white; }
+  .verdict-not { background: var(--rust); color: white; }
+
+  /* ── PART 4: GRITS ── */
+  .grits-banner {
+    background: var(--brown);
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 28px 32px;
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .grits-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+  .grits-banner p { font-size: 14px; color: #c8b89a; }
+
+  .approach-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .approach-card {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--divider);
+  }
+  .approach-card .ac-header {
+    padding: 14px 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .ac-header.icl { background: var(--slate); color: #c8d8e8; }
+  .ac-header.clf { background: var(--brown); color: #e8d8c8; }
+  .ac-header.cbr { background: var(--sage); color: #d8e8d4; }
+  .approach-card .ac-body {
+    background: var(--warm-white);
+    padding: 16px 18px;
+  }
+  .approach-card .ac-verdict {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .ac-verdict.not { color: var(--rust); }
+  .ac-verdict.is { color: var(--sage); }
+  .approach-card .ac-reasoning {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #4e3e2e;
+  }
+
+  .cbr-similarity {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .similarity-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .similarity-row .case-name {
+    font-weight: 600;
+    width: 80px;
+    flex-shrink: 0;
+    font-size: 11px;
+  }
+  .sim-bar-bg {
+    flex: 1;
+    height: 8px;
+    background: #e4ddd3;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .sim-bar {
+    height: 100%;
+    border-radius: 4px;
+  }
+  .sim-bar.oatmeal { background: var(--rust); width: 88%; }
+  .sim-bar.gruel { background: #c88050; width: 72%; }
+  .sim-bar.miso { background: var(--slate); width: 35%; }
+  .sim-bar.chowder { background: var(--sage); width: 22%; }
+  .sim-pct { font-family: 'DM Mono', monospace; font-size: 10px; width: 30px; text-align: right; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    color: #9e8e7e;
+    padding: 32px;
+    text-align: center;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: .05em;
+  }
+  .footer span { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .category-grid, .approach-cards, .clf-results, .param-grid {
+      grid-template-columns: 1fr;
+    }
+    .icl-timeline::before { left: 28px; }
+    .icl-step {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .icl-step.positive .dish-side,
+    .icl-step.negative .dish-side,
+    .icl-step.positive .model-side,
+    .icl-step.negative .model-side {
+      order: unset;
+      text-align: left;
+      padding: 0;
+      justify-content: flex-start;
+    }
+    .icl-step .center-node { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════ HEADER ══════════════════════════════════════ -->
+<div class="masthead">
+  <div class="kicker">Cognitive Science · Concept Learning · Knowledge Representation</div>
+  <h1>What Is <em>Soup?</em></h1>
+  <p class="subtitle">An exploration of top-down and bottom-up concept formation, incremental learning, classification, and case-based reasoning applied to the most disputed bowl of liquid in culinary history.</p>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════ PART 1 ══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Part One</div>
+  <h2 class="section-title">Initial Categorization: <span>Soup or Not Soup?</span></h2>
+
+  <p class="prose">
+    Before building any formal model, the first step is to apply intuitive, <strong>bottom-up</strong> categorization — drawing on our pre-theoretical sense of "soup-ness." This mirrors how humans naturally acquire concepts: exposure to examples precedes explicit rule formation. The 40 dishes below are sorted by that initial judgment. Borderline cases are noted.
+  </p>
+
+  <div class="category-grid">
+    <div class="category-card">
+      <div class="card-header soup-header">
+        ✓ &nbsp; Classified as Soup <span class="count">15</span>
+      </div>
+      <ul class="dish-list soup-list">
+        <li>Borscht</li>
+        <li>Chicken Broth</li>
+        <li>Chicken Noodle Soup</li>
+        <li>Clam Chowder</li>
+        <li>Consommé</li>
+        <li>Corn Chowder</li>
+        <li>French Onion Soup in a Bread Bowl <span class="note">container ≠ category</span></li>
+        <li>Gazpacho</li>
+        <li>Gumbo</li>
+        <li>Menudo</li>
+        <li>Miso Soup</li>
+        <li>Pho</li>
+        <li>Stew <span class="note">borderline</span></li>
+        <li>Tomato Bisque</li>
+        <li>Vichyssoise</li>
+      </ul>
+    </div>
+
+    <div class="category-card">
+      <div class="card-header not-soup-header">
+        ✕ &nbsp; Classified as Not Soup <span class="count">25</span>
+      </div>
+      <ul class="dish-list not-soup-list">
+        <li>Baked Beans</li>
+        <li>Cereal with Milk <span class="note">cold + sweet</span></li>
+        <li>Chicken Pot Pie</li>
+        <li>Chili <span class="note">borderline</span></li>
+        <li>Chocolate Pudding</li>
+        <li>Coconut Milk <span class="note">ingredient, not dish</span></li>
+        <li>Crème Brûlée</li>
+        <li>Fruit Salad in Syrup</li>
+        <li>Guacamole</li>
+        <li>Hot Chocolate with Marshmallows <span class="note">beverage</span></li>
+        <li>Hot Tea with Tea Leaves <span class="note">beverage</span></li>
+        <li>Ice Cream Sundae</li>
+        <li>Iced Tea <span class="note">cold beverage</span></li>
+        <li>Jambalaya <span class="note">rice-dominant</span></li>
+        <li>Macaroni and Cheese</li>
+        <li>Massaman Curry <span class="note">sauce over rice</span></li>
+        <li>Mashed Potatoes</li>
+        <li>Melted Ice Cream <span class="note">sweet + dessert</span></li>
+        <li>Milkshake</li>
+        <li>Oatmeal <span class="note">porridge</span></li>
+        <li>Pasta Bolognese</li>
+        <li>Rice Pudding</li>
+        <li>Risotto</li>
+        <li>Spaghetti with Marinara Sauce</li>
+        <li>Yogurt with Granola</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:20px; background: var(--light-gold); border-left: 4px solid var(--gold); padding: 14px 20px; border-radius: 0 6px 6px 0; font-size:14px; color: var(--brown);">
+    <strong>A note on "Chili":</strong> Chili sits at the exact edge of the soup concept. It is savory, liquid-containing, and served in a bowl — but it is typically too thick to be consumed by drinking, meat-forward rather than broth-forward, and is socially categorized as a distinct dish in American culture. On balance, it is classified here as <em>not soup</em>, though it will surface as a critical test case in later sections.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ PART 2 ══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Part Two</div>
+  <h2 class="section-title">Incremental <span>Concept Learning</span></h2>
+
+  <p class="prose">
+    Incremental concept learning builds a concept definition one labeled example at a time. The algorithm asks two questions per example: <em>(1) Is this an example of the concept?</em> and <em>(2) Does it fit the current definition?</em> The intersection of those answers determines whether to <strong>generalize</strong>, <strong>specialize</strong>, or <strong>do nothing</strong>. Crucially, specific named <strong>heuristics</strong> guide how to generalize or specialize — they navigate the otherwise vast space of possible concept revisions.
+  </p>
+
+  <!-- Heuristics Reference -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+    <div style="background:var(--warm-white); border:1px solid var(--divider); border-radius:6px; padding:16px 18px;">
+      <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--sage); margin-bottom:8px;">Generalization Heuristics</div>
+      <div style="font-size:13px; line-height:1.8; color:#3a2e22;">
+        <strong>Drop-link:</strong> Drop a required link absent in a new positive example.<br>
+        <strong>Climb-tree:</strong> Replace a specific value with a more general parent using background knowledge.<br>
+        <strong>Enlarge-set / Variabilize:</strong> Broaden a value's range or replace a constant with a variable.
+      </div>
+    </div>
+    <div style="background:var(--warm-white); border:1px solid var(--divider); border-radius:6px; padding:16px 18px;">
+      <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--rust); margin-bottom:8px;">Specialization Heuristics</div>
+      <div style="font-size:13px; line-height:1.8; color:#3a2e22;">
+        <strong>Require-link:</strong> Make required a feature the concept has but the negative example lacks — the distinguishing link.<br>
+        <strong>Forbid-link:</strong> Explicitly forbid a link that appears in a negative near-miss but must never appear in the concept.
+      </div>
+    </div>
+  </div>
+
+  <!-- Algorithm bar -->
+  <div style="background:var(--ink); color:var(--cream); border-radius:6px; padding:12px 20px; margin-bottom:32px; font-size:12px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; font-family:'DM Mono',monospace;">
+    <span style="font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold);">Algorithm</span>
+    <span style="color:#8ecf9e;">Example is soup? YES → Fits model? YES = Do nothing | NO = <strong>Generalize</strong></span>
+    <span style="color:#f0956e;">Example is soup? NO → Fits model? YES = <strong>Specialize</strong> | NO = Do nothing</span>
+  </div>
+
+  <!-- ═══ STEP CARDS ═══ -->
+  <div style="display:flex; flex-direction:column; gap:24px;">
+
+  <!-- ─── STEP 1: Chicken Noodle Soup (+) → Initialize ─── -->
+  <div style="border-radius:8px; overflow:hidden; border:1px solid var(--divider); box-shadow:0 2px 8px rgba(0,0,0,.06);">
+    <div style="background:#1d3320; color:white; padding:10px 18px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span style="background:#4a6741; color:white; font-family:'DM Mono',monospace; font-size:9px; padding:3px 10px; border-radius:10px; letter-spacing:.1em;">POSITIVE #1</span>
+      <span style="font-family:'Playfair Display',serif; font-size:16px; font-style:italic;">Chicken Noodle Soup</span>
+      <span style="font-family:'DM Mono',monospace; font-size:10px; color:#8ecf9e; margin-left:auto;">Is soup? YES → No model yet → INITIALIZE</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1.5fr;">
+      <div style="padding:16px 18px; border-right:1px solid var(--divider); background:var(--warm-white);">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--sage); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px;">⊕ Initialize</div>
+        <p style="font-size:13px; line-height:1.7; color:#3a2e22;">The first positive example seeds the model. Every observed property becomes a <strong>required link</strong>. The model starts maximally specific — every feature of the first soup is assumed necessary.</p>
+        <p style="font-size:12px; color:#9e8e7e; margin-top:8px; font-style:italic;">Hot broth · savory · liquid-dominant · has solids · broth base</p>
+      </div>
+      <div style="padding:14px; background:#f5f2ec;">
+        <svg viewBox="0 0 510 248" style="width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="a1" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#e07820"/></marker>
+          </defs>
+          <!-- SOUP node -->
+          <circle cx="75" cy="124" r="44" fill="white" stroke="#2563a8" stroke-width="3"/>
+          <text x="75" y="119" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1612" font-family="'Source Serif 4',serif">SOUP</text>
+          <text x="75" y="137" text-anchor="middle" font-size="9" fill="#777" font-family="'DM Mono',monospace">concept</text>
+          <!-- 5 feature nodes, all NEW (green) -->
+          <!-- 1: temp:hot (420,24) -->
+          <line x1="115" y1="111" x2="385" y2="33" stroke="#e07820" stroke-width="1.8" marker-end="url(#a1)"/>
+          <text x="250" y="65" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-temp</text>
+          <circle cx="420" cy="24" r="33" fill="#dde8da" stroke="#4a6741" stroke-width="2.5"/>
+          <text x="420" y="19" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">temp:</text>
+          <text x="420" y="33" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">hot ✦</text>
+          <!-- 2: flavor:savory (420,80) -->
+          <line x1="117" y1="115" x2="386" y2="81" stroke="#e07820" stroke-width="1.8" marker-end="url(#a1)"/>
+          <text x="252" y="93" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-flavor</text>
+          <circle cx="420" cy="80" r="33" fill="#dde8da" stroke="#4a6741" stroke-width="2.5"/>
+          <text x="420" y="75" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">flavor:</text>
+          <text x="420" y="89" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">savory ✦</text>
+          <!-- 3: texture:liquid-dom (420,136) -->
+          <line x1="119" y1="124" x2="386" y2="131" stroke="#e07820" stroke-width="1.8" marker-end="url(#a1)"/>
+          <text x="252" y="121" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-texture</text>
+          <circle cx="420" cy="136" r="33" fill="#dde8da" stroke="#4a6741" stroke-width="2.5"/>
+          <text x="420" y="131" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">texture:</text>
+          <text x="420" y="145" text-anchor="middle" font-size="9" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">liquid-dom ✦</text>
+          <!-- 4: solids:yes (420,190) -->
+          <line x1="117" y1="134" x2="386" y2="181" stroke="#e07820" stroke-width="1.8" marker-end="url(#a1)"/>
+          <text x="252" y="163" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-solids</text>
+          <circle cx="420" cy="190" r="33" fill="#dde8da" stroke="#4a6741" stroke-width="2.5"/>
+          <text x="420" y="185" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">solids:</text>
+          <text x="420" y="199" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">yes ✦</text>
+          <!-- 5: base:broth (420,244) -->
+          <line x1="115" y1="134" x2="386" y2="231" stroke="#e07820" stroke-width="1.8" marker-end="url(#a1)"/>
+          <text x="252" y="191" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-base</text>
+          <circle cx="420" cy="244" r="33" fill="#dde8da" stroke="#4a6741" stroke-width="2.5"/>
+          <text x="420" y="239" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">base:</text>
+          <text x="420" y="253" text-anchor="middle" font-size="9" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">broth ✦</text>
+          <!-- legend -->
+          <rect x="8" y="226" width="10" height="10" rx="2" fill="#dde8da" stroke="#4a6741" stroke-width="1.5"/>
+          <text x="22" y="235" font-size="9" fill="#4a6741" font-family="'DM Mono',monospace">✦ new required link</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 2: Gazpacho (+) → Drop-link (temperature) ─── -->
+  <div style="border-radius:8px; overflow:hidden; border:1px solid var(--divider); box-shadow:0 2px 8px rgba(0,0,0,.06);">
+    <div style="background:#1d3320; color:white; padding:10px 18px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span style="background:#4a6741; color:white; font-family:'DM Mono',monospace; font-size:9px; padding:3px 10px; border-radius:10px; letter-spacing:.1em;">POSITIVE #2</span>
+      <span style="font-family:'Playfair Display',serif; font-size:16px; font-style:italic;">Gazpacho</span>
+      <span style="font-family:'DM Mono',monospace; font-size:10px; color:#8ecf9e; margin-left:auto;">Is soup? YES → Fits model? NO (cold ≠ hot) → GENERALIZE</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1.5fr;">
+      <div style="padding:16px 18px; border-right:1px solid var(--divider); background:var(--warm-white);">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--sage); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px;">⊕ Drop-link Heuristic</div>
+        <p style="font-size:13px; line-height:1.7; color:#3a2e22;">Gazpacho is cold — it doesn't satisfy "temp: hot," a link that <em>is</em> in the current model. Since gazpacho <strong>is</strong> a soup, we must generalize. The <strong>drop-link</strong> heuristic applies: the required link "must-have-temp" is present in the model but cannot be satisfied by this positive example, so we drop it. Temperature is no longer a required feature of soup.</p>
+        <div style="background:#f0ebe2; border-radius:4px; padding:8px 10px; margin-top:10px; font-size:12px; color:#7a5c30;">
+          <strong>Why not climb-tree?</strong> Climb-tree would require a background taxonomy where "hot" has a parent node (e.g., hot → any-temp). That <em>could</em> apply here, but drop-link is the simpler and more direct choice — temperature is simply not a defining feature of soup at all, so we remove the link entirely rather than generalizing its value.
+        </div>
+      </div>
+      <div style="padding:14px; background:#f5f2ec;">
+        <svg viewBox="0 0 510 248" style="width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="a2" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#e07820"/></marker>
+            <marker id="a2g" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#bbb"/></marker>
+          </defs>
+          <!-- SOUP node -->
+          <circle cx="75" cy="124" r="44" fill="white" stroke="#2563a8" stroke-width="3"/>
+          <text x="75" y="119" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1612" font-family="'Source Serif 4',serif">SOUP</text>
+          <text x="75" y="137" text-anchor="middle" font-size="9" fill="#777" font-family="'DM Mono',monospace">concept</text>
+          <!-- 1: temp:hot — DROPPED via drop-link -->
+          <line x1="115" y1="111" x2="385" y2="33" stroke="#ccc" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a2g)"/>
+          <text x="250" y="58" text-anchor="middle" font-size="9" fill="#bbb" font-style="italic" font-family="'DM Mono',monospace">must-have-temp</text>
+          <circle cx="420" cy="24" r="33" fill="#f0f0f0" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="420" y="19" text-anchor="middle" font-size="10" fill="#bbb" font-family="'DM Mono',monospace">temp:</text>
+          <text x="420" y="33" text-anchor="middle" font-size="10" fill="#bbb" font-family="'DM Mono',monospace">hot</text>
+          <!-- drop-link annotation -->
+          <rect x="4" y="8" width="88" height="30" rx="4" fill="#f5ead4" stroke="#c8972a" stroke-width="1"/>
+          <text x="48" y="21" text-anchor="middle" font-size="8" fill="#7a4a10" font-weight="700" font-family="'DM Mono',monospace">DROP-LINK:</text>
+          <text x="48" y="32" text-anchor="middle" font-size="8" fill="#7a4a10" font-family="'DM Mono',monospace">temp removed</text>
+          <!-- 2: flavor:savory -->
+          <line x1="117" y1="115" x2="386" y2="81" stroke="#e07820" stroke-width="1.8" marker-end="url(#a2)"/>
+          <text x="252" y="93" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-flavor</text>
+          <circle cx="420" cy="80" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="75" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">flavor:</text>
+          <text x="420" y="89" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">savory</text>
+          <!-- 3: texture:liquid-dom -->
+          <line x1="119" y1="124" x2="386" y2="131" stroke="#e07820" stroke-width="1.8" marker-end="url(#a2)"/>
+          <text x="252" y="121" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-texture</text>
+          <circle cx="420" cy="136" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="131" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">texture:</text>
+          <text x="420" y="145" text-anchor="middle" font-size="9" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">liquid-dom</text>
+          <!-- 4: solids:yes -->
+          <line x1="117" y1="134" x2="386" y2="181" stroke="#e07820" stroke-width="1.8" marker-end="url(#a2)"/>
+          <text x="252" y="163" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-solids</text>
+          <circle cx="420" cy="190" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="185" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">solids:</text>
+          <text x="420" y="199" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">yes</text>
+          <!-- 5: base:broth -->
+          <line x1="115" y1="134" x2="386" y2="231" stroke="#e07820" stroke-width="1.8" marker-end="url(#a2)"/>
+          <text x="252" y="195" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-base</text>
+          <circle cx="420" cy="244" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="239" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">base:</text>
+          <text x="420" y="253" text-anchor="middle" font-size="9" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">broth</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 3: Oatmeal (−) → Do Nothing ─── -->
+  <div style="border-radius:8px; overflow:hidden; border:1px solid var(--divider); box-shadow:0 2px 8px rgba(0,0,0,.06);">
+    <div style="background:#3a3020; color:white; padding:10px 18px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span style="background:#7a5c30; color:white; font-family:'DM Mono',monospace; font-size:9px; padding:3px 10px; border-radius:10px; letter-spacing:.1em;">NEGATIVE #1</span>
+      <span style="font-family:'Playfair Display',serif; font-size:16px; font-style:italic;">Oatmeal</span>
+      <span style="font-family:'DM Mono',monospace; font-size:10px; color:#c8972a; margin-left:auto;">Is soup? NO → Fits model? NO (fails liquid-dom) → DO NOTHING</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1.5fr;">
+      <div style="padding:16px 18px; border-right:1px solid var(--divider); background:var(--warm-white);">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px;">○ Do Nothing</div>
+        <p style="font-size:13px; line-height:1.7; color:#3a2e22;">Oatmeal is NOT a soup, and the model already correctly rejects it — oatmeal is <strong>solid-dominant</strong>, failing the "must-have-texture: liquid-dom" link. No revision needed. This confirms that link is doing real work.</p>
+      </div>
+      <div style="padding:14px; background:#f5f2ec;">
+        <svg viewBox="0 0 510 216" style="width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="a3" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#e07820"/></marker>
+          </defs>
+          <!-- SOUP node -->
+          <circle cx="75" cy="108" r="44" fill="white" stroke="#2563a8" stroke-width="3"/>
+          <text x="75" y="103" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1612" font-family="'Source Serif 4',serif">SOUP</text>
+          <text x="75" y="121" text-anchor="middle" font-size="9" fill="#777" font-family="'DM Mono',monospace">concept</text>
+          <!-- 4 remaining nodes -->
+          <!-- flavor -->
+          <line x1="117" y1="99" x2="384" y2="33" stroke="#e07820" stroke-width="1.8" marker-end="url(#a3)"/>
+          <text x="250" y="57" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-flavor</text>
+          <circle cx="420" cy="30" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="25" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">flavor:</text>
+          <text x="420" y="39" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">savory</text>
+          <!-- texture: liquid-dom — HIGHLIGHTED as the blocker -->
+          <line x1="119" y1="108" x2="374" y2="108" stroke="#e07820" stroke-width="2.5" marker-end="url(#a3)"/>
+          <text x="246" y="101" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-texture</text>
+          <circle cx="410" cy="108" r="33" fill="#f5ead4" stroke="#c8972a" stroke-width="3"/>
+          <text x="410" y="103" text-anchor="middle" font-size="10" font-weight="600" fill="#7a4a10" font-family="'DM Mono',monospace">texture:</text>
+          <text x="410" y="117" text-anchor="middle" font-size="9" font-weight="600" fill="#7a4a10" font-family="'DM Mono',monospace">liquid-dom</text>
+          <!-- fail annotation -->
+          <text x="452" y="84" font-size="9" fill="#b84f2d" font-weight="700" font-family="'DM Mono',monospace">← OATMEAL</text>
+          <text x="452" y="96" font-size="9" fill="#b84f2d" font-family="'DM Mono',monospace">FAILS HERE</text>
+          <text x="452" y="108" font-size="9" fill="#b84f2d" font-family="'DM Mono',monospace">solid-dom</text>
+          <text x="452" y="120" font-size="9" fill="#b84f2d" font-family="'DM Mono',monospace">→ no change</text>
+          <!-- solids -->
+          <line x1="117" y1="118" x2="384" y2="157" stroke="#e07820" stroke-width="1.8" marker-end="url(#a3)"/>
+          <text x="250" y="143" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-solids</text>
+          <circle cx="420" cy="186" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="181" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">solids:</text>
+          <text x="420" y="195" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">yes</text>
+          <!-- base label only, truncated -->
+          <text x="142" y="174" font-size="9" fill="#bbb" font-style="italic" font-family="'DM Mono',monospace">(+ must-have-base: broth — not shown)</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 4: Miso Soup (+) → Drop-link ─── -->
+  <div style="border-radius:8px; overflow:hidden; border:1px solid var(--divider); box-shadow:0 2px 8px rgba(0,0,0,.06);">
+    <div style="background:#1d3320; color:white; padding:10px 18px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span style="background:#4a6741; color:white; font-family:'DM Mono',monospace; font-size:9px; padding:3px 10px; border-radius:10px; letter-spacing:.1em;">POSITIVE #3</span>
+      <span style="font-family:'Playfair Display',serif; font-size:16px; font-style:italic;">Miso Soup</span>
+      <span style="font-family:'DM Mono',monospace; font-size:10px; color:#8ecf9e; margin-left:auto;">Is soup? YES → Fits model? NO (solids: barely any) → GENERALIZE</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1.5fr;">
+      <div style="padding:16px 18px; border-right:1px solid var(--divider); background:var(--warm-white);">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--sage); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px;">⊕ Drop-link Heuristic</div>
+        <p style="font-size:13px; line-height:1.7; color:#3a2e22;">Miso soup is definitely a soup, but often contains almost no solid content. The model requires "solids: yes," but miso has no such link. Classic drop-link trigger: a link present in the current model is <strong>absent from a positive example</strong> — so we drop it. Solids become optional.</p>
+      </div>
+      <div style="padding:14px; background:#f5f2ec;">
+        <svg viewBox="0 0 510 210" style="width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="a4" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#e07820"/></marker>
+            <marker id="a4g" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#bbb"/></marker>
+          </defs>
+          <!-- SOUP node -->
+          <circle cx="75" cy="105" r="44" fill="white" stroke="#2563a8" stroke-width="3"/>
+          <text x="75" y="100" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1612" font-family="'Source Serif 4',serif">SOUP</text>
+          <text x="75" y="118" text-anchor="middle" font-size="9" fill="#777" font-family="'DM Mono',monospace">concept</text>
+          <!-- flavor -->
+          <line x1="117" y1="96" x2="384" y2="30" stroke="#e07820" stroke-width="1.8" marker-end="url(#a4)"/>
+          <text x="250" y="53" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-flavor</text>
+          <circle cx="420" cy="27" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="22" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">flavor:</text>
+          <text x="420" y="36" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">savory</text>
+          <!-- texture -->
+          <line x1="119" y1="105" x2="386" y2="97" stroke="#e07820" stroke-width="1.8" marker-end="url(#a4)"/>
+          <text x="252" y="93" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-texture</text>
+          <circle cx="420" cy="97" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="92" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">texture:</text>
+          <text x="420" y="106" text-anchor="middle" font-size="9" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">liquid-dom</text>
+          <!-- solids — DROPPED -->
+          <line x1="117" y1="114" x2="385" y2="157" stroke="#ccc" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#a4g)"/>
+          <text x="252" y="140" text-anchor="middle" font-size="9" fill="#bbb" font-style="italic" font-family="'DM Mono',monospace">must-have-solids</text>
+          <circle cx="420" cy="165" r="33" fill="#f0f0f0" stroke="#bbb" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="420" y="160" text-anchor="middle" font-size="10" fill="#bbb" font-family="'DM Mono',monospace">solids:</text>
+          <text x="420" y="174" text-anchor="middle" font-size="10" fill="#bbb" font-family="'DM Mono',monospace">yes</text>
+          <text x="8" y="175" font-size="9" fill="#e07820" font-weight="700" font-family="'DM Mono',monospace">drop-link</text>
+          <text x="8" y="187" font-size="9" fill="#888" font-family="'DM Mono',monospace">solids now optional</text>
+          <!-- base -->
+          <text x="140" y="200" font-size="9" fill="#bbb" font-style="italic" font-family="'DM Mono',monospace">(+ must-have-base: broth — unchanged)</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 5: Hot Tea (−) → Require-link + Forbid-link ─── -->
+  <div style="border-radius:8px; overflow:hidden; border:1px solid var(--divider); box-shadow:0 2px 8px rgba(0,0,0,.06);">
+    <div style="background:#3a1a14; color:white; padding:10px 18px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span style="background:#b84f2d; color:white; font-family:'DM Mono',monospace; font-size:9px; padding:3px 10px; border-radius:10px; letter-spacing:.1em;">NEGATIVE #2</span>
+      <span style="font-family:'Playfair Display',serif; font-size:16px; font-style:italic;">Hot Tea with Tea Leaves</span>
+      <span style="font-family:'DM Mono',monospace; font-size:10px; color:#f0956e; margin-left:auto;">Is soup? NO → Fits model? YES (near-miss!) → SPECIALIZE</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1.5fr;">
+      <div style="padding:16px 18px; border-right:1px solid var(--divider); background:var(--warm-white);">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--rust); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px;">⊖ Require-link + Forbid-link</div>
+        <p style="font-size:13px; line-height:1.7; color:#3a2e22;">Hot tea is a <strong>near-miss</strong> — it is liquid-dominant and savory-adjacent, so the current model would accept it as soup. But it is NOT soup. We must specialize. <strong>Require-link:</strong> soup has a broth/stock base; tea does not — require it. <strong>Forbid-link:</strong> tea is a beverage; explicitly forbid that role.</p>
+      </div>
+      <div style="padding:14px; background:#f5f2ec;">
+        <svg viewBox="0 0 510 224" style="width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="a5" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#e07820"/></marker>
+            <marker id="a5r" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#b84f2d"/></marker>
+          </defs>
+          <!-- SOUP node -->
+          <circle cx="75" cy="112" r="44" fill="white" stroke="#2563a8" stroke-width="3"/>
+          <text x="75" y="107" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1612" font-family="'Source Serif 4',serif">SOUP</text>
+          <text x="75" y="125" text-anchor="middle" font-size="9" fill="#777" font-family="'DM Mono',monospace">concept</text>
+          <!-- flavor -->
+          <line x1="117" y1="103" x2="384" y2="28" stroke="#e07820" stroke-width="1.8" marker-end="url(#a5)"/>
+          <text x="250" y="58" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-flavor</text>
+          <circle cx="420" cy="25" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="20" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">flavor:</text>
+          <text x="420" y="34" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">savory</text>
+          <!-- texture -->
+          <line x1="119" y1="112" x2="386" y2="86" stroke="#e07820" stroke-width="1.8" marker-end="url(#a5)"/>
+          <text x="252" y="93" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-texture</text>
+          <circle cx="420" cy="83" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="78" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">texture:</text>
+          <text x="420" y="92" text-anchor="middle" font-size="9" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">liquid-dom</text>
+          <!-- base: broth — REQUIRE-LINK (NEW, orange highlighted) -->
+          <line x1="117" y1="122" x2="384" y2="152" stroke="#e07820" stroke-width="2.5" marker-end="url(#a5)"/>
+          <text x="252" y="144" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-base ✦</text>
+          <circle cx="420" cy="152" r="33" fill="#dde8da" stroke="#4a6741" stroke-width="2.5"/>
+          <text x="420" y="147" text-anchor="middle" font-size="10" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">base:</text>
+          <text x="420" y="161" text-anchor="middle" font-size="9" font-weight="600" fill="#1e3a1a" font-family="'DM Mono',monospace">broth/stock ✦</text>
+          <!-- forbid: beverage — FORBID-LINK (NEW, red dashed) -->
+          <line x1="115" y1="131" x2="383" y2="205" stroke="#b84f2d" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#a5r)"/>
+          <text x="252" y="181" text-anchor="middle" font-size="9" fill="#b84f2d" font-style="italic" font-weight="600" font-family="'DM Mono',monospace">forbid-link ✦</text>
+          <circle cx="420" cy="208" r="33" fill="#f2e0d8" stroke="#b84f2d" stroke-width="2.5" stroke-dasharray="5,3"/>
+          <text x="420" y="203" text-anchor="middle" font-size="10" font-weight="600" fill="#8a2010" font-family="'DM Mono',monospace">¬ is-a:</text>
+          <text x="420" y="217" text-anchor="middle" font-size="9" font-weight="600" fill="#8a2010" font-family="'DM Mono',monospace">beverage ✦</text>
+          <!-- legend -->
+          <rect x="8" y="204" width="10" height="10" rx="2" fill="#dde8da" stroke="#4a6741" stroke-width="1.5"/>
+          <text x="22" y="213" font-size="8" fill="#4a6741" font-family="'DM Mono',monospace">✦ require-link (new)</text>
+          <rect x="150" y="204" width="10" height="10" rx="2" fill="#f2e0d8" stroke="#b84f2d" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <text x="164" y="213" font-size="8" fill="#b84f2d" font-family="'DM Mono',monospace">✦ forbid-link (new)</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STEP 6: Hot Chocolate (−) → Do Nothing ─── -->
+  <div style="border-radius:8px; overflow:hidden; border:1px solid var(--divider); box-shadow:0 2px 8px rgba(0,0,0,.06);">
+    <div style="background:#3a3020; color:white; padding:10px 18px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span style="background:#7a5c30; color:white; font-family:'DM Mono',monospace; font-size:9px; padding:3px 10px; border-radius:10px; letter-spacing:.1em;">NEGATIVE #3</span>
+      <span style="font-family:'Playfair Display',serif; font-size:16px; font-style:italic;">Hot Chocolate with Marshmallows</span>
+      <span style="font-family:'DM Mono',monospace; font-size:10px; color:#c8972a; margin-left:auto;">Is soup? NO → Fits model? NO (sweet + beverage) → DO NOTHING</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1.5fr;">
+      <div style="padding:16px 18px; border-right:1px solid var(--divider); background:var(--warm-white);">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--gold); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px;">○ Do Nothing</div>
+        <p style="font-size:13px; line-height:1.7; color:#3a2e22;">Hot chocolate fails two constraints: it is <strong>sweet</strong> (not savory) and it is a <strong>beverage</strong> (forbidden). The model correctly rejects it without any modification. This confirms both the savory link and the forbid-beverage link are doing real work in the concept definition.</p>
+      </div>
+      <div style="padding:14px; background:#f5f2ec;">
+        <svg viewBox="0 0 510 224" style="width:100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="a6" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#e07820"/></marker>
+            <marker id="a6r" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#b84f2d"/></marker>
+          </defs>
+          <!-- SOUP node -->
+          <circle cx="75" cy="112" r="44" fill="white" stroke="#2563a8" stroke-width="3"/>
+          <text x="75" y="107" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1612" font-family="'Source Serif 4',serif">SOUP</text>
+          <text x="75" y="125" text-anchor="middle" font-size="9" fill="#777" font-family="'DM Mono',monospace">concept</text>
+          <!-- flavor — HIGHLIGHTED as blocker #1 -->
+          <line x1="117" y1="103" x2="374" y2="28" stroke="#e07820" stroke-width="2.5" marker-end="url(#a6)"/>
+          <text x="248" y="55" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-flavor</text>
+          <circle cx="410" cy="25" r="33" fill="#f5ead4" stroke="#c8972a" stroke-width="3"/>
+          <text x="410" y="20" text-anchor="middle" font-size="10" font-weight="600" fill="#7a4a10" font-family="'DM Mono',monospace">flavor:</text>
+          <text x="410" y="34" text-anchor="middle" font-size="10" font-weight="600" fill="#7a4a10" font-family="'DM Mono',monospace">savory</text>
+          <text x="452" y="18" font-size="9" fill="#b84f2d" font-weight="700" font-family="'DM Mono',monospace">← choc. is</text>
+          <text x="452" y="30" font-size="9" fill="#b84f2d" font-family="'DM Mono',monospace">SWEET ✕</text>
+          <!-- texture -->
+          <line x1="119" y1="112" x2="386" y2="86" stroke="#e07820" stroke-width="1.8" marker-end="url(#a6)"/>
+          <text x="252" y="93" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-texture</text>
+          <circle cx="420" cy="83" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="78" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">texture:</text>
+          <text x="420" y="92" text-anchor="middle" font-size="9" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">liquid-dom</text>
+          <!-- base -->
+          <line x1="117" y1="122" x2="384" y2="152" stroke="#e07820" stroke-width="1.8" marker-end="url(#a6)"/>
+          <text x="252" y="144" text-anchor="middle" font-size="9" fill="#555" font-style="italic" font-family="'DM Mono',monospace">must-have-base</text>
+          <circle cx="420" cy="152" r="33" fill="white" stroke="#2563a8" stroke-width="2.5"/>
+          <text x="420" y="147" text-anchor="middle" font-size="10" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">base:</text>
+          <text x="420" y="161" text-anchor="middle" font-size="9" font-weight="600" fill="#1a1612" font-family="'DM Mono',monospace">broth/stock</text>
+          <!-- forbid beverage — HIGHLIGHTED as blocker #2 -->
+          <line x1="115" y1="131" x2="373" y2="205" stroke="#b84f2d" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#a6r)"/>
+          <text x="248" y="181" text-anchor="middle" font-size="9" fill="#b84f2d" font-style="italic" font-weight="600" font-family="'DM Mono',monospace">forbid-link</text>
+          <circle cx="410" cy="208" r="33" fill="#f2e0d8" stroke="#b84f2d" stroke-width="3" stroke-dasharray="5,3"/>
+          <text x="410" y="203" text-anchor="middle" font-size="10" font-weight="600" fill="#8a2010" font-family="'DM Mono',monospace">¬ is-a:</text>
+          <text x="410" y="217" text-anchor="middle" font-size="9" font-weight="600" fill="#8a2010" font-family="'DM Mono',monospace">beverage</text>
+          <text x="452" y="202" font-size="9" fill="#b84f2d" font-weight="700" font-family="'DM Mono',monospace">← choc. IS</text>
+          <text x="452" y="214" font-size="9" fill="#b84f2d" font-family="'DM Mono',monospace">BEVERAGE ✕</text>
+          <text x="8" y="215" font-size="9" fill="#7a5c30" font-weight="700" font-family="'DM Mono',monospace">Model unchanged — already correct.</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /step cards -->
+
+  <!-- Final Model Box -->
+  <div class="final-model-box" style="margin-top:36px;">
+    <div class="fm-label">Final Learned Model — Node-Link Representation of Soup</div>
+    <svg viewBox="0 0 680 120" style="width:100%; max-width:680px; margin:0 auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="afin" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#c8972a"/></marker>
+        <marker id="afin-r" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0 0,8 3.5,0 7" fill="#f08060"/></marker>
+      </defs>
+      <!-- SOUP node -->
+      <circle cx="70" cy="60" r="40" fill="rgba(255,255,255,.12)" stroke="#c8972a" stroke-width="3"/>
+      <text x="70" y="56" text-anchor="middle" font-size="14" font-weight="700" fill="white" font-family="'Source Serif 4',serif">SOUP</text>
+      <text x="70" y="72" text-anchor="middle" font-size="8" fill="#c8972a" font-family="'DM Mono',monospace">concept</text>
+      <!-- flavor -->
+      <line x1="110" y1="50" x2="195" y2="18" stroke="#c8972a" stroke-width="1.5" marker-end="url(#afin)"/>
+      <text x="153" y="27" text-anchor="middle" font-size="8" fill="#e8d8b8" font-style="italic" font-family="'DM Mono',monospace">must-have-flavor</text>
+      <circle cx="228" cy="14" r="28" fill="rgba(255,255,255,.1)" stroke="#c8972a" stroke-width="2"/>
+      <text x="228" y="10" text-anchor="middle" font-size="9" font-weight="600" fill="white" font-family="'DM Mono',monospace">flavor:</text>
+      <text x="228" y="22" text-anchor="middle" font-size="9" font-weight="600" fill="white" font-family="'DM Mono',monospace">savory</text>
+      <!-- texture -->
+      <line x1="110" y1="57" x2="195" y2="57" stroke="#c8972a" stroke-width="1.5" marker-end="url(#afin)"/>
+      <text x="153" y="51" text-anchor="middle" font-size="8" fill="#e8d8b8" font-style="italic" font-family="'DM Mono',monospace">must-have-texture</text>
+      <circle cx="228" cy="57" r="28" fill="rgba(255,255,255,.1)" stroke="#c8972a" stroke-width="2"/>
+      <text x="228" y="53" text-anchor="middle" font-size="9" font-weight="600" fill="white" font-family="'DM Mono',monospace">texture:</text>
+      <text x="228" y="65" text-anchor="middle" font-size="8" font-weight="600" fill="white" font-family="'DM Mono',monospace">liquid-dom</text>
+      <!-- base -->
+      <line x1="110" y1="66" x2="195" y2="98" stroke="#c8972a" stroke-width="1.5" marker-end="url(#afin)"/>
+      <text x="153" y="92" text-anchor="middle" font-size="8" fill="#e8d8b8" font-style="italic" font-family="'DM Mono',monospace">must-have-base</text>
+      <circle cx="228" cy="106" r="28" fill="rgba(255,255,255,.1)" stroke="#c8972a" stroke-width="2"/>
+      <text x="228" y="102" text-anchor="middle" font-size="9" font-weight="600" fill="white" font-family="'DM Mono',monospace">base:</text>
+      <text x="228" y="114" text-anchor="middle" font-size="8" font-weight="600" fill="white" font-family="'DM Mono',monospace">broth/stock</text>
+      <!-- gap text -->
+      <text x="280" y="62" text-anchor="middle" font-size="22" fill="rgba(255,255,255,.3)" font-family="'DM Mono',monospace">+</text>
+      <!-- forbid beverage -->
+      <line x1="310" y1="57" x2="388" y2="30" stroke="#f08060" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#afin-r)"/>
+      <text x="350" y="35" text-anchor="middle" font-size="8" fill="#f0a080" font-style="italic" font-family="'DM Mono',monospace">forbid-link</text>
+      <circle cx="420" cy="22" r="28" fill="rgba(200,50,30,.2)" stroke="#f08060" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="420" y="18" text-anchor="middle" font-size="9" font-weight="600" fill="#f09080" font-family="'DM Mono',monospace">¬ is-a:</text>
+      <text x="420" y="30" text-anchor="middle" font-size="9" fill="#f09080" font-family="'DM Mono',monospace">beverage</text>
+      <!-- optional solids note -->
+      <text x="350" y="75" text-anchor="middle" font-size="9" fill="#a09080" font-family="'DM Mono',monospace">solids: OPTIONAL (drop-link applied)</text>
+      <text x="350" y="90" text-anchor="middle" font-size="9" fill="#a09080" font-family="'DM Mono',monospace">temperature: UNCONSTRAINED (climb-tree applied)</text>
+      <!-- heuristics trail -->
+      <text x="350" y="110" text-anchor="middle" font-size="8" fill="#c8972a" font-family="'DM Mono',monospace">Initialize → Drop-link → Do Nothing → Drop-link → Require-link + Forbid-link → Do Nothing</text>
+    </svg>
+  </div>
+
+  <!-- Addendum about omitted dishes -->
+  <div class="icl-addendum">
+    <h4>🔍 Which Other Dishes Would Change the Model?</h4>
+    <p style="margin-bottom:18px;">
+      Every dish classified as soup is checked against the <strong>four active constraints</strong> of the final model: <em>flavor: savory · texture: liquid-dominant · base: broth/stock · ¬ beverage</em>. A dish that <strong>fits all four</strong> → Do Nothing. A dish that <strong>fails one</strong> while being a positive (soup) example forces generalization. The table below shows each case.
+    </p>
+
+    <!-- Analysis table -->
+    <div style="overflow-x:auto; border-radius:6px; border:1px solid #d4c4a0; margin-bottom:18px;">
+      <table style="width:100%; border-collapse:collapse; background:white; font-size:13px;">
+        <thead>
+          <tr style="background:#3a2a14; color:#f5ead4;">
+            <th style="padding:9px 12px; text-align:left; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; font-weight:500;">Dish (positive — labeled soup)</th>
+            <th style="padding:9px 10px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.08em; text-transform:uppercase; font-weight:500; text-align:center;">Savory?</th>
+            <th style="padding:9px 10px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.08em; text-transform:uppercase; font-weight:500; text-align:center;">Liquid-dom?</th>
+            <th style="padding:9px 10px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.08em; text-transform:uppercase; font-weight:500; text-align:center;">Broth/stock base?</th>
+            <th style="padding:9px 10px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.08em; text-transform:uppercase; font-weight:500; text-align:center;">¬ Beverage?</th>
+            <th style="padding:9px 12px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.08em; text-transform:uppercase; font-weight:500; text-align:center;">Model action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- DO NOTHING rows -->
+          <tr style="background:#f5f0e8;">
+            <td style="padding:8px 12px; font-weight:600;">Pho</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#7a6a5a; font-weight:600;">DO NOTHING</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px; font-weight:600;">Consommé</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#7a6a5a; font-weight:600;">DO NOTHING</td>
+          </tr>
+          <tr style="background:#f5f0e8;">
+            <td style="padding:8px 12px; font-weight:600;">Borscht</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#7a6a5a; font-weight:600;">DO NOTHING</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px; font-weight:600;">Chicken Broth</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#7a6a5a; font-weight:600;">DO NOTHING</td>
+          </tr>
+          <tr style="background:#f5f0e8;">
+            <td style="padding:8px 12px; font-weight:600;">French Onion Soup</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#7a6a5a; font-weight:600;">DO NOTHING</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px; font-weight:600;">Menudo</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#7a6a5a; font-weight:600;">DO NOTHING</td>
+          </tr>
+          <!-- MODEL-CHANGING rows -->
+          <tr style="background:#fff3ef; border-top:2px solid #e8c8b8;">
+            <td style="padding:8px 12px; font-weight:600;">Tomato Bisque</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#b84f2d; font-weight:700;">✗</span><br><span style="font-size:10px; color:#9e6e5e;">cream base</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#b84f2d; font-weight:700;">GENERALIZE<br><span style="font-size:9px; color:#9e6e5e;">drop-link: base</span></td>
+          </tr>
+          <tr style="background:#fff3ef;">
+            <td style="padding:8px 12px; font-weight:600;">Clam Chowder</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#b84f2d; font-weight:700;">✗</span><br><span style="font-size:10px; color:#9e6e5e;">cream/milk base</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#b84f2d; font-weight:700;">GENERALIZE<br><span style="font-size:9px; color:#9e6e5e;">drop-link: base</span></td>
+          </tr>
+          <tr style="background:#fff3ef;">
+            <td style="padding:8px 12px; font-weight:600;">Corn Chowder</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#b84f2d; font-weight:700;">✗</span><br><span style="font-size:10px; color:#9e6e5e;">cream/milk base</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#b84f2d; font-weight:700;">GENERALIZE<br><span style="font-size:9px; color:#9e6e5e;">drop-link: base</span></td>
+          </tr>
+          <tr style="background:#fff3ef;">
+            <td style="padding:8px 12px; font-weight:600;">Vichyssoise</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#b84f2d; font-weight:700;">✗</span><br><span style="font-size:10px; color:#9e6e5e;">cream/leek base</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#b84f2d; font-weight:700;">GENERALIZE<br><span style="font-size:9px; color:#9e6e5e;">drop-link: base</span></td>
+          </tr>
+          <tr style="background:#fff8ef; border-top:2px solid #e8d8a0;">
+            <td style="padding:8px 12px; font-weight:600;">Gumbo</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#c8972a; font-weight:700;">~</span><br><span style="font-size:10px; color:#9e8e5e;">thick roux</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#c8972a; font-weight:700;">BORDERLINE<br><span style="font-size:9px; color:#9e8e5e;">may force generalizing texture</span></td>
+          </tr>
+          <tr style="background:#fff8ef;">
+            <td style="padding:8px 12px; font-weight:600;">Stew</td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#c8972a; font-weight:700;">~</span><br><span style="font-size:10px; color:#9e8e5e;">solid-heavy</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center;"><span style="color:#4a6741; font-weight:700;">✓</span></td>
+            <td style="text-align:center; font-family:'DM Mono',monospace; font-size:10px; color:#c8972a; font-weight:700;">BORDERLINE<br><span style="font-size:9px; color:#9e8e5e;">challenges liquid-dom</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Two-column analysis: cream base vs texture -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:4px;">
+      <div style="background:#fff3ef; border:1px solid #e8b8a0; border-radius:6px; padding:14px 16px;">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:#b84f2d; margin-bottom:8px;">⚠ Base Constraint — Would Be Dropped</div>
+        <p style="font-size:13px; line-height:1.7; color:#4e2e1e;">
+          <strong>Tomato Bisque, Clam Chowder, Corn Chowder, and Vichyssoise</strong> are all unambiguously soups — yet none use a broth or stock as their primary base. They are cream- or dairy-based. Adding any one of them as the next positive example triggers <strong>drop-link</strong> on the <code>must-have-base: broth/stock</code> link, since that link is present in the model but absent in the new positive example. The base constraint disappears from the model entirely, leaving only: <em>savory · liquid-dominant · ¬ beverage</em>.
+        </p>
+      </div>
+      <div style="background:#fff8ef; border:1px solid #e8d090; border-radius:6px; padding:14px 16px;">
+        <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:#c8972a; margin-bottom:8px;">⚠ Liquid-Dom Constraint — Genuinely Ambiguous</div>
+        <p style="font-size:13px; line-height:1.7; color:#4e3e14;">
+          <strong>Gumbo and Stew</strong> are classified as soup in Part 1, yet both are notably thick and solid-heavy. If added as positive examples, they would challenge the <code>must-have-texture: liquid-dominant</code> link — potentially forcing a second drop-link that removes the texture constraint entirely. This would leave an extremely weak final model (<em>only: savory · ¬ beverage</em>) that could no longer exclude oatmeal, porridge, or chili. This reveals the real tension: the model learned liquid-dominance from a negative example (oatmeal), but it would be forced to unlearn it if gumbo or stew are accepted as soups.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════ PART 3 ══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Part Three</div>
+  <h2 class="section-title">Classification <span>Approach</span></h2>
+
+  <p class="prose">
+    Where incremental concept learning produces a narrative model, <strong>classification</strong> takes a more structured approach: select a set of discriminating parameters, assign values to known examples, then build a decision tree that can classify novel cases. The five parameters below were chosen for maximum discriminating power.
+  </p>
+
+  <!-- Parameters -->
+  <div class="param-grid">
+    <div class="param-card">
+      <div class="param-number">P1</div>
+      <div class="param-name">Primarily Liquid?</div>
+      <div class="param-desc">Liquid exceeds 50% of total volume by mass/perception. Excludes thick pastes, solids-in-sauce.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-number">P2</div>
+      <div class="param-name">Savory Flavor?</div>
+      <div class="param-desc">Predominantly savory (umami/salty), not sweet or neutral-as-a-dessert.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-number">P3</div>
+      <div class="param-name">Standalone Dish?</div>
+      <div class="param-desc">Served and consumed as a meal component or meal itself — not a beverage, sauce, or ingredient.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-number">P4</div>
+      <div class="param-name">Broth or Stock Base?</div>
+      <div class="param-desc">The liquid element is a broth, stock, water-based cook, or vegetable liquid — not milk, cream, or syrup alone.</div>
+    </div>
+    <div class="param-card">
+      <div class="param-number">P5</div>
+      <div class="param-name">Spooned from Bowl?</div>
+      <div class="param-desc">Consumed with a spoon from a bowl or deep vessel — not drunk directly, eaten with fork/hands, or spread.</div>
+    </div>
+  </div>
+
+  <!-- Classification Table -->
+  <div class="clf-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left; padding-left:20px;">Dish</th>
+          <th>P1<br><span style="font-weight:400;">Liquid?</span></th>
+          <th>P2<br><span style="font-weight:400;">Savory?</span></th>
+          <th>P3<br><span style="font-weight:400;">Standalone?</span></th>
+          <th>P4<br><span style="font-weight:400;">Broth-Based?</span></th>
+          <th>P5<br><span style="font-weight:400;">Spooned?</span></th>
+          <th>Label</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding-left:20px;">Chicken Noodle Soup</td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-yes">SOUP</span></td>
+        </tr>
+        <tr>
+          <td style="padding-left:20px;">Gazpacho</td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-yes">SOUP</span></td>
+        </tr>
+        <tr>
+          <td style="padding-left:20px;">Clam Chowder</td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-yes">SOUP</span></td>
+        </tr>
+        <tr>
+          <td style="padding-left:20px;">Oatmeal</td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-no">NOT SOUP</span></td>
+        </tr>
+        <tr>
+          <td style="padding-left:20px;">Hot Tea with Tea Leaves</td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-no">NOT SOUP</span></td>
+        </tr>
+        <tr>
+          <td style="padding-left:20px;">Milkshake</td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-y">Y</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-n">N</span></td>
+          <td><span class="cell-no">NOT SOUP</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Decision Tree (SVG) -->
+  <div class="tree-container">
+    <div class="tree-title">Classification Tree — Deciding "Is It Soup?"</div>
+
+    <svg viewBox="0 0 780 420" class="svg-tree" xmlns="http://www.w3.org/2000/svg" font-family="'DM Mono', monospace">
+      <!-- Background -->
+      <rect width="780" height="420" fill="#faf8f4" rx="4"/>
+
+      <!-- ROOT: P1 Primarily Liquid? -->
+      <rect x="265" y="14" width="250" height="48" rx="6" fill="#1a1612"/>
+      <text x="390" y="34" text-anchor="middle" fill="#c8972a" font-size="9" letter-spacing="1.5">PARAMETER 1</text>
+      <text x="390" y="51" text-anchor="middle" fill="#f5f0e8" font-size="13" font-style="italic" font-family="'Source Serif 4', serif">Primarily Liquid?</text>
+
+      <!-- Line from root -->
+      <line x1="390" y1="62" x2="390" y2="85" stroke="#d4c9bb" stroke-width="2"/>
+      <!-- Branch left (No) -->
+      <line x1="390" y1="85" x2="160" y2="85" stroke="#d4c9bb" stroke-width="2"/>
+      <!-- Branch right (Yes) -->
+      <line x1="390" y1="85" x2="620" y2="85" stroke="#d4c9bb" stroke-width="2"/>
+      <!-- Line down left -->
+      <line x1="160" y1="85" x2="160" y2="108" stroke="#d4c9bb" stroke-width="2"/>
+      <!-- Line down right -->
+      <line x1="620" y1="85" x2="620" y2="108" stroke="#d4c9bb" stroke-width="2"/>
+
+      <!-- Labels -->
+      <rect x="130" y="72" width="28" height="16" rx="8" fill="#f2e0d8"/>
+      <text x="144" y="83" text-anchor="middle" fill="#b84f2d" font-size="9" font-weight="600">NO</text>
+      <rect x="622" y="72" width="30" height="16" rx="8" fill="#dde8da"/>
+      <text x="637" y="83" text-anchor="middle" fill="#4a6741" font-size="9" font-weight="600">YES</text>
+
+      <!-- NOT SOUP leaf (left) -->
+      <rect x="95" y="108" width="130" height="36" rx="18" fill="#b84f2d"/>
+      <text x="160" y="127" text-anchor="middle" fill="white" font-size="11" letter-spacing=".5">✕  NOT SOUP</text>
+
+      <!-- P2: Savory? (right branch) -->
+      <rect x="495" y="108" width="250" height="48" rx="6" fill="#3d4f5c"/>
+      <text x="620" y="128" text-anchor="middle" fill="#c8d8e8" font-size="9" letter-spacing="1.5">PARAMETER 2</text>
+      <text x="620" y="145" text-anchor="middle" fill="white" font-size="13" font-style="italic" font-family="'Source Serif 4', serif">Savory (not sweet)?</text>
+
+      <!-- Lines from P2 -->
+      <line x1="620" y1="156" x2="620" y2="180" stroke="#d4c9bb" stroke-width="2"/>
+      <line x1="620" y1="180" x2="500" y2="180" stroke="#d4c9bb" stroke-width="2"/>
+      <line x1="620" y1="180" x2="740" y2="180" stroke="#d4c9bb" stroke-width="2"/>
+      <line x1="500" y1="180" x2="500" y2="200" stroke="#d4c9bb" stroke-width="2"/>
+      <line x1="740" y1="180" x2="740" y2="200" stroke="#d4c9bb" stroke-width="2"/>
+
+      <rect x="472" y="167" width="28" height="16" rx="8" fill="#f2e0d8"/>
+      <text x="486" y="178" text-anchor="middle" fill="#b84f2d" font-size="9" font-weight="600">NO</text>
+      <rect x="742" y="167" width="30" height="16" rx="8" fill="#dde8da"/>
+      <text x="757" y="178" text-anchor="middle" fill="#4a6741" font-size="9" font-weight="600">YES</text>
+
+      <!-- NOT SOUP leaf (no-savory) -->
+      <rect x="435" y="200" width="130" height="36" rx="18" fill="#b84f2d"/>
+      <text x="500" y="219" text-anchor="middle" fill="white" font-size="11" letter-spacing=".5">✕  NOT SOUP</text>
+
+      <!-- P3: Standalone Dish? -->
+      <rect x="615" y="200" width="250" height="48" rx="6" fill="#3d4f5c"/>
+      <text x="740" y="220" text-anchor="middle" fill="#c8d8e8" font-size="9" letter-spacing="1.5">PARAMETER 3</text>
+      <text x="740" y="237" text-anchor="middle" fill="white" font-size="13" font-style="italic" font-family="'Source Serif 4', serif">Standalone dish?</text>
+
+      <line x1="740" y1="248" x2="740" y2="272" stroke="#d4c9bb" stroke-width="2"/>
+      <line x1="740" y1="272" x2="655" y2="272" stroke="#d4c9bb" stroke-width="2"/>
+      <line x1="740" y1="272" x2="825" y2="272" stroke="#d4c9bb" stroke-width="2"/>
+      <line x1="655" y1="272" x2="655" y2="295" stroke="#d4c9bb" stroke-width="2"/>
+      <line x1="825" y1="272" x2="825" y2="295" stroke="#d4c9bb" stroke-width="2"/>
+
+      <rect x="628" y="260" width="28" height="16" rx="8" fill="#f2e0d8"/>
+      <text x="642" y="271" text-anchor="middle" fill="#b84f2d" font-size="9" font-weight="600">NO</text>
+      <rect x="828" y="260" width="30" height="16" rx="8" fill="#dde8da"/>
+      <text x="843" y="271" text-anchor="middle" fill="#4a6741" font-size="9" font-weight="600">YES</text>
+
+      <!-- NOT SOUP (not standalone) -->
+      <rect x="590" y="295" width="130" height="36" rx="18" fill="#b84f2d"/>
+      <text x="655" y="314" text-anchor="middle" fill="white" font-size="11" letter-spacing=".5">✕  NOT SOUP</text>
+
+      <!-- SOUP leaf -->
+      <rect x="760" y="295" width="130" height="36" rx="18" fill="#4a6741"/>
+      <text x="825" y="314" text-anchor="middle" fill="white" font-size="11" letter-spacing=".5">✓  SOUP</text>
+
+      <!-- Caption note -->
+      <text x="20" y="400" fill="#9e8e7e" font-size="10">P4 (Broth-based) and P5 (Spooned) serve as corroborating signals but are not strictly necessary for classification;</text>
+      <text x="20" y="414" fill="#9e8e7e" font-size="10">the three-branch tree above handles all cases in our training set and achieves clean separation.</text>
+    </svg>
+  </div>
+
+  <!-- Classification of 10 more dishes -->
+  <p class="prose" style="margin-top:8px;">
+    Applying the classification tree to the remaining dishes in our list:
+  </p>
+
+  <div class="clf-results">
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Borscht</div>
+        <div class="path">P1: Y → P2: Y → P3: Y</div>
+      </div>
+      <span class="verdict verdict-soup">SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Pho</div>
+        <div class="path">P1: Y → P2: Y → P3: Y</div>
+      </div>
+      <span class="verdict verdict-soup">SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Consommé</div>
+        <div class="path">P1: Y → P2: Y → P3: Y</div>
+      </div>
+      <span class="verdict verdict-soup">SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Vichyssoise</div>
+        <div class="path">P1: Y → P2: Y → P3: Y</div>
+      </div>
+      <span class="verdict verdict-soup">SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Stew</div>
+        <div class="path">P1: Y → P2: Y → P3: Y</div>
+      </div>
+      <span class="verdict verdict-soup">SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Mashed Potatoes</div>
+        <div class="path">P1: N → exit</div>
+      </div>
+      <span class="verdict verdict-not">NOT SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Cereal with Milk</div>
+        <div class="path">P1: Y → P2: N → exit</div>
+      </div>
+      <span class="verdict verdict-not">NOT SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Hot Chocolate</div>
+        <div class="path">P1: Y → P2: N → exit</div>
+      </div>
+      <span class="verdict verdict-not">NOT SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Coconut Milk</div>
+        <div class="path">P1: Y → P2: Y → P3: N → exit</div>
+      </div>
+      <span class="verdict verdict-not">NOT SOUP</span>
+    </div>
+    <div class="clf-result-item">
+      <div>
+        <div class="dish-label">Chili</div>
+        <div class="path">P1: N (thick) → exit</div>
+      </div>
+      <span class="verdict verdict-not">NOT SOUP</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════ PART 4 ══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Part Four</div>
+  <h2 class="section-title">Are Grits <span>Soup?</span></h2>
+
+  <div class="grits-banner">
+    <h3>Grits: Ground Corn, Cooked in Liquid, Served Warm</h3>
+    <p>A Southern staple — dried corn hominy simmered in water, broth, or milk until thickened to a porridge. Savory or sweet depending on preparation. Served in a bowl and eaten with a spoon.</p>
+  </div>
+
+  <div class="approach-cards">
+    <!-- ICL -->
+    <div class="approach-card">
+      <div class="ac-header icl">Incremental Concept Learning</div>
+      <div class="ac-body">
+        <div class="ac-verdict not">Not Soup.</div>
+        <p class="ac-reasoning">
+          The final ICL model requires a dish to be <strong>primarily liquid</strong>, <strong>savory</strong>, and a <strong>standalone dish</strong>.
+          Grits satisfies savory (when prepared traditionally) and standalone dish — but it fails the critical <em>liquid-dominant</em> constraint.
+          Like oatmeal, which was the negative example that locked in that constraint, grits are a grain-thickened porridge where the solid content dominates.
+          The liquid is absorbed into the corn and becomes the vehicle for the grain, not a surrounding medium.
+          The ICL model, which specialized on oatmeal to require liquid dominance, would classify grits identically.
+        </p>
+      </div>
+    </div>
+
+    <!-- Classifier -->
+    <div class="approach-card">
+      <div class="ac-header clf">Classification Tree</div>
+      <div class="ac-body">
+        <div class="ac-verdict not">Not Soup.</div>
+        <p class="ac-reasoning">
+          Walking down the classification tree:<br><br>
+          <strong>P1 — Primarily Liquid?</strong> <span style="color:var(--rust); font-weight:600;">No.</span><br>
+          Grits are thick. Once cooked, the solid corn content dominates; the dish would not pour freely. This fails the very first branch, immediately classifying grits as <em>not soup</em> without needing to evaluate P2 or P3. The tree reaches a leaf node at the first decision point — the same outcome as oatmeal and mashed potatoes.
+        </p>
+      </div>
+    </div>
+
+    <!-- CBR -->
+    <div class="approach-card">
+      <div class="ac-header cbr">Case-Based Reasoning</div>
+      <div class="ac-body">
+        <div class="ac-verdict not">Not Soup.</div>
+        <p class="ac-reasoning">
+          The most similar case in our library is <strong>Oatmeal</strong>. Both are:
+        </p>
+        <div class="cbr-similarity">
+          <div style="font-size:11px; font-family:'DM Mono',monospace; color:#9e8e7e; margin-bottom:4px;">SIMILARITY TO GRITS</div>
+          <div class="similarity-row">
+            <span class="case-name">Oatmeal</span>
+            <div class="sim-bar-bg"><div class="sim-bar oatmeal"></div></div>
+            <span class="sim-pct">~88%</span>
+          </div>
+          <div class="similarity-row">
+            <span class="case-name">Porridge</span>
+            <div class="sim-bar-bg"><div class="sim-bar gruel"></div></div>
+            <span class="sim-pct">~72%</span>
+          </div>
+          <div class="similarity-row">
+            <span class="case-name">Miso Soup</span>
+            <div class="sim-bar-bg"><div class="sim-bar miso"></div></div>
+            <span class="sim-pct">~35%</span>
+          </div>
+          <div class="similarity-row">
+            <span class="case-name">Clam Chowder</span>
+            <div class="sim-bar-bg"><div class="sim-bar chowder"></div></div>
+            <span class="sim-pct">~22%</span>
+          </div>
+        </div>
+        <p class="ac-reasoning" style="margin-top:10px;">Grits and oatmeal share: warm temperature, grain base, thickened-by-absorption texture, served in bowl, spoon-eaten, savory-or-sweet optionality. Oatmeal is classified as <em>not soup</em> — and by closest-case reasoning, grits inherits that outcome.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px; background: var(--ink); color: var(--cream); border-radius: 8px; padding: 24px 28px;">
+    <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:10px;">Unanimous Verdict</div>
+    <p style="font-family:'Playfair Display',serif; font-size:20px; font-style:italic; line-height:1.5;">
+      All three cognitive frameworks — incremental concept learning, classification, and case-based reasoning — agree: <span style="color:var(--gold);">grits are not soup.</span> The consistent failure point is liquid dominance. Grits are porridge: a grain-thickened hot dish that shares a bowl and a spoon with soup, but is structurally defined by absorption rather than immersion.
+    </p>
+  </div>
+
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  Concept Learning Exploration &nbsp;·&nbsp; <span>Soup</span> &nbsp;·&nbsp; Top-Down &amp; Bottom-Up Processing &nbsp;·&nbsp; ICL · Classification · CBR
+</div>
+
+</body>
+</html>
