@@ -3,518 +3,635 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arya Bhanushali | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <title>Arya Bhanushali | AI/ML for Healthcare</title>
+    <meta name="description" content="Arya Bhanushali — Georgia Tech CS + MS AI. I build intelligent, human-centered systems blending AI, neuroscience, and design.">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav>
+    <!-- HERO -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <p class="intro-greet">Hi, I'm</p>
+            <h1>Arya <span>Bhanushali</span></h1>
+            <h2>I build intelligent, human-centered systems.</h2>
+            <p class="hero-blurb">I'm a passionate developer blending AI, healthcare, and human-centered design to improve the world around me.</p>
+            <a href="#desk" class="hero-cta" id="exploreBtn" aria-label="Explore my desk">
+                <span>Explore my desk</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <span class="hint-scroll">or scroll ↓</span>
+        </div>
+    </section>
+
+    <!-- TOP NAV -->
+    <nav class="top-nav">
+        <a href="#hero" class="nav-brand">Arya Bhanushali</a>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#blog">Blog</a></li>
+            <li><a href="#desk" data-nav="desk">Desk</a></li>
+            <li><a href="#" data-object="about">About</a></li>
+            <li><a href="#" data-object="experience">Experience</a></li>
+            <li><a href="#" data-object="laptop">Projects</a></li>
+            <li><a href="#" data-object="notepad">Blog</a></li>
+            <li><a href="files/Arya_Bhanushali_Resume_2025.pdf" target="_blank" rel="noopener" class="resume-btn">Resume <i class="fas fa-arrow-up-right-from-square"></i></a></li>
         </ul>
     </nav>
 
-    <section id="home" class="section active">
-        <main>
-            <div class="left">
-                <p>Hi, I'm</p>
-                <h1>Arya <span>Bhanushali</span></h1>
-                <h2>I build intelligent, human-centered systems.</h2>
-                <p>
-                    I'm a passionate developer blending AI, neuroscience, and human-centered design to create tools that improve the world around me.
-                </p>
-<!--
-                <a href="https://drive.google.com/file/d/1oL-m0wpG4OWQcCqtIk_-cXXhr6IqArRm/view?usp=sharing" class="resume" target="_blank" rel="noopener noreferrer">Resume</a>
- -->
+    <!-- THE DESK — CSS-rendered with rich 3D shading -->
+    <section id="desk" class="desk-scene">
+        <!-- Ambient room layers -->
+        <div class="wall-layer" aria-hidden="true"></div>
+        <div class="wall-stripes" aria-hidden="true"></div>
+        <div class="wall-panel" aria-hidden="true"></div>
+        <div class="wall-shadow" aria-hidden="true"></div>
+        <div class="wood-grain" aria-hidden="true"></div>
+        <div class="lamp-warm" aria-hidden="true"></div>
 
-
-
-
-
-                <div style="margin-top: 20px;"></div>
-                <div class="social-icons">
-                    <a href="https://github.com/aryabhanushali" target="_blank">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/aryabhanushali" target="_blank">
-                        <i class="fab fa-linkedin"></i> LinkedIn
-                    </a>
-                    <a href="https://www.notion.so/2d41264a1762806483f3d203da215f59?v=2d41264a17628060ac1c000cc2c5058f&source=copy_link" target="_blank">
-                        <i class="fas fa-book"></i> My CS Notes
-                    </a>
-                </div>
-
-
-
+        <!-- Wall items -->
+        <button class="object obj-gt" data-object="education" aria-label="Open Education panel">
+            <span class="pin"></span>
+            <div class="pennant">
+                <span class="p-text">GT</span>
+                <span class="p-sub">GEORGIA TECH</span>
             </div>
-            <div class="right">
-                <canvas id="brainCanvas"></canvas>
+            <span class="object-label">Education</span>
+        </button>
+
+        <button class="object obj-lanyard" data-object="experience" aria-label="Open Experience panel">
+            <div class="lanyard-hook"></div>
+            <div class="lanyard-strap"></div>
+            <div class="lanyard-badge">
+                <div class="badge-photo"><i class="fas fa-user"></i></div>
+                <div class="badge-name">Arya Bhanushali</div>
+                <div class="badge-role">AI · HEALTHCARE</div>
+                <div class="badge-co">Medtronic · Elevance · GT</div>
             </div>
-        </main>
-    </section>
+            <span class="object-label">Experience</span>
+        </button>
 
-    <section id="about" class="section">
-        <h2>About Me</h2>
-        <p>
-            Hi! I'm a Computer Science major at Georgia Tech, specializing in artificial intelligence and human-computer interaction with a minor in cognitive computing. I'm passionate about applying AI to real-world challenges, especially in healthcare, where technology can make a real difference in people's lives. I'm also fascinated by brain-inspired AI and love exploring how neuroscience can help us build systems that are more adaptive, intuitive, and human-centered. My goal is to create technology that not only solves problems but also pushes the boundaries of what's possible.
-
-            Check out my <a href="#projects" class="inline-link">projects</a> to see what I'm building and my <a href="#blog" class="inline-link">blog</a> to see what I'm learning!
-        </p>
-
-        <div class="interest-grid">
-            <div class="interest-card reading-card">
-                <h3>What i've been reading:</h3>
-                <p>I'm always reading something new, whether it's a book, article, or research paper. I love exploring different genres and topics, from science fiction to psychology to neuroscience. Here are some of my recent reads:</p>
-                <div class="book-carousel">
-                    <div class="book-slide">
-                        <img src="https://m.media-amazon.com/images/I/81NNbR1LqXL._AC_UY436_FMwebp_QL65_.jpg" alt="Dark Matter">
-                        <p><strong>Dark Matter</strong><br>by Blake Crouch</p>
+        <!-- Standing monitor -->
+        <button class="object obj-monitor" data-object="laptop" aria-label="Open Projects panel">
+            <div class="m-frame">
+                <div class="m-screen">
+                    <div class="terminal">
+                        <span class="t-line"><span class="prompt">arya@desk</span><span class="cmd"> $ python train_agent.py</span></span>
+                        <span class="t-line dim">→ loading patient_data.csv ...</span>
+                        <span class="t-line dim">→ epoch 12/50  loss=0.082<span class="cursor">▍</span></span>
                     </div>
-                    <div class="book-slide">
-                        <img src="https://m.media-amazon.com/images/I/61zLwoFpjiL._AC_UY436_FMwebp_QL65_.jpg" alt="21 Lessons">
-                        <p><strong>21 Lessons for the 21st Century</strong><br>by Yuval Noah Harari</p>
-                    </div>
-                    <div class="book-slide">
-                        <img src="https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UF1000,1000_QL80_.jpg" alt="The Alchemist">
-                        <p><strong>The Alchemist</strong><br>by Paulo Coelho</p>
-                    </div>
-                    <div class="book-slide">
-                        <img src="https://m.media-amazon.com/images/I/716E6dQ4BXL._SY522_.jpg" alt="Sapiens">
-                        <p><strong>Sapiens</strong><br>by Yuval Noah Harari</p>
-                    </div>
-                    <div class="book-slide">
-                        <img src="https://m.media-amazon.com/images/I/71WqWisSLdL._AC_UY436_FMwebp_QL65_.jpg" alt="How to Create a Mind">
-                        <p><strong>How to Create a Mind</strong><br>by Ray Kurzweil</p>
-                    </div>
-                    <div class="book-slide">
-                        <img src="https://m.media-amazon.com/images/I/81JCgvcu1QL._AC_UY436_FMwebp_QL65_.jpg" alt="The Song of the Cell">
-                        <p><strong>The Song of the Cell</strong><br>by Siddhartha Mukherjee</p>
-                    </div>
+                    <span class="m-glare"></span>
                 </div>
             </div>
+            <div class="m-neck"></div>
+            <div class="m-base"></div>
+            <span class="object-label">Projects</span>
+        </button>
 
-            <div class="interest-card">
-                <h3>What i've been looking at:</h3>
-                <p>I've always loved going outside at night and looking at the stars and planets. My most-used app is probably SkyView, and I'm always reading or watching things about the universe, galaxies, and space. Here's NASA's daily cosmic update I check all the time:</p>
-                <p id="apod-text">Loading cosmic content...</p>
-                <img id="apod-image" src="" alt="Astronomy Picture of the Day" style="max-width:100%; border-radius:12px; display:none;">
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="section with-network">
-        <canvas id="neuralCanvas"></canvas>
-        <div class="content">
-
-            <div class="current-work">
-                <h2>What I'm Building Now:</h2>
-                <p>
-                    <span id="typewriter-text"></span>
-                </p>
-                <button class="more-button" onclick="toggleMore()">See More ↓</button>
-                <div id="more-text" style="display:none;">
-                    <div class="in-progress-container">
-                        <div class="in-progress-card center-text">
-                            <h3>Face-Selective Neuron Experiment</h3>
-                            <p>
-                                This project explores how face-selective neurons work in a brain-inspired deep neural network (TopoNets). This was the first experiment I began with Murty Lab to explore the neural basis of face recognition.
-                                Using the <a href="https://github.com/aryabhanushali/faceSelectiveNeuronExperiment" target="_blank">experiment</a> notebook <code>(faceSelectiveNeuronsExperiment.ipynb)</code>,
-                                I identify which neurons respond most strongly to face images, measure how selective they are compared to other image types, and test if they are necessary for accurate face recognition.
-                                To simulate prosopagnosia (face blindness), I performed lesion experiments where face-selective neurons were "zeroed out" to see how much the network's accuracy on face tasks drops.
-                                I also compared neuron activations on face, scene, and object datasets, ran PCA to study how much variance the neurons explain, and used Torch-Dreams to visualize what kind of image patterns maximally activate them.
-                                <br><br>
-                                <strong>Technical stack:</strong> Python, PyTorch, TopoNets, Hugging Face Datasets, torchvision, einops, scikit-learn (PCA), matplotlib, seaborn, Torch-Dreams.
-                            </p>
-                            <span class="status-tag">In Progress</span>
-                        </div>
-
-
-
-
-                    </div>
-                </div>
-            </div>
-
-            <h2>Projects</h2>
-
-            <div class="card-container">
-
-
-                <div class="card"
-     data-description="This project builds an end-to-end machine learning pipeline to predict ICU patient mortality using high-resolution time-series data from the HiRID dataset. Beyond prediction, the system incorporates uncertainty estimation, alarm policy simulation, and fairness analysis to better reflect how models are used in real clinical settings. I processed large-scale patient data, engineered clinically meaningful features, trained a LightGBM ensemble with logistic regression blending, and evaluated tradeoffs between detection accuracy and alarm fatigue. The project emphasizes not just performance, but reliability, interpretability, and real-world deployment considerations.">
-
-    <h3>ICU Mortality Prediction & Alarm System (STAR AI)</h3>
-
-    <p class="tagline">
-        Predicting ICU patient mortality with uncertainty modeling, alarm simulation, and fairness analysis.
-    </p>
-
-    <p class="tech-stack">
-        <strong>Tech stack:</strong> Python, LightGBM, scikit-learn, Pandas, NumPy, time-series processing, model ensembling, healthcare ML
-    </p>
-
-    <p style="text-align: center; margin-top: 20px;">
-        View the project on
-        <a href="https://github.com/aryabhanushali/STARAI-ICU-Alarm"
-           target="_blank"
-           style="color: #2f855a; font-weight: 600;">
-            GitHub
-        </a>!
-    </p>
-</div>
-
-                <div class="card"
-     data-description="This project builds a machine learning pipeline to predict 10-year heart disease risk using the Framingham dataset. I explored clinical risk factors such as age, cholesterol, blood pressure, diabetes, smoking status, and prior stroke, then trained and evaluated multiple models including logistic regression, decision trees, and gradient-boosted methods. The project emphasizes interpretability, threshold tuning, and performance tradeoffs in medical risk prediction, highlighting how ML can support early screening and preventive care decisions.">
-
-    <h3>Heart Disease Risk Prediction — Framingham Study</h3>
-    <p class="tagline">Predicting 10-year cardiovascular disease risk using clinical data and machine learning.</p>
-    <p class="tech-stack">
-        <strong>Tech stack:</strong> Python, scikit-learn, Pandas, NumPy, Logistic Regression, Tree-based Models, XGBoost, Model Evaluation
-    </p>
-
-    <p style="text-align: center; margin-top: 20px;">
-        View the project on
-        <a href="https://github.com/aryabhanushali/Heart-Disease-Risk-Prediction-Framingham-"
-           target="_blank"
-           style="color: #2f855a; font-weight: 600;">
-            GitHub
-        </a>!
-    </p>
-</div>
-
-
-
-
-                <div class="card"
-     data-description="This project visually compares how CNNs (like ResNet) and Transformers (like ViT) process images across different layers. By extracting hidden activations and applying PCA and RSA, it reveals how features evolve from low-level edges to high-level concepts. This experiment highlights differences in local vs. global representation.">
-
-    <h3>CNN vs Transformer — Visualizing Deep Representations</h3>
-    <p class="tagline">A comparative study of internal representations using PCA and RSA across neural network layers.</p>
-    <p class="tech-stack"><strong>Tech stack:</strong> PyTorch, Transformers, Scikit-learn, Matplotlib</p>
-    <p style="text-align: center; margin-top: 20px;">
-        View the code on
-        <a href="https://github.com/aryabhanushali/CNNvsTransformer" target="_blank" style="color: #2f855a; font-weight: 600;">
-            GitHub
-        </a>!
-    </p>
-</div>
-
-
-
-                <div class="card"
-     data-description="This project creates an interactive brain-to-AI mapping interface that visually connects regions of the human brain to corresponding AI models. Users can explore areas like the visual cortex, motor area, and prefrontal cortex, and interact with related AI functions such as image classification, speech recognition, reinforcement learning, planning, and emotion analysis. Designed for education and experimentation, this tool highlights how different AI systems draw inspiration from neuroscience.">
-
-    <h3>Brain-AI Mapper — Exploring AI Through the Brain</h3>
-    <p class="tagline">An interactive web app that connects brain functions to AI models like CNNs, LLMs, and RL agents.</p>
-    <p class="tech-stack"><strong>Tech stack:</strong> HTML, JavaScript, CCS</p>
-    <p style="text-align: center; margin-top: 20px;">
-        Try it live at
-        <a href="https://aryabhanushali.github.io/brainAIMapper/index.html" target="_blank" style="color: #2f855a; font-weight: 600;">
-            brainAIMapper
-        </a>!
-    </p>
-</div>
-
-
-
-                <div class="card"
-     data-description="This project implements a Transformer-based text classification model from scratch in PyTorch. It features custom multi-head self-attention, positional embeddings, feedforward networks, and residual connections, all organized into reusable Transformer blocks. The model processes tokenized text sequences and predicts output classes, mimicking architectures like BERT and GPT at a conceptual level. Designed for learning and experimentation, this implementation avoids high-level Transformer APIs to emphasize core logic and understanding.">
-
-    <h3>Transformer — Text Classification from Scratch</h3>
-    <p class="tagline">Building a Transformer model in PyTorch with multi-head attention and positional encoding.</p>
-    <p class="tech-stack"><strong>Tech stack:</strong> PyTorch, Python, multi-head attention, positional embeddings, feedforward networks, deep learning</p>
-    <p style="text-align: center; margin-top: 20px;">
-        Check out the code on
-        <a href="https://github.com/aryabhanushali/Transformers" target="_blank" style="color: #2f855a; font-weight: 600;">
-            GitHub
-        </a>!
-    </p>
-</div>
-
-
-
-
-                <div class="card"
-                data-description="This project implements a particle filter in Python to help a robot localize itself in a noisy environment. The system generates many small hypotheses (particles) about the robot's position, updates them based on movement and sensor measurements, and adds realistic noise to simulate uncertainty. Core scripts like particle_filter.py manage the creation, motion updates, and measurement updates of the particles, while utils.py provides essential helper functions such as adding Gaussian noise and rotating points. Together, these modules allow the robot to improve its estimate of its location over time, similar to how a person navigates using a map and surroundings. The project uses Python with NumPy and emphasizes probabilistic robotics and state estimation."
-                data-video="">
-
-                <h3>Particle Filter — Robot Localization</h3>
-                <p class="tagline">Simulating probabilistic robot localization in Python with particle filters.</p>
-                <p class="tech-stack"><strong>Tech stack:</strong> Python, NumPy</p>
-                <p style="text-align: center; margin-top: 20px;">
-                    Check out the code on
-                    <a href="https://github.com/aryabhanushali/particleFilter" target="_blank" style="color: #2f855a; font-weight: 600;">
-                        GitHub
-                    </a>!
-                </p>
-            </div>
-
-                <div class="card"
-                    data-description="I created this personal portfolio website from scratch to showcase my projects, technical skills, and growth as a developer. My goal was to have a dedicated space online to highlight my work, reflect my style, and practice frontend development without relying on templates. The site features smooth navigation, section transitions, a particle-based neural network animation, interactive project cards with expand/collapse logic, and a fully responsive layout. I also used GitHub for version control and deployment, hosting the site on GitHub Pages to make it publicly accessible. It's built entirely with HTML, CSS, and vanilla JavaScript, demonstrating my ability to design and implement user-friendly, polished web interfaces."
-                    data-video="">
-                    <h3>This Personal Portfolio Website!</h3>
-                    <p class="tagline">Showcasing frontend skills with custom HTML, CSS, and JavaScript.</p>
-                    <p class="tech-stack"><strong>Tech stack:</strong> HTML, CSS, JavaScript (vanilla), GitHub Pages, responsive design, animations, interactive UI</p>
-                </div>
-                <div class="card"
-                data-description="This project, MicroTorch, showcases a neural network framework built entirely from scratch in Python using NumPy. I manually implemented core deep learning components, including tensors, autograd, linear layers, activation functions, loss functions, and a basic training loop. The project solves the classic XOR problem using both classification and regression approaches, demonstrating the fundamentals of forward and backward passes, gradient updates, and model evaluation without relying on external machine learning libraries. This project highlights my understanding of the inner workings of neural networks and my ability to translate theoretical concepts into working code."
-                data-video="">
-
-               <h3>MicroTorch — Neural Network from Scratch</h3>
-               <p class="tagline">Building a neural network framework and solving the XOR problem with custom Python code.</p>
-               <p class="tech-stack"><strong>Tech stack:</strong> Python, NumPy, custom neural network layers, loss functions</p>
-
-               <!-- GitHub link (this will only show in the collapsed card, not the expanded one unless you handle it in JS) -->
-               <p style="text-align: center; margin-top: 20px;">
-                   Check out the code on
-                   <a href="https://github.com/aryabhanushali/NeuralNetworks/blob/main/microTorch.ipynb" target="_blank" style="color: #2f855a; font-weight: 600;">
-                       GitHub
-                   </a>!
-               </p>
-           </div>
-
-
-           <div class="card"
-           data-description="This project implements a Multilayer Perceptron (MLP) using PyTorch to classify handwritten digits from the MNIST dataset. The workflow includes preprocessing the images, defining the MLP architecture with two hidden layers and ReLU activation, and training the model using the Adam optimizer and CrossEntropyLoss over seven epochs. The final model achieves over 97% accuracy on the test set, demonstrating the fundamentals of deep learning for image classification, including data loading, model training, evaluation, and optimization. This project highlights my ability to work with Python and PyTorch, apply machine learning techniques, and interpret model performance."
-           data-video="">
-
-           <h3>Multilayer Perceptron (MLP) — MNIST Classification</h3>
-           <p class="tagline">Building and training a neural network in PyTorch for image classification.</p>
-           <p class="tech-stack"><strong>Tech stack:</strong> Python, PyTorch, deep learning, MNIST, data preprocessing, model evaluation, accuracy calculation</p>
-           <p style="text-align: center; margin-top: 20px;">
-               Check out the code on
-               <a href="https://github.com/aryabhanushali/MLP" target="_blank" style="color: #2f855a; font-weight: 600;">
-                   GitHub
-               </a>!
-           </p>
-       </div>
-
-
-                <div class="card"
-                    data-description="As part of a collaborative team project, we built a custom Spotify Wrapped experience that pulls data from the Spotify API and uses an LLM chatbot for interactive music insights. We followed an agile workflow, using Git and GitHub for version control, and split responsibilities across backend, frontend, and integration tasks. The app lets users log in, analyze their listening data, and receive engaging summaries powered by a language model chatbot. This project strengthened my teamwork, API integration, and full-stack development skills."
-                    data-video="https://www.youtube.com/embed/3DSVtFY5xgc">
-                    <h3>Spotify Wrapped 2.0</h3>
-                    <p class="tagline">Personalized music insights with Spotify API and LLM chatbot.</p>
-                    <p class="tech-stack"><strong>Tech stack:</strong> Python, Django, Spotify API, LLM (chatbot), HTML, CSS, JavaScript, SQLite, Git, GitHub, agile development</p>
-                </div>
-
-                <div class="card"
-                data-description="One of my earliest hands-on projects, this system was built during the COVID-19 pandemic to explore how programming could address real-world healthcare challenges. Designed to automate patient intake, track appointments, and screen for COVID-19 symptoms, it allowed patients to check in or register through an interactive GUI and flagged high-risk cases with a testing recommendation. This was my first experience applying technical skills to create a meaningful, real-life tool, and it sparked my early interest in healthcare-focused technology."
-                data-video="https://www.youtube.com/embed/FGbsXOLMzcI">
-
-                <h3>Patient Intake Tracker</h3>
-                <p class="tagline">Improving hospital intake flow with Python and GUI design.</p>
-                <p class="tech-stack"><strong>Tech stack:</strong> Python, Tkinter, file I/O, dictionaries, time module, input validation</p>
-                <p style="text-align: center; margin-top: 20px;">
-                    Check out the code on
-                    <a href="https://github.com/aryabhanushali/patientRecord" target="_blank" style="color: #2f855a; font-weight: 600;">
-                        GitHub
-                    </a>!
-                </p>
-            </div>
-
-
-            <div class="card"
-            data-description="This Java program simulates a comprehensive electronic medical records system, focusing on pathology and medical history. Using object-oriented design, it includes an abstract healthRecord class and concrete subclasses for pathology and medical history. It handles patient attributes, calculates age and BMI, manages billing, and determines deceased status based on medical indicators. This project showcases inheritance, method overriding, and real-world healthcare modeling with Java classes and date manipulation."
-            data-video="">
-
-            <h3>Medical Records System</h3>
-            <p class="tagline">Modeling real-world patient records with Java and OOP.</p>
-            <p class="tech-stack"><strong>Tech stack:</strong> Java, OOP, inheritance, abstract classes, method overriding, Date API</p>
-            <p style="text-align: center; margin-top: 20px;">
-                Check out the code on
-                <a href="https://github.com/aryabhanushali/medicalAbstract" target="_blank" style="color: #2f855a; font-weight: 600;">
-                    GitHub
-                </a>!
-            </p>
+        <!-- Decorative keyboard -->
+        <div class="keyboard" aria-hidden="true">
+            <div class="kb-keys"></div>
+            <div class="kb-space"></div>
         </div>
 
-        <div class="card"
-data-description="This project, developed at the Governor's Honors Program, involved building a biomedical device using Arduino, motors, and a controller to simulate blood flow in the lower leg. The device is designed to help prevent deep vein thrombosis (DVT) in individuals who are immobile for extended periods, such as during long flights. It mimics muscle contractions to stimulate circulation, applying principles of biomedical engineering, embedded systems, and human physiology."
-data-video="">
-
-    <h3>Blood Flow Simulation Device</h3>
-    <p class="tagline">Preventing blood clots in immobile patients with Arduino-powered stimulation.</p>
-    <p class="tech-stack"><strong>Tech stack:</strong> Arduino, embedded systems, motor control, circuits</p>
-
-    </p>
-</div>
 
 
-
-
-
-                <div class="card"
-                    data-description="This was one of my earliest C programming projects, where I built a simple hangman game using structures and file I/O. The game asks for the player's name, tracks the round number and score, and lets the player guess the letters of the hidden word. It updates the display after each guess and saves the final game stats to a text file. This project taught me core C concepts like arrays, loops, conditionals, structures, and working with external files, and sparked my interest in using code to create interactive, game-like experiences."
-                    data-video="">
-                    <h3>Hangman Game (C)</h3>
-                    <p class="tagline">A console-based word guessing game with structures and file I/O.</p>
-                    <p class="tech-stack"><strong>Tech stack:</strong> C, structures, arrays, loops, conditionals, file I/O</p>
-                </div>
-
-                <div class="card"
-                    data-description="The Mind and Its Program is a book I wrote during the COVID-19 lockdown, when I became fascinated with understanding people and their behaviors. I was drawn to the idea that we, like programs, take in inputs — the stimuli and experiences around us — which pass through our internal 'code' and shape how we respond. The book explores the parallels between the human mind and computer systems, touching on ideas like optimization, structure, and adaptability. It's meant to be a thoughtful, approachable reflection on how we learn, grow, and interact with the world around us.">
-                    <h3>The Mind and Its Program: Author</h3>
-                    <p class="tagline">A reflection on how the mind works like a program.</p>
-                    <button style="margin-top:10px; padding:8px 16px; background-color:#38a169; color:white; border:none; border-radius:6px; cursor:pointer; transition:background 0.3s;"
-                        onclick="window.open('https://www.amazon.com/Mind-Its-Program-Optimize-Software/dp/B09BGKJ24B', '_blank')">
-                        See on Amazon →
-                    </button>
-                </div>
-
+        <!-- About cluster: coffee mug -->
+        <button class="object obj-mug" data-object="about" aria-label="Open About Me panel">
+            <span class="m-steam s1">∿</span>
+            <span class="m-steam s2">∿</span>
+            <span class="m-steam s3">∿</span>
+            <div class="m-cup">
+                <div class="m-coffee"></div>
+                <span class="m-text">arya</span>
             </div>
-        </section>
+            <div class="m-handle"></div>
+            <span class="object-label">About Me</span>
+        </button>
 
+        <!-- Closed publication book -->
+        <button class="object obj-book" data-object="book" aria-label="Open Publications panel">
+            <div class="closed-book">
+                <span class="cb-title">THE MIND</span>
+                <span class="cb-and">&amp; ITS</span>
+                <span class="cb-title">PROGRAM</span>
+                <span class="cb-author">arya bhanushali</span>
+            </div>
+            <span class="object-label">Publications</span>
+        </button>
 
+        <!-- Open notepad -->
+        <button class="object obj-notepad" data-object="notepad" aria-label="Open Blog panel">
+            <div class="notepad">
+                <div class="np-page left">
+                    <span class="np-write">Today I read<br>about agents<br>+ AI...</span>
+                </div>
+                <div class="np-page right">
+                    <div class="np-lines"></div>
+                </div>
+                <div class="np-binding"></div>
+            </div>
+            <span class="object-label">Blog</span>
+        </button>
 
+        <!-- Floating cluster label -->
+        <div class="cluster-label" aria-hidden="true">
+            <i class="fas fa-mug-saucer"></i> About Me
+        </div>
 
+        <p class="desk-hint"><i class="fas fa-hand-pointer"></i> click any object</p>
+    </section>
 
+    <!-- SIDE PANEL -->
+    <div id="panelBackdrop" class="panel-backdrop"></div>
 
-            <section id="blog" class="section">
-                <h2>Blog</h2>
-                <div class="blog-list">
+    <aside id="panel" class="side-panel" aria-hidden="true" role="dialog">
+        <div class="panel-topbar">
+            <button class="back-to-desk" id="panelClose" aria-label="Back to desk">
+                <i class="fas fa-arrow-left"></i> Back to desk
+            </button>
+            <a href="files/Arya_Bhanushali_Resume_2025.pdf" target="_blank" rel="noopener" class="resume-btn">Resume <i class="fas fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="panel-content">
 
-                    <div class="blog-item">
-                        <h3 class="blog-title">Knowledge-Based AI and the Soup Test</h3>
-                        <p class="blog-snippet">
-                            Why structured knowledge still matters for reasoning, using an interactive “What is soup?” concept test as a playful example of explainable categorization.
-                        </p>
-                        <div class="blog-meta">
-                            <span>March 15, 2026</span> • <span>Arya Bhanushali</span> • <span>Knowledge-Based AI, Cognitive Systems</span>
+            <!-- EDUCATION (GT banner) -->
+            <section class="panel-section" data-section="education">
+                <div class="panel-headline">
+                    <p class="panel-eyebrow"><i class="fas fa-graduation-cap"></i> Pinned: the GT banner</p>
+                    <h2>Education</h2>
+                    <p class="panel-lede">Where I'm being trained to build the future of healthcare AI.</p>
+                </div>
+
+                <div class="current-pill full-row">
+                    <h3>Georgia Institute of Technology</h3>
+                    <p><strong>BS Computer Science</strong> · Specializations in AI &amp; Human-Computer Interaction</p>
+                    <p><strong>MS Artificial Intelligence</strong> · In Progress</p>
+                    <p class="meta">Focused on AI engineering, healthcare technology, and intelligent human-centered systems.</p>
+                </div>
+
+                <div class="split-grid">
+                    <div class="col">
+                        <h3 class="panel-h3">Relevant Coursework</h3>
+                        <div class="chip-row">
+                            <span class="chip">AI / ML</span>
+                            <span class="chip">Knowledge-Based AI</span>
+                            <span class="chip">Cognitive Science</span>
+                            <span class="chip">System Design</span>
+                            <span class="chip">Computer Vision</span>
+                            <span class="chip">Deep Learning</span>
                         </div>
-                        <a href="posts/post13.html" class="read-more">Read More →</a>
+
+                        <h3 class="panel-h3">Affiliations</h3>
+                        <div class="proj-card">
+                            <p><strong>Alpha Kappa Psi</strong> — professional business fraternity</p>
+                            <p><strong>Bits of Good</strong> — Nonprofit Director (tech-for-good)</p>
+                            <p><strong>AI Research</strong> — Researcher in two labs focused on brain-inspired AI and deep learning applications in healthcare</p>
+                            <p><strong>Society of Women Engineers  </strong></p>
+
+                        </div>
                     </div>
 
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Rewarding the Rare: Why Diversity in AI Reasoning Actually Matters</h3>
-                        <p class="blog-snippet">
-                            A simple explanation of a new reinforcement learning idea that rewards rare reasoning strategies, why it prevents AI from collapsing into one way of thinking, and why this matters for agentic and healthcare AI.
-                        </p>
-                        <div class="blog-meta">
-                            <span>January 2026</span> • <span>Arya Bhanushali</span> • <span>AI Reasoning, Reinforcement Learning, Agentic AI</span>
+                    <div class="col">
+                        <h3 class="panel-h3">Honors</h3>
+                        <div class="proj-card">
+                            <p><strong>Dean's List</strong> · academic excellence</p>
+                            <p><strong>Zell Miller Scholar</strong> · Georgia HOPE merit scholarship</p>
+                            <p><strong>NCWIT Award for Aspirations in Computing</strong></p>
                         </div>
-                        <a href="posts/post12.html" class="read-more">Read More →</a>
                     </div>
-
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Mapping the Mind to Models: Why I Built the Brain-AI Mapper</h3>
-                        <p class="blog-snippet">How neuroscience inspires AI, why I built this interactive tool, and why the future of intelligent systems should be brain-aware and ethically grounded.</p>
-                        <div class="blog-meta">
-                            <span>July 7, 2025</span> • <span>Arya Bhanushali</span> • <span>NeuroAI, Cognitive Science, AI Ethics</span>
-                        </div>
-                        <a href="posts/post11.html" class="read-more">Read More →</a>
-                    </div>
-
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Invisible AI: When the Best Technology Disappears</h3>
-                        <p class="blog-snippet">Reflections from my internship, current trends, and why the most powerful AI may be the kind you don’t even notice.</p>
-                        <div class="blog-meta">
-                            <span>June 24, 2025</span> • <span>Arya Bhanushali</span> • <span>Invisible AI, UX, AI Ethics</span>
-                        </div>
-                        <a href="posts/post10.html" class="read-more">Read More →</a>
-                    </div>
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Agentic AI and LangChain: Smarter AI Workflows</h3>
-                        <p class="blog-snippet">What I learned about agentic systems, LangChain, and the shift beyond prompt-based AI.</p>
-                        <div class="blog-meta">
-                            <span>June 7, 2025</span> • <span>Arya Bhanushali</span> • <span>Agentic AI, LangChain, LLMs</span>
-                        </div>
-                        <a href="posts/post9.html" class="read-more">Read More →</a>
-                    </div>
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">How Transformers Work: From Self-Attention to Sequence Modeling</h3>
-                        <p class="blog-snippet">An intuitive breakdown of the transformer architecture: what self-attention does, how sequence modeling works, and why transformers outperform RNNs in modern NLP.</p>
-                        <div class="blog-meta">
-                            <span>May 30, 2025</span> • <span>Arya Bhanushali</span> • <span>Deep Learning, Transformers, NLP</span>
-                        </div>
-                        <a href="posts/post7.html" class="read-more">Read More →</a>
-                    </div>
-
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Structured AI Output with Pydantic & Tool Calling</h3>
-                        <p class="blog-snippet">What I learned in my first week of internship: how to build structured, functional AI workflows using Pydantic, tool calling, and OpenAI JSON mode.</p>
-                        <div class="blog-meta">
-                            <span>May 27, 2025</span> • <span>Arya Bhanushali</span> • <span>AI Tooling, LLMs</span>
-                        </div>
-                        <a href="posts/post6.html" class="read-more">Read More →</a>
-                    </div>
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">How JPEG Compresses Images</h3>
-                        <p class="blog-snippet">Exploring how JPEG uses math, biology, and frequency transforms to shrink images without us noticing.</p>
-                        <div class="blog-meta">
-                            <span>May 26, 2025</span> • <span>Arya Bhanushali</span> • <span>Signal Processing, Compression</span>
-                        </div>
-                        <a href="posts/post5.html" class="read-more">Read More →</a>
-                    </div>
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Discovering the Power of DFT</h3>
-                        <p class="blog-snippet">How the Discrete Fourier Transform reveals the hidden frequencies behind signals, and why that's cooler than it sounds.</p>
-                        <div class="blog-meta">
-                            <span>May 26, 2025</span> • <span>Arya Bhanushali</span> • <span>Signal Processing, Neural Networks</span>
-                        </div>
-                        <a href="posts/post4.html" class="read-more">Read More →</a>
-                    </div>
-
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Feature Visualization</h3>
-                        <p class="blog-snippet">Peeking inside neural networks to uncover what each neuron sees.</p>
-                        <div class="blog-meta">
-                            <span>May 12, 2025</span> • <span>Arya Bhanushali</span> • <span>Neural Networks, Research</span>
-                        </div>
-                        <a href="posts/post3.html" class="read-more">Read More →</a>
-                    </div>
-
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Building a Neural Network From Scratch</h3>
-                        <p class="blog-snippet">My deep dive into neural networks: understanding every layer, function, and gradient by recreating one from the ground up.</p>
-                        <div class="blog-meta">
-                            <span>May 10, 2025</span> • <span>Arya Bhanushali</span> • <span>Neural Networks, Learning</span>
-                        </div>
-                        <a href="posts/post2.html" class="read-more">Read More →</a>
-                    </div>
-
-                    <div class="blog-item">
-                        <h3 class="blog-title">Why I Built This Blog</h3>
-                        <p class="blog-snippet">Sharing why I wanted to create this blog and how I built it!</p>
-                        <div class="blog-meta">
-                            <span>May 9, 2025</span> • <span>Arya Bhanushali</span> • <span>Personal Project</span>
-                        </div>
-                        <a href="posts/post1.html" class="read-more">Read More →</a>
-                    </div>
-
-
-
                 </div>
             </section>
 
+            <!-- EXPERIENCE (Lanyard) — story-driven, not resume bullets -->
+            <section class="panel-section" data-section="experience">
+                <div class="panel-headline">
+                    <p class="panel-eyebrow"><i class="fas fa-id-badge"></i> Hung on the wall: the lanyard</p>
+                    <h2>Experience</h2>
+                    <p class="panel-lede">Five teams, one thread — figuring out how AI gets to actually touch real people, real data, and real decisions.</p>
+                </div>
 
+                <div class="current-pill incoming full-row">
+                    <span class="status-tag">This summer · 2026</span>
+                    <h3>Medtronic — Hugo Surgical Robotics</h3>
+                    <p>Software Engineering Intern · New Haven, CT</p>
+                    <p>Joining the team behind the Hugo robotic-assisted surgery system. This is where AI for healthcare gets to leave the screen and actually move with a surgeon's hand.</p>
+                </div>
 
+                <div class="exp-grid">
+                    <div class="proj-card highlight full-row">
+                        <h4>Murty Lab — Undergraduate Researcher</h4>
+                        <p class="meta">Feb 2025 — Present · Georgia Tech</p>
+                        <p>CNNs are famously black-box models — you can run them, but you can't really <em>see</em> what they've learned. I wanted to change that. So I built what I call a <strong>"neural microscope"</strong>: using feature visualization to generate the exact images each neuron "wants to see" most. Suddenly the network stops being a black box — you can stare at what a face-selective neuron has decided faces look like.</p>
+                        <p>I also helped build <strong>Cortex-Canvas</strong>, an interactive web tool that lets neuroscientists and students poke at brain-region models to test their own hypotheses about visual cortex. My contribution: an AI agent that sits inside the tool and guides experiments — suggesting what to try next, navigating the parameter space, making the whole thing feel less like reading a manual and more like talking to a colleague. <a href="https://dl.acm.org/doi/10.1145/3772363.3798548" target="_blank" rel="noopener">(CHI EA '26 paper →)</a></p>
+                    </div>
 
+                    <div class="proj-card">
+                        <h4>Bio-MIBLab — Undergraduate Researcher</h4>
+                        <p class="meta">2025 — Present · Georgia Tech</p>
+                        <p>Asking whether <strong>temporal knowledge graphs</strong> — graphs that change with time — can pick up the early signals of disease that snapshot models miss. A patient's medical history isn't a list of events, it's a trajectory, and the shape of that trajectory carries information that standard tabular models throw away.</p>
+                    </div>
 
+                    <div class="proj-card">
+                        <h4>Elevance Health — AI &amp; Digital Platforms Intern</h4>
+                        <p class="meta">May 2025 — Aug 2025 · Atlanta, GA</p>
+                        <p>The whole summer was about turning workflows into agents. Two systems shipped:</p>
+                        <p><strong>(1)</strong> An <strong>invoice-validation pipeline</strong> that reads incoming invoices, checks them against contracts and historical patterns, and flags discrepancies — found $15K of mismatched line items in our first pilot.</p>
+                        <p><strong>(2)</strong> An <strong>SDLC agent chain</strong>: a Jira agent that generates tickets, hands them off to a Dev / QA / Deployment chain where the next agent picks up the work. We were trying to answer: can an AI team handle its own sprint planning?</p>
+                    </div>
+
+                    <div class="proj-card full-row">
+                        <h4>Bhasin Biomedicine Lab — AI/ML Intern</h4>
+                        <p class="meta">Jan 2022 — Jan 2024 · Atlanta, GA</p>
+                        <p>My first time using code to look at actual cells. Histopathology slides live on physical glass — to see them digitally, you scan them at high magnification, but each scan only captures a tiny tile. I wrote the Python/OpenCV pipeline that stitched thousands of those tiles into a single navigable whole-slide image — <strong>digital pathology, built from scratch</strong>.</p>
+                        <p>Then we trained a TensorFlow CNN to detect <strong>lymphocyte infiltrates</strong> — clusters of T cells the immune system sends in around malignant tissue. The model learned to spot the body mid-fight, which is one of the earliest signals pathologists look for. That project is why I care about healthcare AI in the first place.</p>
+                    </div>
+                </div>
+
+                <h3 class="panel-h3">Leadership</h3>
+                <div class="exp-grid">
+                    <div class="proj-card">
+                        <h4>Bits of Good — Nonprofit Director</h4>
+                        <p class="meta">Aug 2024 — Present · Georgia Tech</p>
+                        <p>I find Atlanta-area nonprofits that need software they can't afford to build, scope the projects with them, and match them with our developer teams. 10+ tools shipped so far — portals, dashboards, intake systems — for groups doing actual community work.</p>
+                    </div>
+                    <div class="proj-card">
+                        <h4>Atlanta Youth Red Cross — President</h4>
+                        <p class="meta">May 2020 — May 2022</p>
+                        <p>Led the chapter through Hurricane Laura relief and the first year of COVID. We organized donations for 150+ healthcare workers, ran monthly humanitarian projects, connected with 10+ regional chapters. First time I learned that the people who actually move things forward are the ones willing to make ten phone calls before lunch.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS (Laptop) — tile grid; click to open modal -->
+            <section class="panel-section" data-section="laptop">
+                <div class="panel-headline">
+                    <p class="panel-eyebrow"><i class="fas fa-laptop-code"></i> Open on the laptop</p>
+                    <h2>Projects</h2>
+                    <p class="panel-lede">Tap a tile for the full story · GitHub link inside.</p>
+                </div>
+
+                <h3 class="panel-h3">Healthcare &amp; Clinical AI</h3>
+                <div class="tile-grid">
+                    <button class="project-tile"
+                        data-title="Insulin Dosage Predictor"
+                        data-meta="VIP: Chronic Diseases &amp; Diabetes · Jan 2024 — Present"
+                        data-description="Time-series pipeline with feature preprocessing and an LSTM model (Adam optimizer) trained on 50+ patient datasets. Applied model evaluation techniques to achieve a 20% improvement in insulin dosage predictions, reducing hypoglycemia risk. Paired with an iOS app in Swift for patients to log meals, activity, and glucose in real time, enabling personalized dosage support."
+                        data-tech="Python · PyTorch · LSTM · Swift · iOS"
+                        data-tag="current">
+                        <span class="tile-cat">Healthcare AI</span>
+                        <h4>Insulin Dosage Predictor</h4>
+                        <p>LSTM for personalized diabetes dosage.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="ICU Mortality Prediction &amp; Alarm System (STAR AI)"
+                        data-description="End-to-end ML pipeline predicting ICU patient mortality using high-resolution time-series data from the HiRID dataset. Incorporates uncertainty estimation, alarm-policy simulation, and fairness analysis. LightGBM ensemble with logistic-regression blending — evaluated for detection accuracy vs. alarm fatigue, reliability, interpretability, and real-world deployment considerations."
+                        data-tech="Python · LightGBM · scikit-learn · Pandas · NumPy · time-series · healthcare ML"
+                        data-github="https://github.com/aryabhanushali/STARAI-ICU-Alarm">
+                        <span class="tile-cat">Healthcare AI</span>
+                        <h4>ICU Mortality &amp; Alarm System</h4>
+                        <p>STAR AI · uncertainty + fairness analysis.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="Heart Disease Risk — Framingham Study"
+                        data-description="ML pipeline predicting 10-year heart disease risk on the Framingham dataset. Explored clinical risk factors (age, cholesterol, BP, diabetes, smoking, prior stroke), trained logistic regression, decision trees, and gradient-boosted methods. Emphasized interpretability, threshold tuning, and tradeoffs for ML-supported screening and preventive care."
+                        data-tech="Python · scikit-learn · Pandas · NumPy · XGBoost · model evaluation"
+                        data-github="https://github.com/aryabhanushali/Heart-Disease-Risk-Prediction-Framingham-">
+                        <span class="tile-cat">Healthcare AI</span>
+                        <h4>Heart Disease Risk</h4>
+                        <p>10-year CVD risk · Framingham dataset.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="Blood Flow Simulation Device (DVT Sleeve)"
+                        data-meta="Governor's Honors Program · Global Thrombosis Forum"
+                        data-description="Biomedical wearable built at GHP — Arduino, motors, and a controller simulating blood flow in the lower leg to prevent deep vein thrombosis during immobility (e.g., long flights). Mimics muscle contractions to stimulate circulation. Tested 30+ vibration configurations on limb models; modeled data projected a 40% reduction in clotting likelihood.">
+                        <span class="tile-cat">Healthcare HW</span>
+                        <h4>DVT Circulation Sleeve</h4>
+                        <p>Arduino wearable preventing blood clots.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="Patient Intake Tracker"
+                        data-description="Built during the COVID-19 pandemic to explore how programming could address real-world healthcare challenges. Automates patient intake, tracks appointments, and screens for COVID-19 symptoms — letting patients check in or register through an interactive GUI and flagging high-risk cases with a testing recommendation. First time I applied technical skills to a meaningful real-life healthcare tool."
+                        data-tech="Python · Tkinter · file I/O · dictionaries · input validation"
+                        data-github="https://github.com/aryabhanushali/patientRecord">
+                        <span class="tile-cat">Healthcare AI</span>
+                        <h4>Patient Intake Tracker</h4>
+                        <p>COVID-era GUI for intake + screening.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="Medical Records System (Java)"
+                        data-description="Java program simulating a comprehensive electronic medical records system, focused on pathology and medical history. Object-oriented design with an abstract healthRecord class and concrete subclasses for pathology and history. Handles patient attributes, calculates age and BMI, manages billing, and determines deceased status based on medical indicators."
+                        data-tech="Java · OOP · inheritance · abstract classes · method overriding · Date API"
+                        data-github="https://github.com/aryabhanushali/medicalAbstract">
+                        <span class="tile-cat">Healthcare AI</span>
+                        <h4>Medical Records System</h4>
+                        <p>Java EMR with OOP modeling.</p>
+                    </button>
+                </div>
+
+                <h3 class="panel-h3">Brain &amp; Neuro AI</h3>
+                <div class="tile-grid">
+                    <button class="project-tile"
+                        data-title="Face-Selective Neuron Experiment"
+                        data-meta="Murty Lab · In progress"
+                        data-description="Exploring how face-selective neurons work in a brain-inspired deep neural network (TopoNets). Identifies which neurons respond most strongly to face images, measures selectivity vs. other image types, and tests whether they're necessary for accurate face recognition. Performed lesion experiments (zeroing out face-selective neurons) to simulate prosopagnosia, compared activations across face/scene/object datasets, ran PCA for variance analysis, and used Torch-Dreams to visualize maximally-activating patterns."
+                        data-tech="Python · PyTorch · TopoNets · Hugging Face · torchvision · einops · scikit-learn (PCA) · matplotlib · seaborn · Torch-Dreams"
+                        data-github="https://github.com/aryabhanushali/faceSelectiveNeuronExperiment"
+                        data-tag="current">
+                        <span class="tile-cat">Brain · Neuro AI</span>
+                        <h4>Face-Selective Neuron Experiment</h4>
+                        <p>TopoNets · lesion + PCA + Torch-Dreams.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="CNN vs Transformer — Visualizing Deep Representations"
+                        data-description="Visually compares how CNNs (ResNet) and Transformers (ViT) process images across different layers. Extracts hidden activations and applies PCA and RSA to reveal how features evolve from low-level edges to high-level concepts. Highlights differences in local vs. global representation."
+                        data-tech="PyTorch · Transformers · scikit-learn · Matplotlib"
+                        data-github="https://github.com/aryabhanushali/CNNvsTransformer">
+                        <span class="tile-cat">Brain · Neuro AI</span>
+                        <h4>CNN vs Transformer</h4>
+                        <p>PCA + RSA on deep representations.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="Brain-AI Mapper"
+                        data-description="Interactive brain-to-AI mapping interface that visually connects regions of the human brain to corresponding AI models. Users can explore the visual cortex, motor area, and prefrontal cortex, and interact with related AI functions: image classification, speech recognition, reinforcement learning, planning, and emotion analysis. Designed for education and experimentation."
+                        data-tech="HTML · JavaScript · CSS"
+                        data-github="https://aryabhanushali.github.io/brainAIMapper/index.html">
+                        <span class="tile-cat">Brain · Neuro AI</span>
+                        <h4>Brain-AI Mapper</h4>
+                        <p>Brain regions ↔ AI models, interactive.</p>
+                    </button>
+                </div>
+
+                <h3 class="panel-h3">AI Engineering / From Scratch</h3>
+                <div class="tile-grid">
+                    <button class="project-tile"
+                        data-title="Transformer — Text Classification from Scratch"
+                        data-description="Implements a Transformer-based text classifier from scratch in PyTorch. Custom multi-head self-attention, positional embeddings, feedforward networks, and residual connections, organized into reusable Transformer blocks. Processes tokenized text sequences and predicts output classes — mimicking BERT/GPT-style architectures at a conceptual level, avoiding high-level Transformer APIs to emphasize core logic."
+                        data-tech="PyTorch · Python · multi-head attention · positional embeddings · feedforward networks · deep learning"
+                        data-github="https://github.com/aryabhanushali/Transformers">
+                        <span class="tile-cat">AI Engineering</span>
+                        <h4>Transformer from Scratch</h4>
+                        <p>Custom multi-head attention in PyTorch.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="MicroTorch — Neural Network from Scratch"
+                        data-description="Neural network framework built entirely from scratch in Python using NumPy. Manually implemented core deep-learning components — tensors, autograd, linear layers, activation functions, loss functions, and a basic training loop. Solves the classic XOR problem using both classification and regression, demonstrating forward/backward passes and gradient updates without external ML libraries."
+                        data-tech="Python · NumPy · custom layers · autograd · loss functions"
+                        data-github="https://github.com/aryabhanushali/NeuralNetworks/blob/main/microTorch.ipynb">
+                        <span class="tile-cat">AI Engineering</span>
+                        <h4>MicroTorch</h4>
+                        <p>NumPy autograd · XOR solver.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="Multilayer Perceptron (MLP) — MNIST Classification"
+                        data-description="Multilayer Perceptron in PyTorch classifying handwritten digits from MNIST. Workflow: preprocessing images, defining the MLP architecture (two hidden layers, ReLU), training with Adam + CrossEntropyLoss over seven epochs. Final model achieves over 97% test accuracy."
+                        data-tech="Python · PyTorch · deep learning · MNIST · data preprocessing · model evaluation"
+                        data-github="https://github.com/aryabhanushali/MLP">
+                        <span class="tile-cat">AI Engineering</span>
+                        <h4>MLP — MNIST</h4>
+                        <p>97%+ test accuracy in PyTorch.</p>
+                    </button>
+                </div>
+
+                <h3 class="panel-h3">Software &amp; Apps</h3>
+                <div class="tile-grid">
+                    <button class="project-tile"
+                        data-title="Atlanta Food Finder — Django Web App"
+                        data-meta="Object-Oriented Programming Methods · Fall 2024"
+                        data-description="Full-stack restaurant search app with Django, HTML/CSS, and JavaScript — integrated Maps API and visualizations. Prototyped and refined the UI in React.js with reusable components for improved responsiveness. Led team as Scrum Master, managing 4 sprints and daily standups with Agile practices to deliver features on schedule."
+                        data-tech="Django · HTML/CSS · JavaScript · React · Maps API · Agile">
+                        <span class="tile-cat">Full-stack</span>
+                        <h4>Atlanta Food Finder</h4>
+                        <p>Django + React + Maps API.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="Spotify Wrapped 2.0"
+                        data-description="Collaborative team project — custom Spotify Wrapped experience pulling data from the Spotify API and using an LLM chatbot for interactive music insights. Followed an agile workflow with Git/GitHub for version control, splitting responsibilities across backend, frontend, and integration. Lets users log in, analyze listening data, and receive engaging LLM-powered summaries."
+                        data-tech="Python · Django · Spotify API · LLM · HTML/CSS · JS · SQLite · Git · agile">
+                        <span class="tile-cat">Full-stack</span>
+                        <h4>Spotify Wrapped 2.0</h4>
+                        <p>API + LLM chatbot for music insights.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="This Portfolio Site"
+                        data-description="The desk you're sitting at — built from scratch with vanilla HTML, CSS, and JavaScript. Features smooth section transitions, an interactive desk scene with clickable hotspots, side-panel routing, and a fully responsive layout. Deployed on GitHub Pages, no frameworks, no build step."
+                        data-tech="HTML · CSS · vanilla JavaScript · GitHub Pages · responsive design">
+                        <span class="tile-cat">Frontend</span>
+                        <h4>This Portfolio Site</h4>
+                        <p>Vanilla JS · GitHub Pages.</p>
+                    </button>
+                </div>
+
+                <h3 class="panel-h3">Robotics &amp; Early Work</h3>
+                <div class="tile-grid">
+                    <button class="project-tile"
+                        data-title="Particle Filter — Robot Localization"
+                        data-description="Particle filter in Python helping a robot localize itself in a noisy environment. Generates many small hypotheses (particles) about position, updates them based on movement and sensor measurements, and adds realistic Gaussian noise to simulate uncertainty. Core scripts (particle_filter.py, utils.py) manage particle creation, motion + measurement updates, and helper functions for noise and point rotation."
+                        data-tech="Python · NumPy · probabilistic robotics · state estimation"
+                        data-github="https://github.com/aryabhanushali/particleFilter">
+                        <span class="tile-cat">Robotics</span>
+                        <h4>Particle Filter</h4>
+                        <p>Probabilistic robot localization.</p>
+                    </button>
+
+                    <button class="project-tile"
+                        data-title="Hangman Game (C)"
+                        data-description="One of my earliest C projects — a console hangman with structures and file I/O. Asks for the player's name, tracks round number and score, lets the player guess letters, and saves stats to a text file. Taught me core C concepts (arrays, loops, conditionals, structs, files) and sparked my interest in interactive, game-like experiences."
+                        data-tech="C · structures · arrays · loops · file I/O">
+                        <span class="tile-cat">Early</span>
+                        <h4>Hangman (C)</h4>
+                        <p>Console game · file I/O · my first C project.</p>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PUBLICATIONS (Closed book — 2-page spread) -->
+            <section class="panel-section" data-section="book">
+                <div class="panel-headline">
+                    <p class="panel-eyebrow"><i class="fas fa-book-bookmark"></i> Opened on the desk</p>
+                    <h2>Publications</h2>
+                    <p class="panel-lede">Things I've written and contributed to.</p>
+                </div>
+
+                <div class="book-spread">
+                    <div class="spread-page spread-left">
+                        <span class="page-number">— page 1 · book —</span>
+                        <h3>The Mind &amp; Its Program</h3>
+                        <p class="meta">Author · Published 2021</p>
+                        <p>A book I wrote during COVID, exploring parallels between the human mind and computer programs — how we, like software, take in inputs, run them through internal "code," and produce responses. Touches on optimization, structure, and adaptability. The seed of everything I work on now.</p>
+                        <a href="https://www.amazon.com/Mind-Its-Program-Optimize-Software/dp/B09BGKJ24B" target="_blank" rel="noopener" class="amazon-btn">
+                            <i class="fab fa-amazon"></i> See on Amazon →
+                        </a>
+                    </div>
+                    <div class="spread-page spread-right">
+                        <span class="page-number">— page 2 · paper —</span>
+                        <p class="venue-tag">CHI EA '26 · ACM</p>
+                        <h3>Cortex-Canvas: An Interactive Web Interface for Executing and Evaluating Models of Category-Selective Regions in Human Visual Cortex</h3>
+                        <p class="meta">Murty Lab · 2026</p>
+                        <p class="authors">Ruolin Wang, Yuxuan Li, Mayukh Deb, Kushal Reddy Dudipala, Kruthik Ravikanti, Sanjana Chillarege, <strong>Arya Bhanushali</strong>, Ranjani Koushik, Aashraya Katiyar, and N Apurva Ratan Murty.</p>
+                        <p class="citation"><em>Proceedings of the Extended Abstracts of the 2026 CHI Conference on Human Factors in Computing Systems</em> (CHI EA '26). Association for Computing Machinery, New York, NY, USA, Article 191, 1–7.</p>
+                        <a href="https://doi.org/10.1145/3772363.3798548" target="_blank" rel="noopener" class="amazon-btn doi-btn">
+                            <i class="fas fa-up-right-from-square"></i> DOI · 10.1145/3772363.3798548
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BLOG (Notepad) -->
+            <section class="panel-section" data-section="notepad">
+                <div class="panel-headline">
+                    <p class="panel-eyebrow"><i class="fas fa-pen-to-square"></i> Open on the notepad</p>
+                    <h2>Blog</h2>
+                    <p class="panel-lede">What I'm thinking about, learning, and working through.</p>
+                </div>
+
+                <div class="blog-grid">
+                    <a class="blog-card" href="posts/post13.html">
+                        <h4>Knowledge-Based AI and the Soup Test</h4>
+                        <p>Why structured knowledge still matters for reasoning.</p>
+                        <span class="blog-meta">Mar 15, 2026 · Cognitive Systems</span>
+                    </a>
+                    <a class="blog-card" href="posts/post12.html">
+                        <h4>Rewarding the Rare: Diversity in AI Reasoning</h4>
+                        <p>A new RL idea that rewards rare reasoning strategies — why it matters for agentic and healthcare AI.</p>
+                        <span class="blog-meta">Jan 2026 · Reinforcement Learning</span>
+                    </a>
+                    <a class="blog-card" href="posts/post11.html">
+                        <h4>Mapping the Mind to Models</h4>
+                        <p>Why I built the Brain-AI Mapper and why future AI should be brain-aware.</p>
+                        <span class="blog-meta">Jul 7, 2025 · NeuroAI</span>
+                    </a>
+                    <a class="blog-card" href="posts/post10.html">
+                        <h4>Invisible AI: When the Best Tech Disappears</h4>
+                        <p>Reflections from internship: the most powerful AI may be the kind you don't notice.</p>
+                        <span class="blog-meta">Jun 24, 2025 · UX &amp; Ethics</span>
+                    </a>
+                    <a class="blog-card" href="posts/post9.html">
+                        <h4>Agentic AI and LangChain</h4>
+                        <p>The shift beyond prompt-based AI to agent workflows.</p>
+                        <span class="blog-meta">Jun 7, 2025 · Agentic AI</span>
+                    </a>
+                    <a class="blog-card" href="posts/post7.html">
+                        <h4>How Transformers Work</h4>
+                        <p>From self-attention to sequence modeling, intuitively.</p>
+                        <span class="blog-meta">May 30, 2025 · Deep Learning</span>
+                    </a>
+                    <a class="blog-card" href="posts/post6.html">
+                        <h4>Structured AI Output with Pydantic &amp; Tool Calling</h4>
+                        <p>Building functional AI workflows with Pydantic and OpenAI JSON mode.</p>
+                        <span class="blog-meta">May 27, 2025 · AI Tooling</span>
+                    </a>
+                    <a class="blog-card" href="posts/post5.html">
+                        <h4>How JPEG Compresses Images</h4>
+                        <p>Math, biology, and frequency transforms shrinking images invisibly.</p>
+                        <span class="blog-meta">May 26, 2025 · Signal Processing</span>
+                    </a>
+                    <a class="blog-card" href="posts/post4.html">
+                        <h4>Discovering the Power of DFT</h4>
+                        <p>The Discrete Fourier Transform and why it's cooler than it sounds.</p>
+                        <span class="blog-meta">May 26, 2025 · Signal Processing</span>
+                    </a>
+                    <a class="blog-card" href="posts/post3.html">
+                        <h4>Feature Visualization</h4>
+                        <p>Peeking inside neural networks to see what each neuron sees.</p>
+                        <span class="blog-meta">May 12, 2025 · Research</span>
+                    </a>
+                    <a class="blog-card" href="posts/post2.html">
+                        <h4>Building a Neural Network From Scratch</h4>
+                        <p>Every layer, function, and gradient — by recreating one from the ground up.</p>
+                        <span class="blog-meta">May 10, 2025 · Neural Networks</span>
+                    </a>
+                    <a class="blog-card" href="posts/post1.html">
+                        <h4>Why I Built This Blog</h4>
+                        <p>Why I wanted a place to share what I'm learning.</p>
+                        <span class="blog-meta">May 9, 2025 · Personal</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- ABOUT (Mug + Books — the "clutter cluster") -->
+            <section class="panel-section" data-section="about">
+                <div class="panel-headline">
+                    <p class="panel-eyebrow"><i class="fas fa-mug-saucer"></i> The mug &amp; the books</p>
+                    <h2>About Me</h2>
+                    <p class="panel-lede">
+                        Hi! I'm a Computer Science major at <strong>Georgia Tech</strong>, specializing in artificial intelligence and human-computer interaction with a concentration in cognitive computing. I'm passionate about applying AI to real-world challenges — especially in <strong>healthcare</strong>, where technology can make a real difference in people's lives. I'm also fascinated by brain-inspired AI and love exploring how neuroscience can help us build systems that are more adaptive, intuitive, and human-centered.
+                    </p>
+                </div>
+
+                <div class="split-grid">
+                    <div class="col">
+                        <h3 class="panel-h3"><i class="fas fa-book"></i> What I'm reading</h3>
+                        <p class="muted">I'm always reading something new — sci-fi, psychology, neuroscience, philosophy. Recent reads:</p>
+                        <div class="reading-grid">
+                            <div class="book"><img src="https://m.media-amazon.com/images/I/81NNbR1LqXL._AC_UY436_FMwebp_QL65_.jpg" alt="Dark Matter"><p><strong>Dark Matter</strong><br>Blake Crouch</p></div>
+                            <div class="book"><img src="https://m.media-amazon.com/images/I/61zLwoFpjiL._AC_UY436_FMwebp_QL65_.jpg" alt="21 Lessons"><p><strong>21 Lessons for the 21st Century</strong><br>Yuval Noah Harari</p></div>
+                            <div class="book"><img src="https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UF1000,1000_QL80_.jpg" alt="The Alchemist"><p><strong>The Alchemist</strong><br>Paulo Coelho</p></div>
+                            <div class="book"><img src="https://m.media-amazon.com/images/I/716E6dQ4BXL._SY522_.jpg" alt="Sapiens"><p><strong>Sapiens</strong><br>Yuval Noah Harari</p></div>
+                            <div class="book"><img src="https://m.media-amazon.com/images/I/71WqWisSLdL._AC_UY436_FMwebp_QL65_.jpg" alt="How to Create a Mind"><p><strong>How to Create a Mind</strong><br>Ray Kurzweil</p></div>
+                            <div class="book"><img src="https://m.media-amazon.com/images/I/81JCgvcu1QL._AC_UY436_FMwebp_QL65_.jpg" alt="The Song of the Cell"><p><strong>The Song of the Cell</strong><br>Siddhartha Mukherjee</p></div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <h3 class="panel-h3"><i class="fas fa-star"></i> Stargazing</h3>
+                        <p class="muted">I love going outside at night to look at stars and planets. My most-used app is SkyView, and here's NASA's daily cosmic update:</p>
+                        <div class="apod-block">
+                            <p id="apod-text">Loading cosmic content...</p>
+                            <img id="apod-image" alt="Astronomy Picture of the Day" style="max-width:100%; border-radius:12px; display:none; margin-top:12px;">
+                        </div>
+
+                        <h3 class="panel-h3">Skills</h3>
+                        <div class="proj-card">
+                            <p><strong>Languages</strong><br>Python · JavaScript · Java · C/C++ · SQL · TypeScript · Bash · Swift · HTML/CSS</p>
+                            <p><strong>Frameworks &amp; Tools</strong><br>PyTorch · scikit-learn · Hugging Face · LangGraph · LangChain · Pydantic · Linux · Git · AWS · CAD · Docker · Figma</p>
+                        </div>
+
+                        <h3 class="panel-h3">Find Me</h3>
+                        <div class="social-row">
+                            <a href="https://github.com/aryabhanushali" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="https://linkedin.com/in/aryabhanushali" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                            <a href="https://www.notion.so/2d41264a1762806483f3d203da215f59?v=2d41264a17628060ac1c000cc2c5058f&source=copy_link" target="_blank" rel="noopener"><i class="fas fa-book"></i> CS Notes</a>
+                            <a href="mailto:abhanushali3@gatech.edu"><i class="fas fa-envelope"></i> Email</a>
+                        </div>
+
+                        <div style="margin-top: 18px;">
+                            <a href="files/Arya_Bhanushali_Resume_2025.pdf" target="_blank" rel="noopener" class="resume-btn big">
+                                <i class="fas fa-file-pdf"></i> Download Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </aside>
+
+    <!-- PROJECT MODAL -->
+    <div id="projectModal" class="project-modal" aria-hidden="true">
+        <div class="modal-backdrop" data-modal-close></div>
+        <div class="modal-content" role="dialog" aria-labelledby="modalTitle">
+            <button class="modal-close" data-modal-close aria-label="Close">×</button>
+            <p class="modal-cat" id="modalCat"></p>
+            <h3 id="modalTitle"></h3>
+            <p class="modal-meta" id="modalMeta"></p>
+            <p class="modal-description" id="modalDescription"></p>
+            <div class="modal-tech" id="modalTech"></div>
+            <a class="modal-github" id="modalGithub" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
